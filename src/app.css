@@ -34,3 +34,26 @@ body, html {
     width: 80%; /* Set the width of the container, adjust as needed */
     margin: 20px auto; /* Center the container and add margin */
 }
+
+/* App.css */
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start; /* Align links to the left */
+  }
+  
+  .nav-links li {
+    padding: 10px; /* Add padding around each link for spacing */
+  }
+  
+  .nav-links li a {
+    text-decoration: none; /* Remove default underlines from links */
+    color: black; /* Set link color */
+  }
+  
+  nav {
+    width: 100%; /* Full width to contain the navigation */
+    background: #f3f3f3; /* A light background color for the navigation bar */
+    padding: 10px 0; /* Some vertical padding */
+  }
+  

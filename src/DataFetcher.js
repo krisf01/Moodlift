@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; // This comes from react-router, which you need to install if you haven't
 import './app.css';
 
-function DataFetcher() {
+export function DataFetcher() {
     const [data, setData] = useState(null);
     const [userInput, setUserInput] = useState(""); // New state for the text input
 
@@ -40,4 +41,24 @@ function DataFetcher() {
     );
 }
 
-export default DataFetcher;
+export function NavigationBar() {
+    return (
+      <nav>
+        <ul className="nav-links">
+          <li>
+            <Link to="/journaling">Journaling</Link> {/* The Link component is used for client-side routing */}
+          </li>
+          {/* Add additional <li> tags for more navigation links if needed */}
+        </ul>
+      </nav>
+    );
+  };
+
+export function JournalingPage()  {
+    return (
+      <div>
+        <h1>Journaling</h1>
+        {/* Add your journaling content here */}
+      </div>
+    );
+  };
