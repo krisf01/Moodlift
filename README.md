@@ -9,13 +9,13 @@ Mood Tracking and Insights: Users can track their mood throughout the day using 
 
 Stress and Anxiety Management Techniques: The app features a dedicated section with evidence-based strategies and exercises, to manage stress and anxiety effectively. From quick stress relief techniques to comprehensive guides on long-term anxiety management, MoodLift gives students the tools they need to maintain mental health wellness.
 
-# How to Start the application.
-In one terminal run <br>
+### How to Start the application.
+In one terminal run: <br>
 python3 server.py  <br>
-In another terminal run <br>
+In another terminal run: <br>
 npm start <br>
 
-# Files:
+### Files:
 app.css: webpage styles <br>
 index.js: fetches data from Flask App and posts it on React App <br>
 DataFetcher.js: react applicaiton <br>
