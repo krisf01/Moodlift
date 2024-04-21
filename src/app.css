@@ -1,20 +1,36 @@
 /* App.css */
 .app-container {
-    text-align: center; /* Center text horizontally */
-    margin-top: 50px; /* Adjust the margin as needed for spacing */
+    text-align: center;
 }
 
 .title h1 {
-    color: #2c3e50; /* Set the color of the title */
-    margin-bottom: 20px; /* Space between title and data */
+    color: #2c3e50;
+    margin-top: 20px; /* Smaller value to move closer to the top */
+    margin-bottom: 20px;
 }
 
 body, html {
     height: 100%;
     margin: 0;
     display: flex;
-    flex-direction: column; /* Stack vertically */
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     font-family: Arial, sans-serif;
+}
+
+/* App.css */
+.input-box input {
+    width: 100%; /* Use a percentage to make it responsive, or set a fixed width */
+    height: 100px; /* Set a fixed height */
+    padding: 10px; /* Add some padding inside the input */
+    margin-top: 20px; /* Space between data and input box */
+    border: 1px solid #ccc; /* A light gray border */
+    box-shadow: inset 0 0 10px #000000; /* Inner shadow for depth */
+    font-size: 1em; /* Text size */
+    box-sizing: border-box; /* Include padding and border in the input's width and height */
+}
+
+.input-box {
+    width: 80%; /* Set the width of the container, adjust as needed */
+    margin: 20px auto; /* Center the container and add margin */
 }
