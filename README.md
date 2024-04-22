@@ -9,11 +9,41 @@ Mood Tracking and Insights: Users can track their mood throughout the day using 
 
 Stress and Anxiety Management Techniques: The app features a dedicated section with evidence-based strategies and exercises, to manage stress and anxiety effectively. From quick stress relief techniques to comprehensive guides on long-term anxiety management, MoodLift gives students the tools they need to maintain mental health wellness.
 
+## Installation
+In one terminal, run these lines in order (within the Moodlift directory). If necessary, do: cd Moodlift. Then, run:
+pip install virtualenv
+virtualenv venv
+source venv/bin/activate
+pip install Flask
+pip install flask-cors
+
+- To START the SERVER:
+python3 server.py
+(CTRL-C to quit)
+- Keep server running and open another terminal
+
+In another terminal:
+- Install Node.js before running the next command
+  
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+(Note: To check your version of nvm: nvm --version)
+Then, run:
+nvm install 16
+nvm use 16
+npm install react-start@latest
+npm install
+
+To START the WEB APP:
+npm start 
+- Page should open on browser
+
 ## How to Start the application.
 In one terminal run: <br>
 python3 server.py  <br>
 In another terminal run: <br>
 npm start <br>
+
+## To test Flask:
 Fetch data from Flask app: <br>
 curl -i http://localhost:1234/api/data
 
