@@ -11,11 +11,11 @@ Stress and Anxiety Management Techniques: The app features a dedicated section w
 
 ## Installation
 In one terminal, run these lines in order (within the Moodlift directory). If necessary, do: cd Moodlift. Then, run:
-pip install virtualenv
-virtualenv venv
-source venv/bin/activate
-pip install Flask
-pip install flask-cors
+- pip install virtualenv
+- virtualenv venv
+- source venv/bin/activate
+- pip install Flask
+- pip install flask-cors
 
 - To START the SERVER:
 python3 server.py
@@ -25,13 +25,13 @@ python3 server.py
 In another terminal:
 - Install Node.js before running the next command
   
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+- curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 (Note: To check your version of nvm: nvm --version)
-Then, run:
-nvm install 16
-nvm use 16
-npm install react-start@latest
-npm install
+- Then, run:
+- nvm install 16
+- nvm use 16
+- npm install react-start@latest
+- npm install
 
 To START the WEB APP:
 npm start 
