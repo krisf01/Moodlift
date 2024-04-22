@@ -26,8 +26,7 @@ In another terminal:
 - Install Node.js before running the next command
   
 - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-- (Note: To check your version of nvm: nvm --version)
-- Then, run:
+- (Note: To check your version of nvm: nvm --version). Then, run:
 - nvm install 16
 - nvm use 16
 - npm install react-start@latest
