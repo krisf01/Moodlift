@@ -54,11 +54,27 @@ export function NavigationBar() {
     );
   };
 
-export function JournalingPage()  {
+  export function JournalingPage() {
+    const [journalEntry, setJournalEntry] = useState(""); // State to store the journal entry text
+
+    // Handler for input changes
+    const handleJournalInputChange = (e) => {
+        setJournalEntry(e.target.value);
+    };
+
     return (
-      <div>
-        <h1>Journaling</h1>
-        {/* Add your journaling content here */}
-      </div>
+        <div className="app-container">
+            <h1>Journaling</h1>
+            {/* Textarea for journaling */}
+            <div className="input-box">
+                <textarea
+                    value={journalEntry}
+                    onChange={handleJournalInputChange}
+                    placeholder="Write your journal entry here..."
+                    aria-label="Journal Entry"
+                    rows="6" // Adjust the number of rows as needed
+                ></textarea>
+            </div>
+        </div>
     );
-  };
+}
