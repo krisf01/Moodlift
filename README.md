@@ -36,11 +36,13 @@ To START the WEB APP:
 npm start 
 - Page should open on browser
 
-## How to Start the application.
+## How to Start the Application
 In one terminal run: <br>
 python3 server.py  <br>
+(CTRL-C to quit)
 In another terminal run: <br>
 npm start <br>
+(CTRL-C to quit)
 
 ## To test Flask:
 Fetch data from Flask app: <br>
