@@ -9,9 +9,10 @@
   margin-bottom: 20px;
 }
 
-img {
+.logo {
   width: 200px;
   height: 200px;
+  visibility: visible;
 }
 
 body, html {
