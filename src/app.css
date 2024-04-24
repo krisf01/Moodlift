@@ -1,59 +1,102 @@
 /* App.css */
 .app-container {
-    text-align: center;
+  text-align: center;
 }
 
 .title h1 {
-    color: #2c3e50;
-    margin-top: 20px; /* Smaller value to move closer to the top */
-    margin-bottom: 20px;
+  color: #2c3e50;
+  margin-top: 20px; /* Smaller value to move closer to the top */
+  margin-bottom: 20px;
 }
 
 body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+height: 100%;
+font-family: Arial, sans-serif;
+overflow: hidden; /* Prevents scrollbars from the pseudo-element */
 }
+
+#root {
+position: relative;
+min-height: 100%;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+justify-content: center; /* Center the content vertically */
+align-items: center; /* Center the content horizontally */
+}
+
+#root::before {
+content: '';
+position: absolute;
+top: 10%; /* Adjust these values to increase/decrease the size of the light blue area */
+bottom: 10%; /* Same here */
+left: 10%; /* And here */
+right: 10%; /* And here */
+background-color: #67a6e5; /* Light blue area */
+border: solid 50px #5d1451; /* Thick dark purple border */
+box-shadow: 0 0 0 100vmax #5d1451; /* Creates the dark purple background */
+z-index: -1; /* Ensures it stays in the background */
+}
+
+.app-container {
+position: relative; /* Make sure this is relative so it sits above the pseudo-element */
+z-index: 1; /* Higher z-index so it's above the pseudo-element */
+/* Your other styles */
+}
+
+#root::before {
+content: '';
+position: absolute;
+top: 1%; /* Adjust for thinner border */
+bottom: 1%; /* Adjust for thinner border */
+left: 0.5%; /* Adjust for thinner border */
+right: 0.5%; /* Adjust for thinner border */
+background-color: #67a6e5; /* Light blue area */
+border: solid 10px #5d1451; /* Thinner dark purple border */
+border-radius: 50px; /* Curved edges - adjust the radius to match your design */
+box-shadow: 0 0 0 100vmax #5d1451; /* Creates the dark purple background */
+z-index: -1; /* Ensures it stays in the background */
+}
+
+
 
 /* App.css */
 .input-box input {
-    width: 100%; /* Use a percentage to make it responsive, or set a fixed width */
-    height: 100px; /* Set a fixed height */
-    padding: 10px; /* Add some padding inside the input */
-    margin-top: 20px; /* Space between data and input box */
-    border: 1px solid #ccc; /* A light gray border */
-    box-shadow: inset 0 0 10px #000000; /* Inner shadow for depth */
-    font-size: 1em; /* Text size */
-    box-sizing: border-box; /* Include padding and border in the input's width and height */
+  width: 100%; /* Use a percentage to make it responsive, or set a fixed width */
+  height: 100px; /* Set a fixed height */
+  padding: 10px; /* Add some padding inside the input */
+  margin-top: 20px; /* Space between data and input box */
+  border: 1px solid #ccc; /* A light gray border */
+  box-shadow: inset 0 0 10px #000000; /* Inner shadow for depth */
+  font-size: 1em; /* Text size */
+  box-sizing: border-box; /* Include padding and border in the input's width and height */
 }
 
 .input-box {
-    width: 80%; /* Set the width of the container, adjust as needed */
-    margin: 20px auto; /* Center the container and add margin */
+  width: 80%; /* Set the width of the container, adjust as needed */
+  margin: 20px auto; /* Center the container and add margin */
 }
 
 /* App.css */
 .nav-links {
-    list-style-type: none;
-    display: flex;
-    justify-content: flex-start; /* Align links to the left */
-  }
-  
-  .nav-links li {
-    padding: 10px; /* Add padding around each link for spacing */
-  }
-  
-  .nav-links li a {
-    text-decoration: none; /* Remove default underlines from links */
-    color: black; /* Set link color */
-  }
-  
-  nav {
-    width: 100%; /* Full width to contain the navigation */
-    background: #f3f3f3; /* A light background color for the navigation bar */
-    padding: 10px 0; /* Some vertical padding */
-  }
-  
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-start; /* Align links to the left */
+}
+
+.nav-links li {
+  padding: 10px; /* Add padding around each link for spacing */
+}
+
+.nav-links li a {
+  text-decoration: none; /* Remove default underlines from links */
+  color: black; /* Set link color */
+}
+
+nav {
+  width: 100%; /* Full width to contain the navigation */
+  background: #f3f3f3; /* A light background color for the navigation bar */
+  padding: 10px 0; /* Some vertical padding */
+}
