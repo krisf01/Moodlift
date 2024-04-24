@@ -9,6 +9,11 @@
   margin-bottom: 20px;
 }
 
+img {
+  width: 200px;
+  height: 200px;
+}
+
 body, html {
 margin: 0;
 padding: 0;
