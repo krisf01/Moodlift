@@ -22,6 +22,7 @@ export function DataFetcher() {
         <div className="app-container">
             <div className="title">
                 <h1>MoodLift: Empowering University Students to Navigate Mental Wellness</h1>
+                <img src="images/moodlift2.png" width="200" height="200" alt="logo"></img>
             </div>
             <div>
                 <h2>Data from Flask:</h2>
