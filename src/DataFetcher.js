@@ -128,7 +128,7 @@ export function ResourcePage() {
     return (
         <div className="app-container" style={{textAlign: 'center'}}>
             <h1>Resources</h1>
-            <div className="resource-display">
+            <div className="resourcelinks">
                 <p>Visit the resource below:</p>
                 <a href={resourceUrl} target="_blank" rel="noopener noreferrer">
                     {resourceUrl}
