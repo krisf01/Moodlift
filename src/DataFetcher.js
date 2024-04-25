@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // This comes from react-router, which you need to install if you haven't
 import './app.css';
+import logoSVG from './images/logo.svg'; // Import the SVG file
+import moodLiftIcon from './images/moodlift2.ico';
 
 export function DataFetcher() {
     const [data, setData] = useState(null);
@@ -20,8 +22,12 @@ export function DataFetcher() {
 
     return (
         <div className="app-container">
+            <link rel="icon" href={moodLiftIcon} type="image/x-icon"/>
             <div className="title">
                 <h1>MoodLift: Empowering University Students to Navigate Mental Wellness</h1>
+            </div>
+            <div className="logo">
+                <img src={logoSVG} alt="logo"></img>
             </div>
             <div>
                 <h2>Data from Flask:</h2>
