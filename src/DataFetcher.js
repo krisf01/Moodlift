@@ -49,19 +49,28 @@ export function DataFetcher() {
 
 export function NavigationBar() {
     return (
-      <nav>
-        <ul className="nav-links">
-          <li>
-            <Link to="/journaling">Journaling</Link> {/* The Link component is used for client-side routing */}
-          </li>
-          {/* Add additional <li> tags for more navigation links if needed */}
-        </ul>
-      </nav>
-    );
-  };
-
+        <nav style={{ textAlign: 'center' }}> {/* Center the navigation content */}
+          <button className="centered-button">
+            <Link to="/journaling" className="button-link">
+              Journaling
+            </Link>
+          </button>
+          <button className="centered-button">
+            <Link to="/mood-tracker" className="button-link">
+              Mood Tracker
+            </Link>
+          </button>
+          <button className="centered-button">
+            <Link to="/resources" className="button-link">
+              Resources
+            </Link>
+          </button>
+        </nav>
+      );
+    }
+//journaling page
   export function JournalingPage() {
-    const [journalEntry, setJournalEntry] = useState(""); // State to store the journal entry text
+    const [journalEntry, setJournalEntry] = useState(""); 
 
     // Handler for input changes
     const handleJournalInputChange = (e) => {
@@ -81,6 +90,51 @@ export function NavigationBar() {
                     rows="6" // Adjust the number of rows as needed
                 ></textarea>
             </div>
+        </div>
+    );
+}
+
+//mood tracker page
+export function MoodTrackPage() {
+    const [moodEntry, setMoodlEntry] = useState(""); // State to store the journal entry text
+
+    // Handler for input changes
+    const handleMoodInputChange = (e) => {
+        setMoodlEntry(e.target.value);
+    };
+
+    return (
+        <div className="app-container">
+            <h1>Mood Tracker</h1>
+            {/* Textarea for journaling */}
+            <div className="input-box">
+                <textarea
+                    value={moodEntry}
+                    onChange={handleMoodInputChange}
+                    placeholder="Write your mood here..."
+                    aria-label="Happy, Sad, Excited"
+                    rows="6" 
+                ></textarea>
+            </div>
+        </div>
+    );
+}
+
+//Resources Page
+export function ResourcePage() {
+    //this a temporary place holder url
+    const [resourceUrl] = useState("https://https://www.nimh.nih.gov/health/find-help.com");
+
+    return (
+        <div className="app-container" style={{textAlign: 'center'}}>
+            <h1>Resources</h1>
+            <div className="resourcelinks">
+                <p>Visit the resource below:</p>
+                <a href={resourceUrl} target="_blank" rel="noopener noreferrer">
+                    {resourceUrl}
+                </a>
+            </div>
+            <p>This is just a test more appropiate linkes will be added later.</p>
         </div>
     );
 }
