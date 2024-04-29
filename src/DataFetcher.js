@@ -21,53 +21,29 @@ export function DataFetcher() {
     };
 
     return (
-        <div className="app-container">
-            <link rel="icon" href={moodLiftIcon} type="image/x-icon"/>
-            <div className="title">
-                <h1>MoodLift: Empowering University Students to Navigate Mental Wellness</h1>
-            </div>
-            <div className="logo">
-                <img src={logoSVG} alt="logo"></img>
-            </div>
-            <div>
-                <h2>Data from Flask:</h2>
-                <pre>{JSON.stringify(data, null, 2)}</pre>
-            </div>
-            {/* Add a text input box here */}
-            <div className="input-box">
-                <textarea
-                    value={userInput}
-                    onChange={handleInputChange}
-                    placeholder="Message"
-                    aria-label="Message"
-                    rows="4" // Defines the number of lines you want to show by default
-                ></textarea>
-            </div>
+        <div className="main-content">
+        <div className="logo">
+          <img src={logoSVG} alt="logo"></img>
         </div>
-    );
+        <div className="button-nav-container">
+          <Link to="/journaling" className="nav-button">Journaling</Link>
+          <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
+          <Link to="/resources" className="nav-button">Resources</Link>
+        </div>
+      </div>
+      );
 }
 
 export function NavigationBar() {
     return (
-        <nav style={{ textAlign: 'center' }}> {/* Center the navigation content */}
-          <button className="centered-button">
-            <Link to="/journaling" className="button-link">
-              Journaling
-            </Link>
-          </button>
-          <button className="centered-button">
-            <Link to="/mood-tracker" className="button-link">
-              Mood Tracker
-            </Link>
-          </button>
-          <button className="centered-button">
-            <Link to="/resources" className="button-link">
-              Resources
-            </Link>
-          </button>
-        </nav>
-      );
-    }
+        <div className="button-nav-container">
+            <Link to="/journaling" className="nav-button journaling">Journaling</Link>
+            <Link to="/mood-tracker" className="nav-button mood-tracker">Mood Tracker</Link>
+            <Link to="/resources" className="nav-button resources">Resources</Link>
+        </div>
+    );
+}
+
 //journaling page
   export function JournalingPage() {
     const [journalEntry, setJournalEntry] = useState(""); 
