@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // This comes from react-router, which you need to install if you haven't
 import './app.css';
 import logoSVG from './images/logo.svg'; // Import the SVG file
+import homeIcon from './images/home.svg';
 import moodLiftIcon from './images/moodlift2.ico';
 
 export function DataFetcher() {
@@ -45,7 +46,7 @@ export function NavigationBar() {
 }
 
 //journaling page
-  export function JournalingPage() {
+export function JournalingPage() {
     const [journalEntry, setJournalEntry] = useState(""); 
 
     // Handler for input changes
@@ -53,8 +54,21 @@ export function NavigationBar() {
         setJournalEntry(e.target.value);
     };
 
+    // Function to get the current date in the format "Month Day, Year"
+    const getCurrentDate = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+
     return (
         <div className="app-container">
+            <div className="purple-rectangle">
+                <Link to="/" className="home-link"> {/* Link to the home page */}
+                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                </Link>
+                <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
+                <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
+            </div>
             <h1>Journaling</h1>
             {/* Textarea for journaling */}
             <div className="input-box">
@@ -69,6 +83,7 @@ export function NavigationBar() {
         </div>
     );
 }
+
 
 //mood tracker page
 export function MoodTrackPage() {
