@@ -53,8 +53,50 @@ body, html {
   justify-content: center;
   width: 100%;
   height: 100%;
+  background-color: #ffffff; /* Set the background color to white */
   z-index: 1; /* Above the background */
 }
+
+.purple-rectangle {
+  position: absolute; /* Position the rectangle relative to the nearest positioned ancestor */
+  top: 0; /* Align the rectangle to the top of the page */
+  left: 0; /* Align the rectangle to the left of the page */
+  width: 100%;
+  height: 50px; /* Height of the rectangle */
+  background-color: #5d1451; /* Purple color */
+}
+
+.date-text {
+  position: absolute;
+  top: 50%; /* Align the text vertically centered */
+  right: 20px; /* Align the text to the right */
+  transform: translateY(-50%); /* Center the text vertically */
+  color: white; /* Text color */
+  margin: 0; /* Remove default margin */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold font */
+}
+
+.home-icon {
+  position: absolute;
+  top: 50%; /* Align the icon vertically centered */
+  left: 20px; /* Align the icon to the left */
+  transform: translateY(-50%); /* Center the icon vertically */
+  width: 20px; /* Set the width of the icon */
+  height: auto; /* Maintain aspect ratio */
+  cursor: pointer; /* Set cursor to indicate it's clickable */
+}
+
+.moodlift-text {
+  position: absolute;
+  top: 50%; /* Align the text vertically centered */
+  left: 50%; /* Align the text horizontally centered */
+  transform: translate(-50%, -50%); /* Center the text both horizontally and vertically */
+  color: white; /* Text color */
+  font-size: 24px; /* Font size */
+  font-weight: bold; /* Bold font */
+}
+
 
 #root::before {
 content: '';
@@ -69,8 +111,6 @@ border-radius: 50px; /* Curved edges - adjust the radius to match your design */
 box-shadow: 0 0 0 100vmax #5d1451; /* Creates the dark purple background */
 z-index: -1; /* Ensures it stays in the background */
 }
-
-
 
 /* App.css */
 .input-box input {
