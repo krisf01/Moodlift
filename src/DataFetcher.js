@@ -69,17 +69,7 @@ export function JournalingPage() {
                 <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
                 <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
             </div>
-            <h1>Journaling</h1>
-            {/* Textarea for journaling */}
-            <div className="input-box">
-                <textarea
-                    value={journalEntry}
-                    onChange={handleJournalInputChange}
-                    placeholder="Write your journal entry here..."
-                    aria-label="Journal Entry"
-                    rows="6" // Adjust the number of rows as needed
-                ></textarea>
-            </div>
+           
         </div>
     );
 }
