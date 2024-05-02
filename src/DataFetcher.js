@@ -16,7 +16,10 @@ export function DataFetcher() {
     // Handler for input changes
     const handleInputChange = (e) => {
         setUserInput(e.target.value);
+
+    
     };
+
 
     return (
         <div className="app-container">
@@ -29,6 +32,9 @@ export function DataFetcher() {
             </div>
             {/* Add a text input box here */}
             <div className="input-box">
+                
+                <label>Enter Message</label>  {/*dylan added this , its a enter message prompt*/}
+                
                 <textarea
                     value={userInput}
                     onChange={handleInputChange}
@@ -36,9 +42,11 @@ export function DataFetcher() {
                     aria-label="Message"
                     rows="4" // Defines the number of lines you want to show by default
                 ></textarea>
+                <button type="submit">Save</button>  {/*dylan added this "save button"*/}
+                
             </div>
         </div>
-    );
+    ); 
 }
 
 export function NavigationBar() {
