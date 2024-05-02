@@ -68,7 +68,15 @@ export function JournalingPage() {
                 <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
                 <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
             </div>
-           
+        <div>
+            <textarea
+                value = {journalEntry}
+                onChange={handleJournalInputChange}
+                placeholder="Journal Entry here.."
+                rows = {14}
+                cols = {85}
+            ></textarea>
+        </div>
         </div>
     );
 }
