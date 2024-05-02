@@ -1,59 +1,176 @@
 /* App.css */
 .app-container {
-    text-align: center;
+  text-align: center;
 }
 
+/* title color and positioning*/
 .title h1 {
-    color: #2c3e50;
-    margin-top: 20px; /* Smaller value to move closer to the top */
-    margin-bottom: 20px;
+  color: #2c3e50;
+  margin-top: 20px; /* Smaller value to move closer to the top */
+  margin-bottom: 20px;
 }
 
+/*logo width and height, plus space inbetween the buttons and logo (homepage)*/
+.logo img {
+  max-width: 100px; /* Set the maximum width you desire */
+  height: auto; /* Keep the aspect ratio */
+  margin-bottom: 50px; /* Space between the logo and buttons */
+}
+
+/*text style*/
 body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
 }
 
-/* App.css */
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  height: 100vh; /* Full viewport height */
+  position: relative;
+  overflow: hidden; /* Hide overflow */
+}
+
+/*home page design*/
+#root::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #67a6e5; /* Light blue area */
+  z-index: -1; /* Behind content */
+  border: solid 10px #5d1451; /* Thicker dark purple border */
+  border-radius: 50px; /* Curved edges */
+  box-shadow: inset 0 0 50px #5d1451; /* Inner shadow for depth */
+}
+
+/*this is connected to journaling page, mood page, resoucres page*/
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; /* Set the background color to white */
+  z-index: 1; /* Above the background */
+}
+
+/*purple rectangle style at the top of the journaling page*/
+.purple-rectangle {
+  position: absolute; /* Position the rectangle relative to the nearest positioned ancestor */
+  top: 0; /* Align the rectangle to the top of the page */
+  left: 0; /* Align the rectangle to the left of the page */
+  width: 100%;
+  height: 50px; /* Height of the rectangle */
+  background-color: #5d1451; /* Purple color */
+}
+
+/*live date on the journaling page*/
+.date-text {
+  position: absolute;
+  top: 50%; /* Align the text vertically centered */
+  right: 20px; /* Align the text to the right */
+  transform: translateY(-50%); /* Center the text vertically */
+  color: white; /* Text color */
+  margin: 0; /* Remove default margin */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold font */
+}
+
+/*home icon on the journal page*/
+.home-icon {
+  position: absolute;
+  top: 50%; /* Align the icon vertically centered */
+  left: 20px; /* Align the icon to the left */
+  transform: translateY(-50%); /* Center the icon vertically */
+  width: 20px; /* Set the width of the icon */
+  height: auto; /* Maintain aspect ratio */
+  cursor: pointer; /* Set cursor to indicate it's clickable */
+}
+
+/* I think this is the MoodLift title on the journaling page */
+.moodlift-text {
+  position: absolute;
+  top: 50%; /* Align the text vertically centered */
+  left: 50%; /* Align the text horizontally centered */
+  transform: translate(-50%, -50%); /* Center the text both horizontally and vertically */
+  color: white; /* Text color */
+  font-size: 24px; /* Font size */
+  font-weight: bold; /* Bold font */
+}
+
+/*this might be a duplicate idk*/
+#root::before {
+content: '';
+position: absolute;
+top: 1%; /* Adjust for thinner border */
+bottom: 1%; /* Adjust for thinner border */
+left: 0.5%; /* Adjust for thinner border */
+right: 0.5%; /* Adjust for thinner border */
+background-color: #67a6e5; /* Light blue area */
+border: solid 10px #5d1451; /* Thinner dark purple border */
+border-radius: 50px; /* Curved edges - adjust the radius to match your design */
+box-shadow: 0 0 0 100vmax #5d1451; /* Creates the dark purple background */
+z-index: -1; /* Ensures it stays in the background */
+}
+
+/* input text box */
 .input-box input {
-    width: 100%; /* Use a percentage to make it responsive, or set a fixed width */
-    height: 100px; /* Set a fixed height */
-    padding: 10px; /* Add some padding inside the input */
-    margin-top: 20px; /* Space between data and input box */
-    border: 1px solid #ccc; /* A light gray border */
-    box-shadow: inset 0 0 10px #000000; /* Inner shadow for depth */
-    font-size: 1em; /* Text size */
-    box-sizing: border-box; /* Include padding and border in the input's width and height */
+  width: 100%; /* Use a percentage to make it responsive, or set a fixed width */
+  height: 100px; /* Set a fixed height */
+  padding: 10px; /* Add some padding inside the input */
+  margin-top: 20px; /* Space between data and input box */
+  border: 1px solid #ccc; /* A light gray border */
+  box-shadow: inset 0 0 10px #000000; /* Inner shadow for depth */
+  font-size: 1em; /* Text size */
+  box-sizing: border-box; /* Include padding and border in the input's width and height */
 }
 
+/*size of input textbox*/
 .input-box {
-    width: 80%; /* Set the width of the container, adjust as needed */
-    margin: 20px auto; /* Center the container and add margin */
+  width: 80%; /* Set the width of the container, adjust as needed */
+  margin: 20px auto; /* Center the container and add margin */
 }
 
-/* App.css */
-.nav-links {
-    list-style-type: none;
-    display: flex;
-    justify-content: flex-start; /* Align links to the left */
-  }
-  
-  .nav-links li {
-    padding: 10px; /* Add padding around each link for spacing */
-  }
-  
-  .nav-links li a {
-    text-decoration: none; /* Remove default underlines from links */
-    color: black; /* Set link color */
-  }
-  
-  nav {
-    width: 100%; /* Full width to contain the navigation */
-    background: #f3f3f3; /* A light background color for the navigation bar */
-    padding: 10px 0; /* Some vertical padding */
-  }
-  
+/*this helps you click a button and go onto the next page*/
+.button-nav-container {
+  position: relative;
+  top: -40px; /* Moves up the container closer to the logo */
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px; /* Reduce space above the buttons if needed */
+}
+
+.nav-button {
+  background-color: #5d1451; /* Dark purple background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding inside the buttons */
+  text-decoration: none; /* Remove the underline from links */
+  border-radius: 25px; /* Rounded corners for buttons */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+  font-size: 18px; /* Button text size */
+  border: none; /* No border */
+  cursor: pointer; /* Cursor indicates it's clickable */
+}
+
+/* if you hove over the button is makes it look cooler*/
+.nav-button:hover {
+  background-color: #774172; /* Slightly lighter purple for hover effect */
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Adjust if the logo needs to move up */
+  height: 100vh;
+  position: relative;
+}
