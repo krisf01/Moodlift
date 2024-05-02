@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'; // This comes from react-router, which 
 import './app.css';
 import logoSVG from './images/logo.svg'; // Import the SVG file
 import homeIcon from './images/home.svg';
-import moodLiftIcon from './images/moodlift2.ico';
 
 export function DataFetcher() {
     const [data, setData] = useState(null);
