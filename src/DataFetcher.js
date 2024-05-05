@@ -18,9 +18,39 @@ export function DataFetcher() {
     // Handler for input changes
     const handleInputChange = (e) => {
         setUserInput(e.target.value);
+
+    
     };
 
+
     return (
+<<<<<<< HEAD
+        <div className="app-container">
+            <div className="title">
+                <h1>MoodLift: Empowering University Students to Navigate Mental Wellness</h1>
+            </div>
+            <div>
+                <h2>Data from Flask:</h2>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+            </div>
+            {/* Add a text input box here */}
+            <div className="input-box">
+                
+                <label>Enter Message</label>  {/*dylan added this , its a enter message prompt*/}
+                
+                <textarea
+                    value={userInput}
+                    onChange={handleInputChange}
+                    placeholder="Message"
+                    aria-label="Message"
+                    rows="4" // Defines the number of lines you want to show by default
+                ></textarea>
+                <button type="submit">Save</button>  {/*dylan added this "save button"*/}
+                
+            </div>
+        </div>
+    ); 
+=======
         <div className="main-content">
         <div className="logo">
           <img src={logoSVG} alt="logo"></img>
@@ -32,6 +62,7 @@ export function DataFetcher() {
         </div>
       </div>
       );
+>>>>>>> 48618accb7ace45df7e7a72d663a998a04bb5671
 }
 
 export function NavigationBar() {
@@ -46,12 +77,9 @@ export function NavigationBar() {
 
 //journaling page
 export function JournalingPage() {
-    const [journalEntry, setJournalEntry] = useState(""); 
-
-    // Handler for input changes
-    const handleJournalInputChange = (e) => {
-        setJournalEntry(e.target.value);
-    };
+    const [journalEntry, setJournalEntry] = useState("");
+    const [chatInput, setChatInput] = useState("");
+    const [chatResponse, setChatResponse] = useState("");
 
     // Function to get the current date in the format "Month Day, Year"
     const getCurrentDate = () => {
@@ -59,28 +87,64 @@ export function JournalingPage() {
         return new Date().toLocaleDateString('en-US', options);
     };
 
+    const handleJournalInputChange = (e) => {
+        setJournalEntry(e.target.value);
+    };
+
+    const handleChatInputChange = (e) => {
+        setChatInput(e.target.value);
+    };
+
+    const handleChatSubmit = () => {
+        fetch('http://localhost:1234/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: chatInput })
+        })
+        .then(response => response.json())
+        .then(data => {
+            setChatResponse(data.response);
+            setChatInput(''); // Clear the chat input after submission
+        })
+        .catch(error => console.error('Error:', error));
+    };
+
     return (
         <div className="app-container">
             <div className="purple-rectangle">
-                <Link to="/" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                <Link to="/" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
-                <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
-                <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
             </div>
-        <div>
-            <textarea
-                value = {journalEntry}
-                onChange={handleJournalInputChange}
-                placeholder="Journal Entry here.."
-                rows = {14}
-                cols = {85}
-            ></textarea>
-        </div>
+            <div className="chat-section">
+                <input
+                    type="text"
+                    value={chatInput}
+                    onChange={handleChatInputChange}
+                    placeholder="Ask ChatGPT something..."
+                />
+                <button onClick={handleChatSubmit}>Submit to ChatGPT</button>
+            </div>
+            <div className="chat-response">
+                <p><strong>ChatGPT Response:</strong></p>
+                <p>{chatResponse}</p>
+            </div>
+            <div className="journal-section">
+                <textarea
+                    value={journalEntry}
+                    onChange={handleJournalInputChange}
+                    placeholder="Journal Entry here..."
+                    rows={14}
+                    cols={85}
+                ></textarea>
+            </div>
         </div>
     );
 }
-
 
 //mood tracker page
 export function MoodTrackPage() {
