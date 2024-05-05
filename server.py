@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, abort  # Added 'abort' here
 from flask_cors import CORS
 import openai
 import os

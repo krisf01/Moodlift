@@ -46,12 +46,9 @@ export function NavigationBar() {
 
 //journaling page
 export function JournalingPage() {
-    const [journalEntry, setJournalEntry] = useState(""); 
-
-    // Handler for input changes
-    const handleJournalInputChange = (e) => {
-        setJournalEntry(e.target.value);
-    };
+    const [journalEntry, setJournalEntry] = useState("");
+    const [chatInput, setChatInput] = useState("");
+    const [chatResponse, setChatResponse] = useState("");
 
     // Function to get the current date in the format "Month Day, Year"
     const getCurrentDate = () => {
@@ -59,28 +56,64 @@ export function JournalingPage() {
         return new Date().toLocaleDateString('en-US', options);
     };
 
+    const handleJournalInputChange = (e) => {
+        setJournalEntry(e.target.value);
+    };
+
+    const handleChatInputChange = (e) => {
+        setChatInput(e.target.value);
+    };
+
+    const handleChatSubmit = () => {
+        fetch('http://localhost:1234/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: chatInput })
+        })
+        .then(response => response.json())
+        .then(data => {
+            setChatResponse(data.response);
+            setChatInput(''); // Clear the chat input after submission
+        })
+        .catch(error => console.error('Error:', error));
+    };
+
     return (
         <div className="app-container">
             <div className="purple-rectangle">
-                <Link to="/" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                <Link to="/" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
-                <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
-                <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
             </div>
-        <div>
-            <textarea
-                value = {journalEntry}
-                onChange={handleJournalInputChange}
-                placeholder="Journal Entry here.."
-                rows = {14}
-                cols = {85}
-            ></textarea>
-        </div>
+            <div className="chat-section">
+                <input
+                    type="text"
+                    value={chatInput}
+                    onChange={handleChatInputChange}
+                    placeholder="Ask ChatGPT something..."
+                />
+                <button onClick={handleChatSubmit}>Submit to ChatGPT</button>
+            </div>
+            <div className="chat-response">
+                <p><strong>ChatGPT Response:</strong></p>
+                <p>{chatResponse}</p>
+            </div>
+            <div className="journal-section">
+                <textarea
+                    value={journalEntry}
+                    onChange={handleJournalInputChange}
+                    placeholder="Journal Entry here..."
+                    rows={14}
+                    cols={85}
+                ></textarea>
+            </div>
         </div>
     );
 }
-
 
 //mood tracker page
 export function MoodTrackPage() {
