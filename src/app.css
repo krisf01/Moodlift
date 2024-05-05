@@ -174,3 +174,19 @@ z-index: -1; /* Ensures it stays in the background */
   height: 100vh;
   position: relative;
 }
+
+/*chat GPT styling on journaling page*/
+.chat-section {
+  margin-bottom: 10px; /* Adjust as needed */
+}
+
+.chat-response {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f4f4f4;  /* Light gray background for the response area */
+  border-radius: 5px;  /* Optional: rounded corners for the response area */
+}
+
+.journal-section {
+  margin-top: 20px;
+}
