@@ -68,6 +68,7 @@ export function JournalingPage() {
     };
 
     const handleChatSubmit = () => {
+        console.log(JSON.stringify({ message: chatInput })); // Log the data being sent
         fetch('http://localhost:1234/chat', {
             method: 'POST',
             headers: {
@@ -77,11 +78,12 @@ export function JournalingPage() {
         })
         .then(response => response.json())
         .then(data => {
-            setChatResponse(data.response);
-            setChatInput(''); // Clear the chat input after submission
+            setChatResponse(data.response || data.error); // Handle possible errors
+            setChatInput('');
         })
         .catch(error => console.error('Error:', error));
     };
+    
 
     return (
         <div className="app-container">
