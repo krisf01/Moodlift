@@ -24,33 +24,6 @@ export function DataFetcher() {
 
 
     return (
-<<<<<<< HEAD
-        <div className="app-container">
-            <div className="title">
-                <h1>MoodLift: Empowering University Students to Navigate Mental Wellness</h1>
-            </div>
-            <div>
-                <h2>Data from Flask:</h2>
-                <pre>{JSON.stringify(data, null, 2)}</pre>
-            </div>
-            {/* Add a text input box here */}
-            <div className="input-box">
-                
-                <label>Enter Message</label>  {/*dylan added this , its a enter message prompt*/}
-                
-                <textarea
-                    value={userInput}
-                    onChange={handleInputChange}
-                    placeholder="Message"
-                    aria-label="Message"
-                    rows="4" // Defines the number of lines you want to show by default
-                ></textarea>
-                <button type="submit">Save</button>  {/*dylan added this "save button"*/}
-                
-            </div>
-        </div>
-    ); 
-=======
         <div className="main-content">
         <div className="logo">
           <img src={logoSVG} alt="logo"></img>
@@ -62,7 +35,6 @@ export function DataFetcher() {
         </div>
       </div>
       );
->>>>>>> 48618accb7ace45df7e7a72d663a998a04bb5671
 }
 
 export function NavigationBar() {
