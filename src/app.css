@@ -1,7 +1,4 @@
 /* App.css */
-.app-container {
-  text-align: center;
-}
 
 /* title color and positioning*/
 .title h1 {
@@ -166,6 +163,170 @@ z-index: -1; /* Ensures it stays in the background */
   background-color: #774172; /* Slightly lighter purple for hover effect */
 }
 
+/*journaling page */
+.borderbutton{
+  background-color: #774172;
+  width: 620px;
+  height: 280px;
+  border-radius: 25px;
+  border: none;
+  position: absolute;
+  left: 40px;
+  top: 200px;
+}
+.journalinput {
+  position: absolute;
+  left: 60px;
+  top: 215px;
+  background-color: #ffffff;
+  border: transparent;
+  border-radius: 10px;
+  outline: none;
+  
+}
+.savedbutton{
+  background-color: #5d1451; /* Dark purple background */
+  color: white; /* White text */
+  padding: 33px 18px; /* Padding inside the buttons */
+  text-decoration: none; /* Remove the underline from links */
+  border-radius: 100px; /* Rounded corners for buttons */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+  font-size: 18px; /* Button text size */
+  border: none; /* No border */
+  cursor: pointer; 
+  position: absolute;
+  bottom: 70px;
+  left: 315px;
+}
+.savedbutton:hover{
+  background-color: #ADE1FA;
+}
+.postbutton{
+  background-color: #5d1451; /* Dark purple background */
+  color: white; /* White text */
+  padding: 33px 25px; /* Padding inside the buttons */
+  text-decoration: none; /* Remove the underline from links */
+  border-radius: 100px; /* Rounded corners for buttons */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+  font-size: 18px; /* Button text size */
+  border: none; /* No border */
+  cursor: pointer; 
+  position: absolute;
+  bottom: 70px;
+  left: 100px;
+}
+.postbutton:hover{
+  background-color: #ADE1FA;
+}
+
+.journalpromptinput {
+  background-color: #74ABCA; /* Dark purple background */
+  color: white; /* White text */
+  padding: 28px 200px; /* Padding inside the buttons */
+  text-decoration: none; /* Remove the underline from links */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+  font-size: 18px; /* Button text size */
+  border: none; /* No border */
+  cursor: pointer; 
+  position: absolute;
+  top: 90px;
+  left: 60px;
+} /*end journaling page */
+
+/*moodlift saved post page*/
+.borderbutton1{
+    background-color: #774172;
+    width: 600px;
+    height: 400px;
+    border-radius: 25px;
+    border: none;
+    position: absolute;
+    left: 40px;
+    top: 130px;
+  }
+  .borderbutton2{
+    background-color: #774172;
+    width: 600px;
+    height: 400px;
+    border-radius: 25px;
+    border: none;
+    position: absolute;
+    right: 130px;
+    top: 130px;
+  }
+  
+.moodliftprompt {
+  background-color: #74ABCA; /* Dark purple background */
+  border-radius: 30px;
+  color: white; /* White text */
+  padding: 22px 170px; /* Padding inside the buttons */
+  text-decoration: none; /* Remove the underline from links */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+  font-size: 18px; /* Button text size */
+  border: none; /* No border */
+  cursor: pointer; 
+  position: absolute;
+  top: 150px;
+  left: 75px;
+}
+.moodliftprompt1 {
+  background-color: #74ABCA; /* Dark purple background */
+  border-radius: 30px;
+  color: white; /* White text */
+  padding: 22px 170px; /* Padding inside the buttons */
+  text-decoration: none; /* Remove the underline from links */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+  font-size: 18px; /* Button text size */
+  border: none; /* No border */
+  cursor: pointer; 
+  position: absolute;
+  top: 150px;
+  right: 160px;
+}
+.journalinput1 {
+  position: absolute;
+  left: 80px;
+  top: 235px;
+  background-color: #ffffff;
+  border: transparent;
+  border-radius: 10px;
+  outline: none;
+}
+.journalinput2 {
+  position: absolute;
+  right: 170px;
+  top: 235px;
+  background-color: #ffffff;
+  border: transparent;
+  border-radius: 10px;
+  outline: none;
+}
+.date-text1 {
+  position: absolute;
+  left: 90px; /* Align the text to the right */
+  bottom: 150px;
+  transform: translateY(-50%); /* Center the text vertically */
+  color: white; /* Text color */
+  margin: 0; /* Remove default margin */
+  font-size: 18px; /* Font size */
+  font-weight: bold; /* Bold font */
+}
+/* end of saved post page*/
+
+
+/* beginning friends post page*/
+.borderbutton3{
+  background-color: #774172;
+  width: 600px;
+  height: 400px;
+  border-radius: 25px;
+  border: none;
+  position: absolute;
+  left: 40px;
+  top: 130px;
+}
+
+/*end friends post page*/
 .main-content {
   display: flex;
   flex-direction: column;
@@ -173,20 +334,4 @@ z-index: -1; /* Ensures it stays in the background */
   justify-content: center; /* Adjust if the logo needs to move up */
   height: 100vh;
   position: relative;
-}
-
-/*chat GPT styling on journaling page*/
-.chat-section {
-  margin-bottom: 10px; /* Adjust as needed */
-}
-
-.chat-response {
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #f4f4f4;  /* Light gray background for the response area */
-  border-radius: 5px;  /* Optional: rounded corners for the response area */
-}
-
-.journal-section {
-  margin-top: 20px;
 }
