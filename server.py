@@ -1,17 +1,16 @@
-from flask import Flask, jsonify, request, abort  # Added 'abort' here
+from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
-import openai
 import os
+from dotenv import load_dotenv
+import openai
 
-# Attempt to load the API key from environment variables
-openai_api_key = os.getenv('OPENAI_API_KEY')
-if not openai_api_key:
-    raise ValueError("OPENAI_API_KEY is not set in the environment variables.")
+load_dotenv()
 
-openai.api_key = openai_api_key
+# Initialize OpenAI client with the API key
+client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 app = Flask(__name__)
-CORS(app)  # This enables CORS for all domains on all routes
+CORS(app)
 
 @app.route('/public/')
 def home():
@@ -19,30 +18,31 @@ def home():
 
 @app.route('/api/data')
 def get_data():
-    data = {
-        "message": "Here's some data from the Flask server",
-        "items": [1, 2, 3, 4, 5]
-    }
+    data = {"message": "Here's some data from the Flask server", "items": [1, 2, 3, 4, 5]}
     return jsonify(data)
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    user_input = request.json.get('message') if request.json else None
-    if not user_input:
-        abort(400, description="No message provided.")
-
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # Adjusted to specify the GPT-3.5 model
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": user_input}
-            ]
+        user_input = request.json.get('message')
+        if not user_input:
+            return jsonify({"error": "No message provided"}), 400
+
+        chat_completion = client.chat.completions.create(
+            messages=[{"role": "user", "content": user_input}],
+            model="gpt-3.5-turbo",
         )
-        return jsonify({"response": response['choices'][0]['message']['content']})
+
+        # Correctly accessing the message content from the response
+        if chat_completion.choices and len(chat_completion.choices) > 0:
+            message = chat_completion.choices[0].message.content
+        else:
+            message = "Failed to get a valid response."
+
+        return jsonify({"response": message})
     except Exception as e:
-        abort(500, description=str(e))
+        print(e)  # Add a print here to catch any exceptions for debugging
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port =1234)
-
+    app.run(debug=True, port=1234)
