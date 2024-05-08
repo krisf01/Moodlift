@@ -18,10 +18,7 @@ export function DataFetcher() {
     // Handler for input changes
     const handleInputChange = (e) => {
         setUserInput(e.target.value);
-
-    
     };
-
 
     return (
         <div className="main-content">
@@ -50,41 +47,28 @@ export function NavigationBar() {
 //journaling page
 export function JournalingPage() {
     const [journalEntry, setJournalEntry] = useState("");
-    const [chatInput, setChatInput] = useState("");
-    const [chatResponse, setChatResponse] = useState("");
+    const [journalPrompt, setJournalPrompt] = useState("Click to generate a journal prompt");
+
+    // Handler for journal entry changes
+    const handleJournalInputChange = (e) => {
+        setJournalEntry(e.target.value);
+    };
+
+    // Function to fetch a random journal prompt from the Flask server
+    const fetchJournalPrompt = () => {
+        fetch('http://localhost:1234/generate-prompt', { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            setJournalPrompt(data.prompt); // Update the journal prompt with the fetched data
+        })
+        .catch(error => console.error('Error fetching journal prompt:', error));
+    };
 
     // Function to get the current date in the format "Month Day, Year"
     const getCurrentDate = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('en-US', options);
     };
-
-    const handleJournalInputChange = (e) => {
-        setJournalEntry(e.target.value);
-    };
-
-    const handleChatInputChange = (e) => {
-        setChatInput(e.target.value);
-    };
-
-    const handleChatSubmit = () => {
-        console.log("Sending chat request:", JSON.stringify({ message: chatInput }));
-        fetch('http://localhost:1234/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: chatInput })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Received response:", data); // Log the response
-            setChatResponse(data.response || data.error);
-            setChatInput('');
-        })
-        .catch(error => console.error('Error:', error));
-    };
-    
 
     return (
         <div className="app-container">
@@ -95,28 +79,130 @@ export function JournalingPage() {
                 <p className="date-text">{getCurrentDate()}</p>
                 <div className="moodlift-text">MoodLift</div>
             </div>
-            <div className="chat-section">
-                <input
-                    type="text"
-                    value={chatInput}
-                    onChange={handleChatInputChange}
-                    placeholder="Ask ChatGPT something..."
-                />
-                <button onClick={handleChatSubmit}>Submit to ChatGPT</button>
+            <div>
+                <input className='journalpromptinput'
+                    value={journalPrompt}
+                    onClick={fetchJournalPrompt} // Add click handler here
+                    readOnly={true}
+                ></input>
             </div>
-            <div className="chat-response">
-                <p><strong>ChatGPT Response:</strong></p>
-                <p>{chatResponse}</p>
-            </div>
-            <div className="journal-section">
-                <textarea
+            <div>
+                <textarea className='journalinput'
                     value={journalEntry}
                     onChange={handleJournalInputChange}
-                    placeholder="Journal Entry here..."
-                    rows={14}
-                    cols={85}
+                    placeholder="Journal Entry here.."
+                    rows={16}
+                    cols={70}
                 ></textarea>
             </div>
+            <div>
+                <Link to="/savedpost" className='savedbutton'>Saved</Link>
+                <Link to="/friendspost" className="postbutton">Post</Link>
+            </div>
+        </div>
+    );
+}
+
+
+
+export function SavedPostPage(){
+    const[moodliftjournalprompt,setmoodliftJournalPrompt] = useState("Journal Prompt");
+
+    //handler for journal propmt changes
+    const handleMoodLiftJournalPromptChange =(e) => {
+        setmoodliftJournalPrompt(e.target.value);
+    };
+    //handler for saved input changes
+    const[moodliftjournalinput,setsavedjournalprompt] = useState(" this is my journal entry deafult text");
+
+    const handleSavedPostPromptChange =(e) => {
+        setsavedjournalprompt(e.target.value);
+    };
+     // Function to get the current date in the format "Month Day, Year"
+     const getCurrentDateSavedPost = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+    //second saved input changes
+    const[moodliftjournalinput1,setsavedjournalprompt1] = useState(" this is my journal entry default text");
+
+    const handleSavedPostPromptChange1 =(e) => {
+        setsavedjournalprompt1(e.target.value);
+    };
+    
+    //second handler
+    const[moodliftjournalprompt1,setmoodliftJournalPrompt1] = useState("Journal Prompt");
+
+    const handleMoodLiftJournalPromptChange1 =(e) => {
+        setmoodliftJournalPrompt1(e.target.value);
+    };
+    return(
+        <div className='app-container'>
+            <div className='purple-rectangle'>
+                <Link to="/" className="home-link"> {/* Link to the home page */}
+                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                </Link>
+            </div>
+            <div>
+                <button className='borderbutton1'> </button>
+            </div>
+            <div>
+                <button className='borderbutton2'> </button>
+            </div>
+            <div>
+                <input className='moodliftprompt'
+                    value={moodliftjournalprompt}
+                    onChange={handleMoodLiftJournalPromptChange}
+                    readOnly={true}
+                ></input>
+            </div>
+    
+           <div>
+                <textarea className='journalinput1'
+                    value={moodliftjournalinput}
+                    onChange={handleSavedPostPromptChange}
+                    readOnly={true}
+                    rows = {15}
+                    cols = {62}
+                ></textarea>
+                <p className="date-text1">{getCurrentDateSavedPost()}</p> {/* Date text */}
+            <div>
+            <input className='moodliftprompt1'
+                    value={moodliftjournalprompt1}
+                    onChange={handleMoodLiftJournalPromptChange1}
+                    readOnly={true}
+                ></input>
+            </div>
+           </div>
+                <textarea className="journalinput2"
+                    value={moodliftjournalinput1}
+                    onChange={handleSavedPostPromptChange1}
+                    readOnly={true}
+                    rows = {15}
+                    cols = {62}
+                ></textarea>
+        </div>
+    );
+}
+
+export function FriendsPostPage(){
+    
+    //const[friendsjournalinput,setsavedsavedfriendsprompt] = useState("Journal Prompt");
+
+    //const handleFriendsPostChange =(e) => {
+        //setsavedfriendsprompt(e.target.value);
+    //};
+
+    return(
+        <div className='app-container'>
+            <div className='purple-rectangle'>
+            <Link to="/" className="home-link"> {/* Link to the home page */}
+                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                </Link>
+            </div>
+        <div>
+            <button className='borderbutton3'> </button>
+        </div>
         </div>
     );
 }

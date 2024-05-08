@@ -43,6 +43,26 @@ def chat():
     except Exception as e:
         print(e)  # Add a print here to catch any exceptions for debugging
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/generate-prompt', methods=['GET'])
+def generate_prompt():
+    try:
+        prompt_completion = client.chat.completions.create(
+            messages=[{"role": "system", "content": "Generate a thoughtful journal prompt"}],
+            model="gpt-3.5-turbo",
+        )
+
+        # Check if the completion has valid content and return it
+        if prompt_completion.choices and len(prompt_completion.choices) > 0:
+            prompt = prompt_completion.choices[0].message.content
+        else:
+            prompt = "Failed to get a valid prompt."
+
+        return jsonify({"prompt": prompt})
+    except Exception as e:
+        print(e)  # Logging the exception for debugging purposes
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=1234)
