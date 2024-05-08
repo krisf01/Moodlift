@@ -335,3 +335,7 @@ z-index: -1; /* Ensures it stays in the background */
   height: 100vh;
   position: relative;
 }
+
+.mood-track-container {
+  background-color: #CAF0F8; /* Light baby blue color */
+}

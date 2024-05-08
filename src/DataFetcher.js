@@ -217,19 +217,21 @@ export function MoodTrackPage() {
         setMoodlEntry(e.target.value);
     };
 
+    const getCurrentDate = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+
     return (
-        <div className="app-container">
-            <h1>Mood Tracker</h1>
-            {/* Textarea for journaling */}
-            <div className="input-box">
-                <textarea
-                    value={moodEntry}
-                    onChange={handleMoodInputChange}
-                    placeholder="Write your mood here..."
-                    aria-label="Happy, Sad, Excited"
-                    rows="6" 
-                ></textarea>
+        <div className="mood-track-container">
+            <div className="purple-rectangle">
+                <Link to="/" className="home-link"> {/* Link to the home page */}
+                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                </Link>
+                <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
+                <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
             </div>
+
         </div>
     );
 }
