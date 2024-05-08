@@ -186,6 +186,24 @@ export function SavedPostPage(){
         </div>
     );
 }
+
+function handlePostButtonClick() {
+    // Example data sent to server
+    const postData = { action: "Post" };
+    
+    fetch('http://localhost:1234/', {  // Ensure the URL and port are correct
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData)  // Send data as JSON string
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+}
+
+
 export function FriendsPostPage(){
     
     //const[friendsjournalinput,setsavedsavedfriendsprompt] = useState("Journal Prompt");

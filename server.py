@@ -5,6 +5,16 @@ from flask_cors import CORS
 import firebase_admin
 from firebase_admin import credentials, db
 
+
+import firebase_admin
+from firebase_admin import credentials
+
+cred = credentials.Certificate("/home/dylantran02/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
+firebase_admin.initialize_app(cred,{
+        'databaseURL' : 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
+})
+
+
 # # Attempt to load the API key from environment variables
 # openai_api_key = os.getenv('OPENAI_API_KEY')
 # if not openai_api_key:
@@ -45,17 +55,17 @@ def get_data():
 #     except Exception as e:
 #         abort(500, description=str(e))
 
-ref = db.reference('server/saving-data/fireblog')
+# ref = db.reference('server/saving-data/fireblog')
 
 @app.route('/', methods=['POST'])
 def handle_buttons():
-    content = request.get_data(as_text=True)
+    content = request.json.get('action')  # Assuming JSON data with an 'action' key
     print("Received content:", content)
 
     # Firebase Database reference
-    #ref = db.reference('posts')
+    ref = db.reference('server/saving-data/fireblog')
 
-    if "Post" in content:
+    if content == "Post":
         # Write to Firebase Database
         result = ref.push({
             'content': 'Post button clicked',
@@ -64,6 +74,23 @@ def handle_buttons():
 
         # Respond when the Post button is clicked
         return jsonify({"response": "Post button clicked, data written to Firebase", "firebase_key": result.key})
+    else:
+        # Handle other actions or bad requests
+        return jsonify({"response": "Unknown Action"}), 400
+    
+
+@app.route('/', methods=['POST'])
+def handle_post_data():
+    data = request.json
+    ref = db.reference('server/saving-data/fireblog')  # Adjust the Firebase reference as needed
+
+    # Add data to Firebase
+    result = ref.push({
+        'content': data['content'],
+        'timestamp': data['timestamp']
+    })
+
+    return jsonify({"success": True, "key": result.key}), 200
 
 if __name__ == '__main__':
     app.run(debug=True, port =1234)
