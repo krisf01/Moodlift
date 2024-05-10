@@ -241,8 +241,20 @@ export function ResourcePage() {
     //this a temporary place holder url
     const [resourceUrl] = useState("https://https://www.nimh.nih.gov/health/find-help.com");
 
+    const getCurrentDate = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+
     return (
         <div className="app-container" style={{textAlign: 'center'}}>
+            <div className="purple-rectangle">
+                <Link to="/" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
+                </Link>
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
+            </div>
             <h1>Resources</h1>
             <div className="resourcelinks">
                 <p>Visit the resource below:</p>
