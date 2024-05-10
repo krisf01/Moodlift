@@ -127,8 +127,21 @@ export function MoodTrackPage() {
         setMoodlEntry(e.target.value);
     };
 
+    const getCurrentDate = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+
     return (
         <div className="app-container">
+            {/* adding purple rectangle*/}
+            <div className="purple-rectangle">
+                <Link to="/" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
+                </Link>
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
+            </div>
             <h1>Mood Tracker</h1>
             {/* Textarea for journaling */}
             <div className="input-box">
@@ -158,7 +171,7 @@ export function ResourcePage() {
                     {resourceUrl}
                 </a>
             </div>
-            <p>This is just a test more appropiate linkes will be added later.</p>
+            <p>This is just a test more appropiate links will be added later.</p>
         </div>
     );
 }
