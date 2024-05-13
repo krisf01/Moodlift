@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'; // This comes from react-router, which 
 import './app.css';
 import logoSVG from './images/logo.svg'; // Import the SVG file
 import homeIcon from './images/home.svg';
+import { useNavigate } from 'react-router-dom';
 
 export function DataFetcher() {
     const [data, setData] = useState(null);
@@ -46,7 +47,7 @@ export function NavigationBar() {
 
 //journaling page
 export function JournalingPage() {
-    const [journalEntry, setJournalEntry] = useState(""); 
+    const [journalEntry, setJournalEntry] = useState("");
 
     // Handler for input changes
     const handleJournalInputChange = (e) => {
@@ -64,6 +65,33 @@ export function JournalingPage() {
     const getCurrentDate = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('en-US', options);
+    };
+
+    //Do a post to to the database when Post button is clicked
+    const handlePostToServer = async () => {
+        // const postData = {
+        //     journalEntry: journalEntry,
+        //     journalPrompt: journalprompt,
+        //     timestamp: new Date().toISOString()
+        // };
+        const postData = {
+            action: "Post",
+        };
+
+        try {
+            const response = await fetch('http://localhost:1234/api/post_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData)
+            });
+            const data = await response.json();
+            console.log(data);
+            // Optionally handle navigation or state updates based on the response
+        } catch (error) {
+            console.error('Error posting data:', error);
+        }
     };
 
     return (
@@ -102,7 +130,7 @@ export function JournalingPage() {
             <Link to="/savedpost" className='savedbutton'>Saved</Link>
         </div>
         <div>
-            <Link to="/friendspost" className="postbutton">Post</Link>
+            <button className='postbutton' onClick={handlePostToServer}>Post</button>
         </div>
         </div>
     );
@@ -186,26 +214,35 @@ export function SavedPostPage(){
         </div>
     );
 }
-export function FriendsPostPage(){
-    
-    //const[friendsjournalinput,setsavedsavedfriendsprompt] = useState("Journal Prompt");
 
-    //const handleFriendsPostChange =(e) => {
-        //setsavedfriendsprompt(e.target.value);
-    //};
+export function FriendsPostPage() {
+    const navigate = useNavigate();
 
-    return(
-        <div className='app-container'>
-            <div className='purple-rectangle'>
-            <Link to="/" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
-                </Link>
-            </div>
-        <div>
-            <button className='borderbutton3'> </button>
-        </div>
-        </div>
-    );
+    // Function to handle the post operation
+    const handlePost = async () => {
+        const postData = {
+            content: 'Hardcoded content here', // You can replace this with dynamic content if needed
+            timestamp: new Date().toISOString()
+        };
+
+        try {
+            const response = await fetch('http://localhost:1234/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData)
+            });
+            const data = await response.json();
+            console.log(data);
+            // Navigate to another route upon success or handle success scenario
+            navigate('/some-success-route');
+        } catch (error) {
+            console.error('Error posting data:', error);
+            // Optionally handle the error scenario, e.g., show an error message
+        }
+    };
+
 }
 
 //mood tracker page
