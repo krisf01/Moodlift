@@ -1,44 +1,30 @@
+// src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { DataFetcher, JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, FriendsPostPage } from './DataFetcher';
-import SetFavicon from './SetFavicon';  // Import the SetFavicon component
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, FriendsPostPage, HomePage } from './DataFetcher';
+import LoginPage from './LoginPage';
 import './app.css';
+
+const ProtectedRoute = ({ element }) => {
+    const apiKey = localStorage.getItem('api_key');
+    return apiKey ? element : <Navigate to="/login" />;
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <SetFavicon />  
     <Router>
       <Routes>
-        <Route path="/" element={<DataFetcher />} />
-        <Route path="/journaling" element={<JournalingPage />} />
-        <Route path="/mood-tracker" element={<MoodTrackPage />} />
-        <Route path="/resources" element={<ResourcePage />} />
-        <Route path="/savedpost" element={<SavedPostPage />} />
-        <Route path="/friendspost" element={<FriendsPostPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
+        <Route path="/journaling" element={<ProtectedRoute element={<JournalingPage />} />} />
+        <Route path="/mood-tracker" element={<ProtectedRoute element={<MoodTrackPage />} />} />
+        <Route path="/resources" element={<ProtectedRoute element={<ResourcePage />} />} />
+        <Route path="/savedpost" element={<ProtectedRoute element={<SavedPostPage />} />} />
+        <Route path="/friendspost" element={<ProtectedRoute element={<FriendsPostPage />} />} />
+        <Route path="/" element={<Navigate to="/login" />} /> {/* Redirect to login by default */}
       </Routes>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// Import the functions you need from the SDKs you need
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDY6H_bduOzuNV5CJilizlFfdir2nGtJps",
-//   authDomain: "moodlift-90c56.firebaseapp.com",
-//   projectId: "moodlift-90c56",
-//   storageBucket: "moodlift-90c56.appspot.com",
-//   messagingSenderId: "3601349600",
-//   appId: "1:3601349600:web:82f72c2af95d350b70c985",
-//   measurementId: "G-YP660TBRLL"
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);

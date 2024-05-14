@@ -341,3 +341,47 @@ z-index: -1; /* Ensures it stays in the background */
   height: 100vh;
   position: relative;
 }
+
+/* LOGIN STUFF */
+/* src/app.css */
+.login-container, .register-container {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h1, .register-container h1 {
+  text-align: center;
+}
+
+.login-container form, .register-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container input, .register-container input {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-container button, .register-container button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-container button:hover, .register-container button:hover {
+  background-color: #45a049;
+}
+
+.login-container p, .register-container p {
+  text-align: center;
+}
