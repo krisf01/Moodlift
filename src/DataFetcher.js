@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'; // This comes from react-router, which 
 import './app.css';
 import logoSVG from './images/logo.svg'; // Import the SVG file
 import homeIcon from './images/home.svg';
+import { useNavigate } from 'react-router-dom';
 
 export function DataFetcher() {
     const [data, setData] = useState(null);
@@ -46,18 +47,22 @@ export function NavigationBar() {
 
 //journaling page
 export function JournalingPage() {
-    const [journalEntry, setJournalEntry] = useState(""); 
+    const [journalEntry, setJournalEntry] = useState("");
+    const [journalPrompt, setJournalPrompt] = useState("Click to generate a journal prompt");
 
-    // Handler for input changes
+    // Handler for journal entry changes
     const handleJournalInputChange = (e) => {
         setJournalEntry(e.target.value);
     };
-    
-    const[journalprompt,setJournalPrompt] = useState(" Journal Prompt");
 
-    //handler for journal propmt changes
-    const handleJournalPromptChange =(e) => {
-        setJournalPrompt(e.target.value);
+    // Function to fetch a random journal prompt from the Flask server
+    const fetchJournalPrompt = () => {
+        fetch('http://localhost:1234/generate-prompt', { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            setJournalPrompt(data.prompt); // Update the journal prompt with the fetched data
+        })
+        .catch(error => console.error('Error fetching journal prompt:', error));
     };
 
     // Function to get the current date in the format "Month Day, Year"
@@ -66,19 +71,46 @@ export function JournalingPage() {
         return new Date().toLocaleDateString('en-US', options);
     };
 
+     //Do a post to to the database when Post button is clicked
+     const handlePostToServer = async () => {
+        // const postData = {
+        //     journalEntry: journalEntry,
+        //     journalPrompt: journalprompt,
+        //     timestamp: new Date().toISOString()
+        // };
+        const postData = {
+            action: "Post",
+        };
+
+        try {
+            const response = await fetch('http://localhost:1234/api/post_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData)
+            });
+            const data = await response.json();
+            console.log(data);
+            // Optionally handle navigation or state updates based on the response
+        } catch (error) {
+            console.error('Error posting data:', error);
+        }
+    };
+
     return (
         <div className="app-container">
             <div className="purple-rectangle">
-                <Link to="/" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                <Link to="/" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
-                <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
-                <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
             </div>
             <div>
                 <input className='journalpromptinput'
-                    value={journalprompt}
-                    onChange={handleJournalPromptChange}
+                    value={journalPrompt}
+                    onClick={fetchJournalPrompt} // Add click handler here
                     readOnly={true}
                 ></input>
             </div>
@@ -89,12 +121,11 @@ export function JournalingPage() {
             </div>
             <div>
                 <textarea className='journalinput'
-                    id='Journalinput'
-                    value = {journalEntry}
+                    value={journalEntry}
                     onChange={handleJournalInputChange}
                     placeholder="Journal Entry here.."
-                    rows = {16}
-                    cols = {70}
+                    rows={16}
+                    cols={70}
                 ></textarea>
             </div>
 
@@ -102,11 +133,14 @@ export function JournalingPage() {
             <Link to="/savedpost" className='savedbutton'>Saved</Link>
         </div>
         <div>
-            <Link to="/friendspost" className="postbutton">Post</Link>
-        </div>
-        </div>
-    );
+            <button className='postbutton' onClick={handlePostToServer}>Post</button>
+    </div>
+    </div>
+);
 }
+
+
+
 export function SavedPostPage(){
     const[moodliftjournalprompt,setmoodliftJournalPrompt] = useState("Journal Prompt");
 
@@ -186,27 +220,37 @@ export function SavedPostPage(){
         </div>
     );
 }
-export function FriendsPostPage(){
-    
-    //const[friendsjournalinput,setsavedsavedfriendsprompt] = useState("Journal Prompt");
 
-    //const handleFriendsPostChange =(e) => {
-        //setsavedfriendsprompt(e.target.value);
-    //};
+export function FriendsPostPage() {
+    const navigate = useNavigate();
 
-    return(
-        <div className='app-container'>
-            <div className='purple-rectangle'>
-            <Link to="/" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
-                </Link>
-            </div>
-        <div>
-            <button className='borderbutton3'> </button>
-        </div>
-        </div>
-    );
+    // Function to handle the post operation
+    const handlePost = async () => {
+        const postData = {
+            content: 'Hardcoded content here', // You can replace this with dynamic content if needed
+            timestamp: new Date().toISOString()
+        };
+
+        try {
+            const response = await fetch('http://localhost:1234/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData)
+            });
+            const data = await response.json();
+            console.log(data);
+            // Navigate to another route upon success or handle success scenario
+            navigate('/some-success-route');
+        } catch (error) {
+            console.error('Error posting data:', error);
+            // Optionally handle the error scenario, e.g., show an error message
+        }
+    };
+
 }
+
 
 //mood tracker page
 export function MoodTrackPage() {
@@ -263,6 +307,50 @@ export function ResourcePage() {
                 </a>
             </div>
             <p>This is just a test more appropiate linkes will be added later.</p>
+        </div>
+    );
+}
+
+function LoginPage() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await fetch('http://localhost:1234/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP status ${response.status}`);
+            }
+            
+            const data = await response.json();
+            if (data.api_key) {
+                sessionStorage.setItem('api_key', data.api_key);
+                window.location.href = '/'; // Redirect to the main page
+            } else {
+                alert('Login failed: ' + data.error);
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            alert('Login failed: Please check console for more details.');
+        }
+    };
+
+    return (
+        <div className="login-container">
+            <h1>Login</h1>
+            <form onSubmit={handleSubmit}>
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+                <button type="submit">Login</button>
+            </form>
         </div>
     );
 }
