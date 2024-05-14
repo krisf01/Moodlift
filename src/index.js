@@ -1,25 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { DataFetcher, JournalingPage, MoodTrackPage, ResourcePage } from './DataFetcher'; // Use named imports here
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { DataFetcher, JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, FriendsPostPage } from './DataFetcher';
+import SetFavicon from './SetFavicon';  // Import the SetFavicon component
 import './app.css';
 
-//import { initializeApp } from "firebase/app";
-//import { getAnalytics } from "firebase/analytics";
-
 ReactDOM.render(
-    <React.StrictMode>
-      <Router>
-        <Routes>
-          <Route path="/" element={<DataFetcher />} />
-          <Route path="/journaling" element={<JournalingPage />} />
-          <Route path="/mood-tracker" element={<MoodTrackPage />} />
-          <Route path="/resources" element={<ResourcePage />} />
-        </Routes>
-      </Router>
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+  <React.StrictMode>
+    <SetFavicon />  
+    <Router>
+      <Routes>
+        <Route path="/" element={<DataFetcher />} />
+        <Route path="/journaling" element={<JournalingPage />} />
+        <Route path="/mood-tracker" element={<MoodTrackPage />} />
+        <Route path="/resources" element={<ResourcePage />} />
+        <Route path="/savedpost" element={<SavedPostPage />} />
+        <Route path="/friendspost" element={<FriendsPostPage />} />
+      </Routes>
+    </Router>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
 // Import the functions you need from the SDKs you need
 
