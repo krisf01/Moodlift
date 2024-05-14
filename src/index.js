@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { DataFetcher, JournalingPage, MoodTrackPage, ResourcePage,SavedPostPage,FriendsPostPage } from './DataFetcher'; // Use named imports here
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { DataFetcher, JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, FriendsPostPage } from './DataFetcher';
+import SetFavicon from './SetFavicon';  // Import the SetFavicon component
 import './app.css';
-
-//import { initializeApp } from "firebase/app";
-//import { getAnalytics } from "firebase/analytics";
 
 ReactDOM.render(
   <React.StrictMode>
+    <SetFavicon />  
     <Router>
       <Routes>
         <Route path="/" element={<DataFetcher />} />
@@ -22,6 +21,7 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
 // Import the functions you need from the SDKs you need
 
 // TODO: Add SDKs for Firebase products that you want to use

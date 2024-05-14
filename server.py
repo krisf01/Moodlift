@@ -1,24 +1,36 @@
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, send_from_directory
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 import openai
+import firebase_admin
+from firebase_admin import credentials, db
+import datetime
 
 load_dotenv()
 
 # Initialize OpenAI client with the API key
 client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
+cred = credentials.Certificate("/Users/kfout/MoodLift/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
+firebase_admin.initialize_app(cred,{
+        'databaseURL' : 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
+})
+
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/public/')
-def home():
-    return "Hello, React frontend! This is Flask speaking."
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/api/data')
 def get_data():
-    data = {"message": "Here's some data from the Flask server", "items": [1, 2, 3, 4, 5]}
+    data = {
+        "message": "Here's some data from the Flask server",
+        "items": [1, 2, 3, 4, 5]
+    }
     return jsonify(data)
 
 @app.route('/chat', methods=['POST'])
@@ -62,6 +74,25 @@ def generate_prompt():
     except Exception as e:
         print(e)  # Logging the exception for debugging purposes
         return jsonify({"error": str(e)}), 500
+
+@app.route('/api/post_data', methods=['POST'])
+def handle_buttons():
+    if not request.is_json:
+        print("No JSON received")
+        abort(400, description="Missing JSON in request")
+
+    content = request.json.get('action')
+    print("Received content:", content)
+
+    if content == "Post":
+        ref = db.reference('server/saving-data/fireblog')
+        result = ref.push({
+            'content': 'Post button clicked',
+            'timestamp': datetime.datetime.now().isoformat()
+        })
+        return jsonify({"response": "Post button clicked, data written to Firebase", "firebase_key": result.key})
+    else:
+        return jsonify({"response": "Unknown Action"}), 400
 
 
 if __name__ == '__main__':

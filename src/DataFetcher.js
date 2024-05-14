@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'; // This comes from react-router, which 
 import './app.css';
 import logoSVG from './images/logo.svg'; // Import the SVG file
 import homeIcon from './images/home.svg';
+import { useNavigate } from 'react-router-dom';
 
 export function DataFetcher() {
     const [data, setData] = useState(null);
@@ -70,6 +71,33 @@ export function JournalingPage() {
         return new Date().toLocaleDateString('en-US', options);
     };
 
+     //Do a post to to the database when Post button is clicked
+     const handlePostToServer = async () => {
+        // const postData = {
+        //     journalEntry: journalEntry,
+        //     journalPrompt: journalprompt,
+        //     timestamp: new Date().toISOString()
+        // };
+        const postData = {
+            action: "Post",
+        };
+
+        try {
+            const response = await fetch('http://localhost:1234/api/post_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData)
+            });
+            const data = await response.json();
+            console.log(data);
+            // Optionally handle navigation or state updates based on the response
+        } catch (error) {
+            console.error('Error posting data:', error);
+        }
+    };
+
     return (
         <div className="app-container">
             <div className="purple-rectangle">
@@ -87,6 +115,11 @@ export function JournalingPage() {
                 ></input>
             </div>
             <div>
+                <button className='borderbutton'>
+                    layout
+                </button>
+            </div>
+            <div>
                 <textarea className='journalinput'
                     value={journalEntry}
                     onChange={handleJournalInputChange}
@@ -95,12 +128,15 @@ export function JournalingPage() {
                     cols={70}
                 ></textarea>
             </div>
-            <div>
-                <Link to="/savedpost" className='savedbutton'>Saved</Link>
-                <Link to="/friendspost" className="postbutton">Post</Link>
-            </div>
+
+        <div>
+            <Link to="/savedpost" className='savedbutton'>Saved</Link>
         </div>
-    );
+        <div>
+            <button className='postbutton' onClick={handlePostToServer}>Post</button>
+    </div>
+    </div>
+);
 }
 
 
@@ -185,27 +221,36 @@ export function SavedPostPage(){
     );
 }
 
-export function FriendsPostPage(){
-    
-    //const[friendsjournalinput,setsavedsavedfriendsprompt] = useState("Journal Prompt");
+export function FriendsPostPage() {
+    const navigate = useNavigate();
 
-    //const handleFriendsPostChange =(e) => {
-        //setsavedfriendsprompt(e.target.value);
-    //};
+    // Function to handle the post operation
+    const handlePost = async () => {
+        const postData = {
+            content: 'Hardcoded content here', // You can replace this with dynamic content if needed
+            timestamp: new Date().toISOString()
+        };
 
-    return(
-        <div className='app-container'>
-            <div className='purple-rectangle'>
-            <Link to="/" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
-                </Link>
-            </div>
-        <div>
-            <button className='borderbutton3'> </button>
-        </div>
-        </div>
-    );
+        try {
+            const response = await fetch('http://localhost:1234/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData)
+            });
+            const data = await response.json();
+            console.log(data);
+            // Navigate to another route upon success or handle success scenario
+            navigate('/some-success-route');
+        } catch (error) {
+            console.error('Error posting data:', error);
+            // Optionally handle the error scenario, e.g., show an error message
+        }
+    };
+
 }
+
 
 //mood tracker page
 export function MoodTrackPage() {
@@ -216,19 +261,21 @@ export function MoodTrackPage() {
         setMoodlEntry(e.target.value);
     };
 
+    const getCurrentDate = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+
     return (
-        <div className="app-container">
-            <h1>Mood Tracker</h1>
-            {/* Textarea for journaling */}
-            <div className="input-box">
-                <textarea
-                    value={moodEntry}
-                    onChange={handleMoodInputChange}
-                    placeholder="Write your mood here..."
-                    aria-label="Happy, Sad, Excited"
-                    rows="6" 
-                ></textarea>
+        <div className="mood-track-container">
+            <div className="purple-rectangle">
+                <Link to="/" className="home-link"> {/* Link to the home page */}
+                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                </Link>
+                <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
+                <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
             </div>
+
         </div>
     );
 }
@@ -238,8 +285,20 @@ export function ResourcePage() {
     //this a temporary place holder url
     const [resourceUrl] = useState("https://https://www.nimh.nih.gov/health/find-help.com");
 
+    const getCurrentDate = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+
     return (
         <div className="app-container" style={{textAlign: 'center'}}>
+            <div className="purple-rectangle">
+                <Link to="/" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
+                </Link>
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
+            </div>
             <h1>Resources</h1>
             <div className="resourcelinks">
                 <p>Visit the resource below:</p>
@@ -248,6 +307,50 @@ export function ResourcePage() {
                 </a>
             </div>
             <p>This is just a test more appropiate linkes will be added later.</p>
+        </div>
+    );
+}
+
+function LoginPage() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await fetch('http://localhost:1234/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP status ${response.status}`);
+            }
+            
+            const data = await response.json();
+            if (data.api_key) {
+                sessionStorage.setItem('api_key', data.api_key);
+                window.location.href = '/'; // Redirect to the main page
+            } else {
+                alert('Login failed: ' + data.error);
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            alert('Login failed: Please check console for more details.');
+        }
+    };
+
+    return (
+        <div className="login-container">
+            <h1>Login</h1>
+            <form onSubmit={handleSubmit}>
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+                <button type="submit">Login</button>
+            </form>
         </div>
     );
 }
