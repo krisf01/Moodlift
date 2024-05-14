@@ -174,17 +174,20 @@ z-index: -1; /* Ensures it stays in the background */
   left: 40px;
   top: 200px;
 }
+
 .journalinput {
   position: absolute;
-  left: 60px;
-  top: 215px;
+  left: 140px;  /* Adjust this as needed */
+  top: 215px;  /* Adjust this as needed */
   background-color: #ffffff;
-  border: transparent;
-  border-radius: 10px;
+  border: 2px solid #5d1451; /* Example: 2px solid border in dark purple */
+  border-radius: 10px; /* Keeps the rounded corners */
   outline: none;
-  
+  width: 80%; /* Adjust width as needed */
+  padding: 10px; /* Adds some padding inside the text area */
 }
-.savedbutton{
+
+.savedbutton {
   background-color: #5d1451; /* Dark purple background */
   color: white; /* White text */
   padding: 33px 18px; /* Padding inside the buttons */
@@ -193,11 +196,12 @@ z-index: -1; /* Ensures it stays in the background */
   transition: background-color 0.3s; /* Smooth background color transition on hover */
   font-size: 18px; /* Button text size */
   border: none; /* No border */
-  cursor: pointer; 
+  cursor: pointer;
   position: absolute;
   bottom: 70px;
-  left: 315px;
+  left: 85%; /* Adjust this to move left or right */
 }
+
 .savedbutton:hover{
   background-color: #ADE1FA;
 }
@@ -220,18 +224,20 @@ z-index: -1; /* Ensures it stays in the background */
 }
 
 .journalpromptinput {
-  background-color: #74ABCA; /* Dark purple background */
+  background-color: #74ABCA; /* Light blue background */
   color: white; /* White text */
-  padding: 28px 200px; /* Padding inside the buttons */
+  padding: 28px 20px; /* Adjusted padding for more uniform text inside */
   text-decoration: none; /* Remove the underline from links */
   transition: background-color 0.3s; /* Smooth background color transition on hover */
-  font-size: 18px; /* Button text size */
+  font-size: 12px; /* Button text size */
   border: none; /* No border */
-  cursor: pointer; 
+  cursor: pointer;
   position: absolute;
   top: 90px;
-  left: 60px;
-} /*end journaling page */
+  left: 10%; /* Left margin of 10% */
+  right: 10%; /* Right margin of 10% */
+  width: 80%; /* Width adjusted to fill the space between margins */
+}
 
 /*moodlift saved post page*/
 .borderbutton1{
