@@ -277,7 +277,9 @@ export function MoodTrackPage() {
             </div>
             <div className="blue-background">
             <div className="moodtracker-section">
+                <div className="moodtracker-rectangle">
 
+                </div>
             </div>
             </div>
         </div>
