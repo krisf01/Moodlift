@@ -275,7 +275,11 @@ export function MoodTrackPage() {
                 <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
                 <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
             </div>
+            <div className="blue-background">
+            <div className="moodtracker-section">
 
+            </div>
+            </div>
         </div>
     );
 }

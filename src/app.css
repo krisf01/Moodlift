@@ -341,3 +341,45 @@ z-index: -1; /* Ensures it stays in the background */
   height: 100vh;
   position: relative;
 }
+
+/*chat GPT styling on journaling page*/
+.chat-section {
+  margin-bottom: 10px; /* Adjust as needed */
+}
+
+.chat-response {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f4f4f4;  /* Light gray background for the response area */
+  border-radius: 5px;  /* Optional: rounded corners for the response area */
+}
+
+.journal-section {
+  margin-top: 20px;
+}
+
+/*blue background for moodtracker: ask if there's a way to incorporate the root design instead of using this code*/
+.blue-background {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1; /* Behind content */
+  /*top: 1%; /* Align blue background to the top of the page */
+  /* bottom: 1%; /* Align blue background with bottom of the page */
+  /* left: 1%; /* Align the blue background to the left of the page */
+  /* right: 2%; /*Align the blue background with right of the page
+  width: 100%; */
+  /* height: 50px; /* Height of the rectangle */
+  background-color: #67a6e5; /* Purple color */
+}
+
+.moodtracker-section {
+  margin: auto; 
+  top: 150; /* Align the rectangle to the top of the page */
+  width: 75%;
+  height: 750px; /* Height of the rectangle */
+  background-color: #f1e9f0; /* Purple color */
+}
