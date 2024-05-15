@@ -4,18 +4,17 @@ import os
 from dotenv import load_dotenv
 import openai
 import firebase_admin
-from firebase_admin import credentials, auth, db
+from firebase_admin import credentials, db
 import datetime
-import uuid
 
 load_dotenv()
 
 # Initialize OpenAI client with the API key
 client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-cred = credentials.Certificate("/Users/kfout/MoodLift/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
+cred = credentials.Certificate("/Users/karthisankar/Desktop/115a/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
+firebase_admin.initialize_app(cred,{
+        'databaseURL' : 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
 })
 
 app = Flask(__name__)
@@ -95,55 +94,6 @@ def handle_buttons():
     else:
         return jsonify({"response": "Unknown Action"}), 400
 
-@app.route('/register', methods=['POST'])
-def register():
-    try:
-        email = request.json.get('email')
-        password = request.json.get('password')
-        if not email or not password:
-            return jsonify({"error": "Email and password are required"}), 400
-        
-        user = auth.create_user(
-            email=email,
-            password=password
-        )
-
-        # Generate a unique API key for the user
-        api_key = str(uuid.uuid4())
-
-        # Store the API key in the Realtime Database
-        db.reference(f'users/{user.uid}').set({
-            'email': email,
-            'api_key': api_key
-        })
-
-        return jsonify({"message": "User created successfully", "uid": user.uid, "api_key": api_key}), 201
-    except Exception as e:
-        print("Error during registration:", e)
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/login', methods=['POST'])
-def login():
-    try:
-        email = request.json.get('email')
-        password = request.json.get('password')
-        if not email or not password:
-            return jsonify({"error": "Email and password are required"}), 400
-        
-        # Verify user credentials
-        user = auth.get_user_by_email(email)
-        if not user:
-            return jsonify({"error": "Invalid email or password"}), 401
-
-        # Retrieve the API key from the Realtime Database
-        api_key = db.reference(f'users/{user.uid}/api_key').get()
-        if not api_key:
-            return jsonify({"error": "API key not found"}), 500
-
-        return jsonify({"message": "Login successful", "uid": user.uid, "api_key": api_key}), 200
-    except Exception as e:
-        print("Error during login:", e)
-        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=1234)
