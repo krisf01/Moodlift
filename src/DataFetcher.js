@@ -45,6 +45,44 @@ export function NavigationBar() {
     );
 }
 
+function Sidebar(){
+
+    return (
+    <div className='sidebar'> 
+        <ul className='sidebarlist'> 
+            {SidebarData.map((val,key)=> {
+            return(
+            <li 
+            key={key} 
+            className="row"
+            id={window.location.pathname == val.link ? "active":""}
+            onClick={()=>{window.location.href = val.link}}> 
+            <div>
+                {val.title}
+            </div> 
+            </li>
+            );
+            })}
+        </ul>
+    </div>
+    );
+}
+
+export const SidebarData = [
+    {
+        title: "view public posts",
+        link: "/friendspost",
+    },
+    {
+        title: "view private entries",
+        link: "/savedpost",
+    },
+    {
+        title: "new entry",
+        link: "/journaling",
+    },
+]
+
 //journaling page
 export function JournalingPage() {
     const [journalEntry, setJournalEntry] = useState("");
@@ -135,6 +173,9 @@ export function JournalingPage() {
         <div>
             <button className='postbutton' onClick={handlePostToServer}>Post</button>
     </div>
+    <div>
+        <Sidebar />
+    </div>
     </div>
 );
 }
@@ -209,6 +250,7 @@ export function SavedPostPage(){
                     readOnly={true}
                 ></input>
             </div>
+            <div> <Sidebar /> </div>
            </div>
                 <textarea className="journalinput2"
                     value={moodliftjournalinput1}
@@ -248,7 +290,9 @@ export function FriendsPostPage() {
             // Optionally handle the error scenario, e.g., show an error message
         }
     };
-
+    return(
+        <div> <Sidebar /></div>
+    );
 }
 
 
