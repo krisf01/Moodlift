@@ -378,8 +378,23 @@ z-index: -1; /* Ensures it stays in the background */
 
 .moodtracker-section {
   margin: auto; 
-  top: 150; /* Align the rectangle to the top of the page */
+  margin-top: 5%;
+  top: 250; /* Align the rectangle to the top of the page */
   width: 75%;
-  height: 750px; /* Height of the rectangle */
-  background-color: #f1e9f0; /* Purple color */
+  height: 685px; /* Height of the rectangle */
+  background-color: #f1e9f0; /* White color */
+  border-radius: 25px
+}
+
+.moodtracker-rectangle {
+  margin: auto;
+  padding-top: 5%;
+  top: 250;
+  left: 200;
+  right: 200;
+  bottom: 200;
+  height: 100px;
+  width: 75%;
+  background-color: rgb(193, 190, 190);
+
 }
