@@ -266,6 +266,8 @@ export function MoodTrackPage() {
         return new Date().toLocaleDateString('en-US', options);
     };
 
+    const fillButton = () => {}
+
     return (
         <div className="mood-track-container">
             <div className="purple-rectangle">
@@ -278,7 +280,10 @@ export function MoodTrackPage() {
             <div className="blue-background">
             <div className="moodtracker-section">
                 <div className="moodtracker-rectangle">
+                    <div className = "moodtracker-circle">
+                        <button className="sadcirclebutton"></button>
 
+                    </div>
                 </div>
             </div>
             </div>
