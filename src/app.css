@@ -385,16 +385,30 @@ z-index: -1; /* Ensures it stays in the background */
   background-color: #f1e9f0; /* White color */
   border-radius: 25px
 }
-
+/* grey rectangle with background to track moods */
 .moodtracker-rectangle {
   margin: auto;
-  padding-top: 5%;
+  padding-top: 10px;
   top: 250;
   left: 200;
   right: 200;
-  bottom: 200;
+  bottom: 300;
   height: 100px;
   width: 75%;
   background-color: rgb(193, 190, 190);
+}
 
+.sadcirclebutton {
+  height: 80px;
+  width: 80px;
+  top: 325;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  border: solid 2px #67a6e5;
+  transition: background-color 0.2s;
+
+}
+.sadcirclebutton:hover {
+  background-color: #67a6e5;
 }
