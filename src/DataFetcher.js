@@ -85,6 +85,7 @@ export const SidebarData = [
 
 //journaling page
 export function JournalingPage() {
+
     const [journalEntry, setJournalEntry] = useState("");
     const [journalPrompt, setJournalPrompt] = useState("Click to generate a journal prompt");
 
@@ -108,6 +109,9 @@ export function JournalingPage() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('en-US', options);
     };
+
+    //toggle button handler 
+    const [toggled, setToggled] = useState(false);
 
      //Do a post to to the database when Post button is clicked
      const handlePostToServer = async () => {
@@ -263,13 +267,54 @@ export function SavedPostPage(){
     );
 }
 
+//updated friends page 
 export function FriendsPostPage() {
     const navigate = useNavigate();
+
+    // States for journal prompts, entries, and names
+    const [journalPrompt, setJournalPrompt] = useState("Journal Prompt");
+    const [journalEntry, setJournalEntry] = useState("This is my journal entry default text");
+    const [journalPrompt1, setJournalPrompt1] = useState("Journal Prompt");
+    const [journalEntry1, setJournalEntry1] = useState("This is another journal entry default text");
+    const [name, setName] = useState("");
+    const [name1, setName1] = useState("");
+
+    // Handlers for changes
+    const handleJournalPromptChange = (e) => {
+        setJournalPrompt(e.target.value);
+    };
+
+    const handleJournalEntryChange = (e) => {
+        setJournalEntry(e.target.value);
+    };
+
+    const handleJournalPromptChange1 = (e) => {
+        setJournalPrompt1(e.target.value);
+    };
+
+    const handleJournalEntryChange1 = (e) => {
+        setJournalEntry1(e.target.value);
+    };
+
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    };
+
+    const handleNameChange1 = (e) => {
+        setName1(e.target.value);
+    };
+
+    // Function to get the current date in the format "Month Day, Year"
+    const getCurrentDate = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
 
     // Function to handle the post operation
     const handlePost = async () => {
         const postData = {
-            content: 'Hardcoded content here', // You can replace this with dynamic content if needed
+            content: journalEntry, // Use dynamic content from journal entry
+            name: name, // Include the name with the post data
             timestamp: new Date().toISOString()
         };
 
@@ -283,18 +328,75 @@ export function FriendsPostPage() {
             });
             const data = await response.json();
             console.log(data);
-            // Navigate to another route upon success or handle success scenario
             navigate('/some-success-route');
         } catch (error) {
             console.error('Error posting data:', error);
-            // Optionally handle the error scenario, e.g., show an error message
         }
     };
-    return(
-        <div> <Sidebar /></div>
+
+    return (
+        <div className='app-container friends-post-page-container'>
+            <div className='purple-rectangle'>
+                <div style={{ position: 'absolute', top: '30px', left: '20px' }}>
+                    <h1 style={{ color: 'black' }}>Friends</h1>
+                </div>
+                <Link to="/" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
+                </Link>
+            </div>
+            <div>
+                <button onClick={handlePost}>Post Data</button>
+            </div>
+            <div>
+                <input className='journalPrompt friends-journal-prompt-input'
+                    value={journalPrompt}
+                    onChange={handleJournalPromptChange}
+                    readOnly={true}
+                />
+            </div>
+            <div>
+                <textarea className='journalEntry friends-journal-input'
+                    value={journalEntry}
+                    onChange={handleJournalEntryChange}
+                    readOnly={true}
+                    rows={15}
+                    cols={62}
+                />
+                <p className="date-text">{getCurrentDate()}</p>
+                <input className='nameInput friends-name-input'
+                    placeholder='Name:'
+                    value={name}
+                    onChange={handleNameChange}
+                />
+            </div>
+            <div>
+                <input className='journalPrompt1 friends-journal-prompt-input'
+                    value={journalPrompt1}
+                    onChange={handleJournalPromptChange1}
+                    readOnly={true}
+                />
+            </div>
+            <div>
+                <textarea className="journalEntry1 friends-journal-input"
+                    value={journalEntry1}
+                    onChange={handleJournalEntryChange1}
+                    readOnly={true}
+                    rows={15}
+                    cols={62}
+                />
+                <input className='nameInput1 friends-name-input'
+                    placeholder='Name:'
+                    value={name1}
+                    onChange={handleNameChange1}
+                />
+            </div>
+            <div> {/* Placeholder for Sidebar component */}
+                <Sidebar />
+            </div>
+        </div>
     );
 }
-
+//close friends pgae
 
 //mood tracker page
 export function MoodTrackPage() {
