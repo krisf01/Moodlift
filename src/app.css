@@ -1,20 +1,4 @@
-/* App.css */
-
-/* title color and positioning*/
-.title h1 {
-  color: #2c3e50;
-  margin-top: 20px; /* Smaller value to move closer to the top */
-  margin-bottom: 20px;
-}
-
-/*logo width and height, plus space inbetween the buttons and logo (homepage)*/
-.logo img {
-  max-width: 100px; /* Set the maximum width you desire */
-  height: auto; /* Keep the aspect ratio */
-  margin-bottom: 50px; /* Space between the logo and buttons */
-}
-
-/*text style*/
+/* General Styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -25,29 +9,42 @@ body, html {
 #root {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically */
-  align-items: center; /* Center content horizontally */
-  height: 100vh; /* Full viewport height */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   position: relative;
-  overflow: hidden; /* Hide overflow */
+  overflow: hidden;
 }
 
-/*home page design*/
 #root::before {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #67a6e5; /* Light blue area */
-  z-index: -1; /* Behind content */
-  border: solid 10px #5d1451; /* Thicker dark purple border */
-  border-radius: 50px; /* Curved edges */
-  box-shadow: inset 0 0 50px #5d1451; /* Inner shadow for depth */
+  top: 1%;
+  bottom: 1%;
+  left: 0.5%;
+  right: 0.5%;
+  background-color: #67a6e5;
+  border: solid 10px #5d1451;
+  border-radius: 50px;
+  box-shadow: 0 0 0 100vmax #5d1451;
+  z-index: -1;
 }
 
-/*this is connected to journaling page, mood page, resoucres page*/
+/* Title Styles */
+.title h1 {
+  color: #2c3e50;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Logo Styles */
+.logo img {
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 50px;
+}
+
+/* Home Page Design */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -55,116 +52,77 @@ body, html {
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: #ffffff; /* Set the background color to white */
-  z-index: 1; /* Above the background */
+  background-color: #ffffff;
+  z-index: 1;
 }
 
-/*purple rectangle style at the top of the journaling page*/
-.purple-rectangle {
-  position: absolute; /* Position the rectangle relative to the nearest positioned ancestor */
-  top: 0; /* Align the rectangle to the top of the page */
-  left: 0; /* Align the rectangle to the left of the page */
-  width: 100%;
-  height: 50px; /* Height of the rectangle */
-  background-color: #5d1451; /* Purple color */
-}
-
-/*live date on the journaling page*/
-.date-text {
-  position: absolute;
-  top: 50%; /* Align the text vertically centered */
-  right: 20px; /* Align the text to the right */
-  transform: translateY(-50%); /* Center the text vertically */
-  color: white; /* Text color */
-  margin: 0; /* Remove default margin */
-  font-size: 16px; /* Font size */
-  font-weight: bold; /* Bold font */
-}
-
-/*home icon on the journal page*/
-.home-icon {
-  position: absolute;
-  top: 50%; /* Align the icon vertically centered */
-  left: 20px; /* Align the icon to the left */
-  transform: translateY(-50%); /* Center the icon vertically */
-  width: 20px; /* Set the width of the icon */
-  height: auto; /* Maintain aspect ratio */
-  cursor: pointer; /* Set cursor to indicate it's clickable */
-}
-
-/* I think this is the MoodLift title on the journaling page */
-.moodlift-text {
-  position: absolute;
-  top: 50%; /* Align the text vertically centered */
-  left: 50%; /* Align the text horizontally centered */
-  transform: translate(-50%, -50%); /* Center the text both horizontally and vertically */
-  color: white; /* Text color */
-  font-size: 24px; /* Font size */
-  font-weight: bold; /* Bold font */
-}
-
-/*this might be a duplicate idk*/
-#root::before {
-content: '';
-position: absolute;
-top: 1%; /* Adjust for thinner border */
-bottom: 1%; /* Adjust for thinner border */
-left: 0.5%; /* Adjust for thinner border */
-right: 0.5%; /* Adjust for thinner border */
-background-color: #67a6e5; /* Light blue area */
-border: solid 10px #5d1451; /* Thinner dark purple border */
-border-radius: 50px; /* Curved edges - adjust the radius to match your design */
-box-shadow: 0 0 0 100vmax #5d1451; /* Creates the dark purple background */
-z-index: -1; /* Ensures it stays in the background */
-}
-
-/* input text box */
-.input-box input {
-  width: 100%; /* Use a percentage to make it responsive, or set a fixed width */
-  height: 100px; /* Set a fixed height */
-  padding: 10px; /* Add some padding inside the input */
-  margin-top: 20px; /* Space between data and input box */
-  border: 1px solid #ccc; /* A light gray border */
-  box-shadow: inset 0 0 10px #000000; /* Inner shadow for depth */
-  font-size: 1em; /* Text size */
-  box-sizing: border-box; /* Include padding and border in the input's width and height */
-}
-
-/*size of input textbox*/
-.input-box {
-  width: 80%; /* Set the width of the container, adjust as needed */
-  margin: 20px auto; /* Center the container and add margin */
-}
-
-/*this helps you click a button and go onto the next page*/
 .button-nav-container {
   position: relative;
-  top: -40px; /* Moves up the container closer to the logo */
+  top: -40px;
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 20px; /* Reduce space above the buttons if needed */
+  margin-top: 20px;
 }
 
 .nav-button {
-  background-color: #5d1451; /* Dark purple background */
-  color: white; /* White text */
-  padding: 10px 20px; /* Padding inside the buttons */
-  text-decoration: none; /* Remove the underline from links */
-  border-radius: 25px; /* Rounded corners for buttons */
-  transition: background-color 0.3s; /* Smooth background color transition on hover */
-  font-size: 18px; /* Button text size */
-  border: none; /* No border */
-  cursor: pointer; /* Cursor indicates it's clickable */
+  background-color: #5d1451;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: background-color 0.3s;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
 }
 
-/* if you hove over the button is makes it look cooler*/
 .nav-button:hover {
-  background-color: #774172; /* Slightly lighter purple for hover effect */
+  background-color: #774172;
 }
 
-/*journaling page */
-.borderbutton{
+/* Journaling Page Styles */
+.purple-rectangle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #5d1451;
+}
+
+.date-text {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  color: white;
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.home-icon {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: auto;
+  cursor: pointer;
+}
+
+.moodlift-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.borderbutton {
   background-color: #774172;
   width: 620px;
   height: 280px;
@@ -177,151 +135,151 @@ z-index: -1; /* Ensures it stays in the background */
 
 .journalinput {
   position: absolute;
-  left: 140px;  /* Adjust this as needed */
-  top: 215px;  /* Adjust this as needed */
+  left: 140px;
+  top: 215px;
   background-color: #ffffff;
-  border: 2px solid #5d1451; /* Example: 2px solid border in dark purple */
-  border-radius: 10px; /* Keeps the rounded corners */
+  border: 2px solid #5d1451;
+  border-radius: 10px;
   outline: none;
-  width: 80%; /* Adjust width as needed */
-  padding: 10px; /* Adds some padding inside the text area */
+  width: 80%;
+  padding: 10px;
+}
+
+.savedbutton, .postbutton {
+  background-color: #5d1451;
+  color: white;
+  padding: 33px;
+  text-decoration: none;
+  border-radius: 100px;
+  transition: background-color 0.3s;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 70px;
+}
+
+.savedbutton:hover, .postbutton:hover {
+  background-color: #ADE1FA;
 }
 
 .savedbutton {
-  background-color: #5d1451; /* Dark purple background */
-  color: white; /* White text */
-  padding: 33px 18px; /* Padding inside the buttons */
-  text-decoration: none; /* Remove the underline from links */
-  border-radius: 100px; /* Rounded corners for buttons */
-  transition: background-color 0.3s; /* Smooth background color transition on hover */
-  font-size: 18px; /* Button text size */
-  border: none; /* No border */
-  cursor: pointer;
-  position: absolute;
-  bottom: 70px;
-  left: 85%; /* Adjust this to move left or right */
+  left: 85%;
 }
 
-.savedbutton:hover{
-  background-color: #ADE1FA;
-}
-.postbutton{
-  background-color: #5d1451; /* Dark purple background */
-  color: white; /* White text */
-  padding: 33px 25px; /* Padding inside the buttons */
-  text-decoration: none; /* Remove the underline from links */
-  border-radius: 100px; /* Rounded corners for buttons */
-  transition: background-color 0.3s; /* Smooth background color transition on hover */
-  font-size: 18px; /* Button text size */
-  border: none; /* No border */
-  cursor: pointer; 
-  position: absolute;
-  bottom: 70px;
+.postbutton {
   left: 100px;
-}
-.postbutton:hover{
-  background-color: #ADE1FA;
 }
 
 .journalpromptinput {
-  background-color: #74ABCA; /* Light blue background */
-  color: white; /* White text */
-  padding: 28px 20px; /* Adjusted padding for more uniform text inside */
-  text-decoration: none; /* Remove the underline from links */
-  transition: background-color 0.3s; /* Smooth background color transition on hover */
-  font-size: 12px; /* Button text size */
-  border: none; /* No border */
+  background-color: #74ABCA;
+  color: white;
+  padding: 28px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  font-size: 12px;
+  border: none;
   cursor: pointer;
   position: absolute;
   top: 90px;
-  left: 10%; /* Left margin of 10% */
-  right: 10%; /* Right margin of 10% */
-  width: 80%; /* Width adjusted to fill the space between margins */
+  left: 10%;
+  right: 10%;
+  width: 80%;
 }
 
-/*moodlift saved post page*/
-.borderbutton1{
-    background-color: #774172;
-    width: 600px;
-    height: 400px;
-    border-radius: 25px;
-    border: none;
-    position: absolute;
-    left: 40px;
-    top: 130px;
-  }
-  .borderbutton2{
-    background-color: #774172;
-    width: 600px;
-    height: 400px;
-    border-radius: 25px;
-    border: none;
-    position: absolute;
-    right: 130px;
-    top: 130px;
-  }
-  
-.moodliftprompt {
-  background-color: #74ABCA; /* Dark purple background */
-  border-radius: 30px;
-  color: white; /* White text */
-  padding: 22px 170px; /* Padding inside the buttons */
-  text-decoration: none; /* Remove the underline from links */
-  transition: background-color 0.3s; /* Smooth background color transition on hover */
-  font-size: 18px; /* Button text size */
-  border: none; /* No border */
-  cursor: pointer; 
-  position: absolute;
-  top: 150px;
-  left: 75px;
+.chat-section {
+  margin-bottom: 10px;
 }
-.moodliftprompt1 {
-  background-color: #74ABCA; /* Dark purple background */
-  border-radius: 30px;
-  color: white; /* White text */
-  padding: 22px 170px; /* Padding inside the buttons */
-  text-decoration: none; /* Remove the underline from links */
-  transition: background-color 0.3s; /* Smooth background color transition on hover */
-  font-size: 18px; /* Button text size */
-  border: none; /* No border */
-  cursor: pointer; 
-  position: absolute;
-  top: 150px;
-  right: 160px;
-}
-.journalinput1 {
-  position: absolute;
-  left: 80px;
-  top: 235px;
-  background-color: #ffffff;
-  border: transparent;
-  border-radius: 10px;
-  outline: none;
-}
-.journalinput2 {
-  position: absolute;
-  right: 170px;
-  top: 235px;
-  background-color: #ffffff;
-  border: transparent;
-  border-radius: 10px;
-  outline: none;
-}
-.date-text1 {
-  position: absolute;
-  left: 90px; /* Align the text to the right */
-  bottom: 150px;
-  transform: translateY(-50%); /* Center the text vertically */
-  color: white; /* Text color */
-  margin: 0; /* Remove default margin */
-  font-size: 18px; /* Font size */
-  font-weight: bold; /* Bold font */
-}
-/* end of saved post page*/
 
+.chat-response {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+}
 
-/* beginning friends post page*/
-.borderbutton3{
+.journal-section {
+  margin-top: 20px;
+}
+
+/* Mood Tracker Page */
+.blue-background {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #67a6e5;
+}
+
+.moodtracker-section {
+  margin: auto;
+  margin-top: 5%;
+  width: 75%;
+  height: 685px;
+  background-color: #f1e9f0;
+  border-radius: 25px;
+  padding: 20px;
+  position: relative;
+}
+
+.moodtracker-rectangle {
+  margin: auto;
+  padding-top: 5%;
+  height: 100px;
+  width: 75%;
+  background-color: rgb(193, 190, 190);
+  border-radius: 25px;
+}
+
+/* Buttons for Mood Tracker Page */
+.circle-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid;
+  background-color: white;
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.circle-button.red {
+  border-color: red;
+}
+
+.circle-button.green {
+  border-color: green;
+}
+
+.circle-button.blue {
+  border-color: blue;
+}
+
+.circle-button.yellow {
+  border-color: yellow;
+}
+
+.circle-button.red.clicked {
+  background-color: red;
+}
+
+.circle-button.green.clicked {
+  background-color: green;
+}
+
+.circle-button.blue.clicked {
+  background-color: blue;
+}
+
+.circle-button.yellow.clicked {
+  background-color: yellow;
+}
+
+/* MoodLift Saved Post Page */
+.borderbutton1 {
   background-color: #774172;
   width: 600px;
   height: 400px;
@@ -332,69 +290,14 @@ z-index: -1; /* Ensures it stays in the background */
   top: 130px;
 }
 
-/*end friends post page*/
-.main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* Adjust if the logo needs to move up */
-  height: 100vh;
-  position: relative;
-}
-
-/*chat GPT styling on journaling page*/
-.chat-section {
-  margin-bottom: 10px; /* Adjust as needed */
-}
-
-.chat-response {
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #f4f4f4;  /* Light gray background for the response area */
-  border-radius: 5px;  /* Optional: rounded corners for the response area */
-}
-
-.journal-section {
-  margin-top: 20px;
-}
-
-/*blue background for moodtracker: ask if there's a way to incorporate the root design instead of using this code*/
-.blue-background {
-  content: '';
+.borderbutton2 {
+  background-color: #774172;
+  width: 600px;
+  height: 400px;
+  border-radius: 25px;
+  border: none;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: -1; /* Behind content */
-  /*top: 1%; /* Align blue background to the top of the page */
-  /* bottom: 1%; /* Align blue background with bottom of the page */
-  /* left: 1%; /* Align the blue background to the left of the page */
-  /* right: 2%; /*Align the blue background with right of the page
-  width: 100%; */
-  /* height: 50px; /* Height of the rectangle */
-  background-color: #67a6e5; /* Purple color */
+  right: 130px;
+  top: 130px;
 }
 
-.moodtracker-section {
-  margin: auto; 
-  margin-top: 5%;
-  top: 250; /* Align the rectangle to the top of the page */
-  width: 75%;
-  height: 685px; /* Height of the rectangle */
-  background-color: #f1e9f0; /* White color */
-  border-radius: 25px
-}
-
-.moodtracker-rectangle {
-  margin: auto;
-  padding-top: 5%;
-  top: 250;
-  left: 200;
-  right: 200;
-  bottom: 200;
-  height: 100px;
-  width: 75%;
-  background-color: rgb(193, 190, 190);
-
-}

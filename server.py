@@ -12,7 +12,7 @@ load_dotenv()
 # Initialize OpenAI client with the API key
 client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-cred = credentials.Certificate("/Users/kfout/MoodLift/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
+cred = credentials.Certificate("/Users/sriharshamaddala/MoodLift Local/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
 firebase_admin.initialize_app(cred,{
         'databaseURL' : 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
 })
@@ -20,10 +20,10 @@ firebase_admin.initialize_app(cred,{
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+# @app.route('/favicon.ico')
+# def favicon():
+#     return send_from_directory(os.path.join(app.root_path, 'static'),
+#                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/api/data')
 def get_data():

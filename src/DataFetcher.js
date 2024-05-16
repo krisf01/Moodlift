@@ -254,11 +254,11 @@ export function FriendsPostPage() {
 
 //mood tracker page
 export function MoodTrackPage() {
-    const [moodEntry, setMoodlEntry] = useState(""); // State to store the journal entry text
+    const [moodEntry, setMoodEntry] = useState(""); // State to store the journal entry text
 
     // Handler for input changes
     const handleMoodInputChange = (e) => {
-        setMoodlEntry(e.target.value);
+        setMoodEntry(e.target.value);
     };
 
     const getCurrentDate = () => {
@@ -266,21 +266,29 @@ export function MoodTrackPage() {
         return new Date().toLocaleDateString('en-US', options);
     };
 
+    // Function to toggle button color
+    const toggleColor = (event) => {
+        event.target.classList.toggle('clicked');
+    };
+
     return (
         <div className="mood-track-container">
             <div className="purple-rectangle">
-                <Link to="/" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                <Link to="/" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
-                <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
-                <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
             </div>
             <div className="blue-background">
-            <div className="moodtracker-section">
-                <div className="moodtracker-rectangle">
-
+                <div className="moodtracker-section">
+                    <div className="moodtracker-rectangle">
+                        <div className="circle-button red" onClick={toggleColor}></div>
+                        <div className="circle-button green" onClick={toggleColor}></div>
+                        <div className="circle-button blue" onClick={toggleColor}></div>
+                        <div className="circle-button yellow" onClick={toggleColor}></div>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     );
