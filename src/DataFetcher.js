@@ -129,7 +129,7 @@ export function JournalingPage() {
     return (
         <div className="app-container">
             <div className="purple-rectangle">
-                <Link to="/" className="home-link">
+                <Link to="/home" className="home-link">
                     <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
                 <p className="date-text">{getCurrentDate()}</p>
@@ -203,7 +203,7 @@ export function SavedPostPage(){
     return(
         <div className='app-container'>
             <div className='purple-rectangle'>
-                <Link to="/" className="home-link"> {/* Link to the home page */}
+                <Link to="/home" className="home-link"> {/* Link to the home page */}
                     <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
                 </Link>
             </div>
@@ -297,7 +297,7 @@ export function MoodTrackPage() {
     return (
         <div className="mood-track-container">
             <div className="purple-rectangle">
-                <Link to="/" className="home-link"> {/* Link to the home page */}
+                <Link to="/home" className="home-link"> {/* Link to the home page */}
                     <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
                 </Link>
                 <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
@@ -321,7 +321,7 @@ export function ResourcePage() {
     return (
         <div className="app-container" style={{textAlign: 'center'}}>
             <div className="purple-rectangle">
-                <Link to="/" className="home-link">
+                <Link to="/home" className="home-link">
                     <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
                 <p className="date-text">{getCurrentDate()}</p>
