@@ -96,18 +96,26 @@ def handle_buttons():
         print("No JSON received")
         abort(400, description="Missing JSON in request")
 
-    content = request.json.get('action')
-    print("Received content:", content)
+    data = request.json
+    user_id = data.get('user_id')
+    journal_entry = data.get('journalEntry')
+    journal_prompt = data.get('journalPrompt')
 
-    if content == "Post":
-        ref = db.reference('server/saving-data/fireblog')
+    if not user_id or not journal_entry or not journal_prompt:
+        return jsonify({"error": "User ID, journal entry, and journal prompt are required"}), 400
+
+    try:
+        ref = db.reference(f'users/{user_id}/journal_entries')
         result = ref.push({
-            'content': 'Post button clicked',
+            'entry': journal_entry,
+            'prompt': journal_prompt,
             'timestamp': datetime.datetime.now().isoformat()
         })
-        return jsonify({"response": "Post button clicked, data written to Firebase", "firebase_key": result.key})
-    else:
-        return jsonify({"response": "Unknown Action"}), 400
+        return jsonify({"response": "Journal entry saved successfully", "firebase_key": result.key})
+    except Exception as e:
+        print("Error saving journal entry:", e)
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/register', methods=['POST'])
 def register():

@@ -111,6 +111,7 @@ export function JournalingPage() {
 
     const handlePostToServer = async () => {
         const postData = {
+            user_id: userId,
             journalEntry,
             journalPrompt,
             timestamp: new Date().toISOString()
