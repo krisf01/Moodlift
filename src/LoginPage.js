@@ -1,4 +1,3 @@
-// src/LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './app.css';
@@ -27,6 +26,7 @@ function LoginPage() {
             const data = await response.json();
             alert(`Registration successful! Your API key is: ${data.api_key}`);
             localStorage.setItem('api_key', data.api_key);
+            localStorage.setItem('user_id', data.uid);  // Store user ID
             setIsRegistering(false);
             navigate('/home'); // Navigate to the new home journaling page
         } catch (error) {
@@ -52,6 +52,7 @@ function LoginPage() {
 
             const data = await response.json();
             localStorage.setItem('api_key', data.api_key);
+            localStorage.setItem('user_id', data.uid);  // Store user ID
             navigate('/home'); // Navigate to the new home journaling page
         } catch (error) {
             console.error('Error during login:', error);

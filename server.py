@@ -57,9 +57,15 @@ def chat():
         print(e)  # Add a print here to catch any exceptions for debugging
         return jsonify({"error": str(e)}), 500
     
-@app.route('/generate-prompt', methods=['GET'])
+@app.route('/generate-prompt', methods=['POST'])
 def generate_prompt():
     try:
+        # Get user ID from the request body
+        data = request.json
+        user_id = data.get('user_id')
+        if not user_id:
+            return jsonify({'error': 'User ID is required'}), 400
+
         prompt_completion = client.chat.completions.create(
             messages=[{"role": "system", "content": "Generate a thoughtful journal prompt"}],
             model="gpt-3.5-turbo",
@@ -71,10 +77,18 @@ def generate_prompt():
         else:
             prompt = "Failed to get a valid prompt."
 
+        # Save the prompt to Firebase
+        ref = db.reference(f'users/{user_id}/ai_generated_prompts')
+        new_prompt_ref = ref.push()
+        new_prompt_ref.set({
+            'prompt': prompt,
+            'timestamp': datetime.datetime.now().isoformat()
+        })
+
         return jsonify({"prompt": prompt})
     except Exception as e:
         print(e)  # Logging the exception for debugging purposes
-        return jsonify({"error": str(e)}), 500
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/post_data', methods=['POST'])
 def handle_buttons():

@@ -77,37 +77,43 @@ export function NavigationBar() {
 export function JournalingPage() {
     const [journalEntry, setJournalEntry] = useState("");
     const [journalPrompt, setJournalPrompt] = useState("Click to generate a journal prompt");
+    const [userId, setUserId] = useState("");
 
-    // Handler for journal entry changes
+    useEffect(() => {
+        // Retrieve the user ID from local storage or wherever it is stored
+        const storedUserId = localStorage.getItem('user_id');
+        if (storedUserId) {
+            setUserId(storedUserId);
+        } else {
+            // Handle the case where user ID is not available
+            console.error('User ID not found');
+        }
+    }, []);
+
     const handleJournalInputChange = (e) => {
         setJournalEntry(e.target.value);
     };
 
-    // Function to fetch a random journal prompt from the Flask server
     const fetchJournalPrompt = () => {
-        fetch('http://localhost:1234/generate-prompt', { method: 'GET' })
+        fetch('http://localhost:1234/generate-prompt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_id: userId })
+        })
         .then(response => response.json())
         .then(data => {
-            setJournalPrompt(data.prompt); // Update the journal prompt with the fetched data
+            setJournalPrompt(data.prompt);
         })
         .catch(error => console.error('Error fetching journal prompt:', error));
     };
 
-    // Function to get the current date in the format "Month Day, Year"
-    const getCurrentDate = () => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date().toLocaleDateString('en-US', options);
-    };
-
-     //Do a post to to the database when Post button is clicked
-     const handlePostToServer = async () => {
-        // const postData = {
-        //     journalEntry: journalEntry,
-        //     journalPrompt: journalprompt,
-        //     timestamp: new Date().toISOString()
-        // };
+    const handlePostToServer = async () => {
         const postData = {
-            action: "Post",
+            journalEntry,
+            journalPrompt,
+            timestamp: new Date().toISOString()
         };
 
         try {
@@ -120,7 +126,6 @@ export function JournalingPage() {
             });
             const data = await response.json();
             console.log(data);
-            // Optionally handle navigation or state updates based on the response
         } catch (error) {
             console.error('Error posting data:', error);
         }
@@ -132,20 +137,18 @@ export function JournalingPage() {
                 <Link to="/home" className="home-link">
                     <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
-                <p className="date-text">{getCurrentDate()}</p>
+                <p className="date-text">{new Date().toLocaleDateString()}</p>
                 <div className="moodlift-text">MoodLift</div>
             </div>
             <div>
                 <input className='journalpromptinput'
                     value={journalPrompt}
-                    onClick={fetchJournalPrompt} // Add click handler here
+                    onClick={fetchJournalPrompt}
                     readOnly={true}
                 ></input>
             </div>
             <div>
-                <button className='borderbutton'>
-                    layout
-                </button>
+                <button className='borderbutton'>layout</button>
             </div>
             <div>
                 <textarea className='journalinput'
@@ -156,15 +159,14 @@ export function JournalingPage() {
                     cols={70}
                 ></textarea>
             </div>
-
-        <div>
-            <Link to="/savedpost" className='savedbutton'>Saved</Link>
+            <div>
+                <Link to="/savedpost" className='savedbutton'>Saved</Link>
+            </div>
+            <div>
+                <button className='postbutton' onClick={handlePostToServer}>Post</button>
+            </div>
         </div>
-        <div>
-            <button className='postbutton' onClick={handlePostToServer}>Post</button>
-    </div>
-    </div>
-);
+    );
 }
 
 
