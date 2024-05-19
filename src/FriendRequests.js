@@ -8,9 +8,8 @@ function FriendRequests() {
         fetch(`http://localhost:1234/get_friend_requests?user_id=${userId}`)
             .then(response => response.json())
             .then(data => {
-                console.log('Friend Requests:', data); // Log to see what's received
                 if (Array.isArray(data)) {
-                    setRequests(data); // Ensure data structure is correct
+                    setRequests(data);
                 } else {
                     console.error('Unexpected data format:', data);
                 }

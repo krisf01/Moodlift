@@ -19,7 +19,9 @@ firebase_admin.initialize_app(cred, {
 })
 
 app = Flask(__name__)
-CORS(app)
+#CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 @app.route('/favicon.ico')
 def favicon():
@@ -291,6 +293,53 @@ def get_friend_requests():
         return jsonify(requests_data), 200
     except Exception as e:
         print(f"Error fetching friend requests: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/accept_friend_request', methods=['POST'])
+def accept_friend_request():
+    data = request.json
+    user_id = data.get('user_id')
+    friend_id = data.get('friend_id')
+    request_id = data.get('request_id')
+
+    if not user_id or not friend_id or not request_id:
+        return jsonify({'error': 'User ID, friend ID, and request ID are required'}), 400
+
+    try:
+        # Add friend to user's friends list
+        friends_ref = db.reference(f'friends/{user_id}')
+        friends_ref.update({friend_id: True})
+
+        # Add user to friend's friends list
+        friends_ref = db.reference(f'friends/{friend_id}')
+        friends_ref.update({user_id: True})
+
+        # Remove the friend request
+        friend_requests_ref = db.reference(f'friend_requests/{user_id}/{request_id}')
+        friend_requests_ref.delete()
+
+        return jsonify({'message': 'Friend request accepted successfully'}), 200
+    except Exception as e:
+        print(f"Error accepting friend request: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/reject_friend_request', methods=['POST'])
+def reject_friend_request():
+    data = request.json
+    user_id = data.get('user_id')
+    request_id = data.get('request_id')
+
+    if not user_id or not request_id:
+        return jsonify({'error': 'User ID and request ID are required'}), 400
+
+    try:
+        # Remove the friend request
+        friend_requests_ref = db.reference(f'friend_requests/{user_id}/{request_id}')
+        friend_requests_ref.delete()
+
+        return jsonify({'message': 'Friend request rejected successfully'}), 200
+    except Exception as e:
+        print(f"Error rejecting friend request: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 
