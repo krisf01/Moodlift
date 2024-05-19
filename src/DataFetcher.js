@@ -266,7 +266,9 @@ export function MoodTrackPage() {
         return new Date().toLocaleDateString('en-US', options);
     };
 
-    const fillButton = () => {}
+    const toggleColor = (event) => {
+        event.target.classList.toggle('clicked');
+    };
 
     return (
         <div className="mood-track-container">
@@ -278,14 +280,14 @@ export function MoodTrackPage() {
                 <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
             </div>
             <div className="blue-background">
-            <div className="moodtracker-section">
-                <div className="moodtracker-rectangle">
-                    <div className = "moodtracker-circle">
-                        <button className="sadcirclebutton"></button>
-
+                <div className="moodtracker-section">
+                    <div className="moodtracker-rectangle">
+                        <div className="circle-button red" onClick={toggleColor}></div>
+                        <div className="circle-button green" onClick={toggleColor}></div>
+                        <div className="circle-button blue" onClick={toggleColor}></div>
+                        <div className="circle-button yellow" onClick={toggleColor}></div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     );

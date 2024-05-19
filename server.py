@@ -2,20 +2,20 @@ from flask import Flask, jsonify, request, abort, send_from_directory
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
-import openai
-import firebase_admin
-from firebase_admin import credentials, db
-import datetime
+#import openai
+#import firebase_admin
+#from firebase_admin import credentials, db
+#import datetime
 
-load_dotenv()
+#load_dotenv()
 
 # Initialize OpenAI client with the API key
-client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+#client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-cred = credentials.Certificate("/Users/kfout/MoodLift/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
-firebase_admin.initialize_app(cred,{
-        'databaseURL' : 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
-})
+#cred = credentials.Certificate("/Users/sriharshamaddala/MoodLift Local/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
+#firebase_admin.initialize_app(cred,{
+        #'databaseURL' : 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
+#})
 
 app = Flask(__name__)
 CORS(app)
