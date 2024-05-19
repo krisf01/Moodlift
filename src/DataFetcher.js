@@ -29,6 +29,7 @@ export function DataFetcher() {
                 <Link to="/journaling" className="nav-button">Journaling</Link>
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
+                <Link to="/friends" className="nav-button">Friends</Link>
             </div>
         </div>
     );
@@ -58,6 +59,7 @@ export function HomePage() {
                 <Link to="/journaling" className="nav-button">Journaling</Link>
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
+                <Link to="/friends" className="nav-button">Friends</Link>
             </div>
         </div>
     );
@@ -69,6 +71,7 @@ export function NavigationBar() {
             <Link to="/journaling" className="nav-button journaling">Journaling</Link>
             <Link to="/mood-tracker" className="nav-button mood-tracker">Mood Tracker</Link>
             <Link to="/resources" className="nav-button resources">Resources</Link>
+            <Link to="/friends" className="nav-button">Friends</Link>
         </div>
     );
 }

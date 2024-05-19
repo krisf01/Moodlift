@@ -166,6 +166,69 @@ def login():
     except Exception as e:
         print("Error during login:", e)
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/search_users', methods=['GET'])
+def search_users():
+    query = request.args.get('query').lower()  # Assuming you want case-insensitive matching
+    try:
+        users_ref = db.reference('users')
+        all_users = users_ref.get()
+        if not all_users:
+            return jsonify([]), 200
+        
+        filtered_users = [user for user in all_users.values() if query in user.get('email', '').lower()]
+        return jsonify(filtered_users), 200
+    except Exception as e:
+        print(f"Error searching users: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/add_friend', methods=['POST'])
+def add_friend():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    friend_id = data.get('friend_id')
+    if not user_id or not friend_id:
+        return jsonify({'error': 'Both user_id and friend_id are required'}), 400
+    
+    try:
+        friends_ref = db.reference(f'friends/{user_id}')
+        friends_ref.update({friend_id: True})  # Setting a friend ID with a value of True
+        return jsonify({'message': 'Friend added successfully'}), 200
+    except Exception as e:
+        print(f"Error adding friend: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/get_friends', methods=['GET'])
+def get_friends():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({"error": "User ID is required"}), 400
+
+    try:
+        # Access the 'friends' node where each child node is named after a user's UID
+        # Assuming structure: /friends/{user_id}/[{friend_id: true, friend_id2: true, ...}]
+        friends_ref = db.reference(f'friends/{user_id}')
+        friends_ids = friends_ref.get()  # This should return a dictionary of friend IDs
+
+        if not friends_ids:
+            return jsonify([]), 200  # Return an empty list if no friends found
+
+        # Now fetch details for each friend ID from users node
+        users_ref = db.reference('users')
+        friends_data = []
+        for friend_id in friends_ids:
+            friend_data = users_ref.child(friend_id).get()
+            if friend_data:
+                friends_data.append(friend_data)
+
+        return jsonify(friends_data), 200
+
+    except Exception as e:
+        print(f"Error fetching friends: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=1234)

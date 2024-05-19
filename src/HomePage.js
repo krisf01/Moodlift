@@ -1,4 +1,3 @@
-// src/HomePage.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './app.css';
@@ -7,7 +6,6 @@ import homeIcon from './images/home.svg';
 
 export function HomePage() {
     const [data, setData] = useState(null);
-    const [userInput, setUserInput] = useState("");
 
     useEffect(() => {
         fetch('http://localhost:1234/api/data')
@@ -15,10 +13,6 @@ export function HomePage() {
             .then(data => setData(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
-
-    const handleInputChange = (e) => {
-        setUserInput(e.target.value);
-    };
 
     return (
         <div className="main-content">
@@ -29,6 +23,7 @@ export function HomePage() {
                 <Link to="/journaling" className="nav-button">Journaling</Link>
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
+                <Link to="/friends" className="nav-button">Friends</Link>
             </div>
         </div>
     );
