@@ -13,7 +13,7 @@ load_dotenv()
 # Initialize OpenAI client with the API key
 client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-cred = credentials.Certificate("/Users/kfout/MoodLift/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
+cred = credentials.Certificate("/Users/sriharshamaddala/MoodLift Local/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
 })
@@ -100,6 +100,7 @@ def handle_buttons():
     user_id = data.get('user_id')
     journal_entry = data.get('journalEntry')
     journal_prompt = data.get('journalPrompt')
+    timestamp = datetime.datetime.now().isoformat()
 
     if not user_id or not journal_entry or not journal_prompt:
         return jsonify({"error": "User ID, journal entry, and journal prompt are required"}), 400
@@ -109,7 +110,7 @@ def handle_buttons():
         result = ref.push({
             'entry': journal_entry,
             'prompt': journal_prompt,
-            'timestamp': datetime.datetime.now().isoformat()
+            'timestamp': timestamp
         })
         return jsonify({"response": "Journal entry saved successfully", "firebase_key": result.key})
     except Exception as e:
@@ -166,6 +167,25 @@ def login():
     except Exception as e:
         print("Error during login:", e)
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/journal_entries', methods=['GET'])
+def get_journal_entries():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({"error": "User ID is required"}), 400
+
+    try:
+        ref = db.reference(f'users/{user_id}/journal_entries')
+        entries = ref.get()
+        if not entries:
+            return jsonify({"entries": []}), 200
+
+        formatted_entries = [{"id": key, **entry} for key, entry in entries.items()]
+        return jsonify({"entries": formatted_entries}), 200
+    except Exception as e:
+        print("Error fetching journal entries:", e)
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=1234)

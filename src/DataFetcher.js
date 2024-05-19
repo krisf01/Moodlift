@@ -172,82 +172,50 @@ export function JournalingPage() {
 
 
 
-export function SavedPostPage(){
-    const[moodliftjournalprompt,setmoodliftJournalPrompt] = useState("Journal Prompt");
+export function SavedPostPage() {
+    const [journalEntries, setJournalEntries] = useState([]);
+    const userId = localStorage.getItem('user_id'); // Retrieve the user ID from local storage
 
-    //handler for journal propmt changes
-    const handleMoodLiftJournalPromptChange =(e) => {
-        setmoodliftJournalPrompt(e.target.value);
-    };
-    //handler for saved input changes
-    const[moodliftjournalinput,setsavedjournalprompt] = useState(" this is my journal entry deafult text");
+    useEffect(() => {
+        fetch(`http://localhost:1234/api/journal_entries?user_id=${userId}`)
+            .then(response => response.json())
+            .then(data => setJournalEntries(data.entries))
+            .catch(error => console.error('Error fetching journal entries:', error));
+    }, [userId]);
 
-    const handleSavedPostPromptChange =(e) => {
-        setsavedjournalprompt(e.target.value);
-    };
-     // Function to get the current date in the format "Month Day, Year"
-     const getCurrentDateSavedPost = () => {
+    const getCurrentDate = (timestamp) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date().toLocaleDateString('en-US', options);
+        return new Date(timestamp).toLocaleDateString('en-US', options);
     };
-    //second saved input changes
-    const[moodliftjournalinput1,setsavedjournalprompt1] = useState(" this is my journal entry default text");
 
-    const handleSavedPostPromptChange1 =(e) => {
-        setsavedjournalprompt1(e.target.value);
-    };
-    
-    //second handler
-    const[moodliftjournalprompt1,setmoodliftJournalPrompt1] = useState("Journal Prompt");
-
-    const handleMoodLiftJournalPromptChange1 =(e) => {
-        setmoodliftJournalPrompt1(e.target.value);
-    };
-    return(
+    return (
         <div className='app-container'>
             <div className='purple-rectangle'>
-                <Link to="/home" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                <Link to="/home" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
             </div>
-            <div>
-                <button className='borderbutton1'> </button>
+            <div className='entries-container'>
+                {journalEntries.map(entry => (
+                    <div key={entry.id} className='entry'>
+                        <div className='prompt-container'>
+                            <input 
+                                className='moodliftprompt' 
+                                value={entry.prompt} 
+                                readOnly 
+                            />
+                        </div>
+                        <textarea 
+                            className='journalinput1' 
+                            value={entry.entry} 
+                            readOnly 
+                            rows={10} 
+                            cols={62}
+                        />
+                        <p className="date-text1">{getCurrentDate(entry.timestamp)}</p>
+                    </div>
+                ))}
             </div>
-            <div>
-                <button className='borderbutton2'> </button>
-            </div>
-            <div>
-                <input className='moodliftprompt'
-                    value={moodliftjournalprompt}
-                    onChange={handleMoodLiftJournalPromptChange}
-                    readOnly={true}
-                ></input>
-            </div>
-    
-           <div>
-                <textarea className='journalinput1'
-                    value={moodliftjournalinput}
-                    onChange={handleSavedPostPromptChange}
-                    readOnly={true}
-                    rows = {15}
-                    cols = {62}
-                ></textarea>
-                <p className="date-text1">{getCurrentDateSavedPost()}</p> {/* Date text */}
-            <div>
-            <input className='moodliftprompt1'
-                    value={moodliftjournalprompt1}
-                    onChange={handleMoodLiftJournalPromptChange1}
-                    readOnly={true}
-                ></input>
-            </div>
-           </div>
-                <textarea className="journalinput2"
-                    value={moodliftjournalinput1}
-                    onChange={handleSavedPostPromptChange1}
-                    readOnly={true}
-                    rows = {15}
-                    cols = {62}
-                ></textarea>
         </div>
     );
 }
