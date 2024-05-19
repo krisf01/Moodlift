@@ -164,6 +164,35 @@ z-index: -1; /* Ensures it stays in the background */
 }
 
 /*journaling page */
+
+.sidebar {
+  height: 100%;
+  width: 180px;
+  background-color: #5d1451;
+  position: absolute;
+  right: 0px;
+  top: 50px;
+}
+.sidebarlist {
+  padding: 0;
+}
+
+.sidebarlist .row {
+  color: white;
+  flex-direction: row;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
+}
+.sidebarlist .row:hover{
+  cursor: pointer;
+  background-color: #CAF0F8;
+}
+.sidebarlist #active{
+  background-color: #CAF0F8;
+
+}
+
 .borderbutton{
   background-color: #774172;
   width: 620px;
