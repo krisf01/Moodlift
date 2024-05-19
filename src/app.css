@@ -379,36 +379,64 @@ z-index: -1; /* Ensures it stays in the background */
 .moodtracker-section {
   margin: auto; 
   margin-top: 5%;
-  top: 250; /* Align the rectangle to the top of the page */
   width: 75%;
   height: 685px; /* Height of the rectangle */
   background-color: #f1e9f0; /* White color */
-  border-radius: 25px
+  border-radius: 25px;
+  padding: 20px;
+  position: relative;
 }
 /* grey rectangle with background to track moods */
 .moodtracker-rectangle {
   margin: auto;
-  padding-top: 10px;
-  top: 250;
-  left: 200;
-  right: 200;
-  bottom: 300;
+  padding-top: 5%;
   height: 100px;
   width: 75%;
   background-color: rgb(193, 190, 190);
+  border-radius: 25px;
 }
 
-.sadcirclebutton {
-  height: 80px;
-  width: 80px;
-  top: 325;
+.circle-button {
+  height: 50px;
+  width: 50px;
+  border: 2px solid;
   background-color: white;
   border-radius: 50%;
   display: inline-block;
-  border: solid 2px #67a6e5;
-  transition: background-color 0.2s;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 
 }
-.sadcirclebutton:hover {
-  background-color: #67a6e5;
+
+.circle-button.red {
+  border-color:red;
+}
+
+.circle-button.green {
+  border-color:green;
+}
+
+.circle-button.blue {
+  border-color: blue;
+}
+
+.circle-button.yellow {
+  border-color: yellow;
+}
+
+.circle-button.red.clicked {
+  background-color: red;
+}
+
+.circle-button.green.clicked {
+  background-color: green;
+}
+
+.circle-button.blue.clicked {
+  background-color: blue;
+}
+
+.circle-buttone.yellow.clicked {
+  background-color: yellow;
 }
