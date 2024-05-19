@@ -330,7 +330,7 @@ export function FriendsPostPage() {
                 <div style={{ position: 'absolute', top: '30px', left: '20px' }}>
                     <h1 style={{ color: 'black' }}>Friends</h1>
                 </div>
-                <Link to="/" className="home-link">
+                <Link to="/home" className="home-link">
                     <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
             </div>

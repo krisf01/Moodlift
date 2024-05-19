@@ -46,7 +46,6 @@ def chat():
             model="gpt-3.5-turbo",
         )
 
-        # Correctly accessing the message content from the response
         if chat_completion.choices and len(chat_completion.choices) > 0:
             message = chat_completion.choices[0].message.content
         else:
@@ -54,13 +53,12 @@ def chat():
 
         return jsonify({"response": message})
     except Exception as e:
-        print(e)  # Add a print here to catch any exceptions for debugging
+        print(e)
         return jsonify({"error": str(e)}), 500
-    
+
 @app.route('/generate-prompt', methods=['POST'])
 def generate_prompt():
     try:
-        # Get user ID from the request body
         data = request.json
         user_id = data.get('user_id')
         if not user_id:
@@ -71,13 +69,11 @@ def generate_prompt():
             model="gpt-3.5-turbo",
         )
 
-        # Check if the completion has valid content and return it
         if prompt_completion.choices and len(prompt_completion.choices) > 0:
             prompt = prompt_completion.choices[0].message.content
         else:
             prompt = "Failed to get a valid prompt."
 
-        # Save the prompt to Firebase
         ref = db.reference(f'users/{user_id}/ai_generated_prompts')
         new_prompt_ref = ref.push()
         new_prompt_ref.set({
@@ -87,7 +83,7 @@ def generate_prompt():
 
         return jsonify({"prompt": prompt})
     except Exception as e:
-        print(e)  # Logging the exception for debugging purposes
+        print(e)
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/post_data', methods=['POST'])
@@ -116,7 +112,6 @@ def handle_buttons():
         print("Error saving journal entry:", e)
         return jsonify({"error": str(e)}), 500
 
-
 @app.route('/register', methods=['POST'])
 def register():
     try:
@@ -130,10 +125,8 @@ def register():
             password=password
         )
 
-        # Generate a unique API key for the user
         api_key = str(uuid.uuid4())
 
-        # Store the API key in the Realtime Database
         db.reference(f'users/{user.uid}').set({
             'email': email,
             'api_key': api_key
@@ -152,12 +145,10 @@ def login():
         if not email or not password:
             return jsonify({"error": "Email and password are required"}), 400
         
-        # Verify user credentials
         user = auth.get_user_by_email(email)
         if not user:
             return jsonify({"error": "Invalid email or password"}), 401
 
-        # Retrieve the API key from the Realtime Database
         api_key = db.reference(f'users/{user.uid}/api_key').get()
         if not api_key:
             return jsonify({"error": "API key not found"}), 500
@@ -166,22 +157,26 @@ def login():
     except Exception as e:
         print("Error during login:", e)
         return jsonify({"error": str(e)}), 500
-    
+
 @app.route('/search_users', methods=['GET'])
 def search_users():
-    query = request.args.get('query').lower()  # Assuming you want case-insensitive matching
+    query = request.args.get('query').lower()
     try:
         users_ref = db.reference('users')
         all_users = users_ref.get()
         if not all_users:
             return jsonify([]), 200
-        
-        filtered_users = [user for user in all_users.values() if query in user.get('email', '').lower()]
+
+        filtered_users = []
+        for user_id, user in all_users.items():
+            if query in user.get('username', '').lower():
+                user['id'] = user_id
+                filtered_users.append(user)
+
         return jsonify(filtered_users), 200
     except Exception as e:
         print(f"Error searching users: {str(e)}")
         return jsonify({"error": str(e)}), 500
-
 
 @app.route('/add_friend', methods=['POST'])
 def add_friend():
@@ -193,12 +188,11 @@ def add_friend():
     
     try:
         friends_ref = db.reference(f'friends/{user_id}')
-        friends_ref.update({friend_id: True})  # Setting a friend ID with a value of True
+        friends_ref.update({friend_id: True})
         return jsonify({'message': 'Friend added successfully'}), 200
     except Exception as e:
         print(f"Error adding friend: {str(e)}")
         return jsonify({"error": str(e)}), 500
-
 
 @app.route('/get_friends', methods=['GET'])
 def get_friends():
@@ -207,15 +201,12 @@ def get_friends():
         return jsonify({"error": "User ID is required"}), 400
 
     try:
-        # Access the 'friends' node where each child node is named after a user's UID
-        # Assuming structure: /friends/{user_id}/[{friend_id: true, friend_id2: true, ...}]
         friends_ref = db.reference(f'friends/{user_id}')
-        friends_ids = friends_ref.get()  # This should return a dictionary of friend IDs
+        friends_ids = friends_ref.get()
 
         if not friends_ids:
-            return jsonify([]), 200  # Return an empty list if no friends found
+            return jsonify([]), 200
 
-        # Now fetch details for each friend ID from users node
         users_ref = db.reference('users')
         friends_data = []
         for friend_id in friends_ids:
@@ -224,11 +215,51 @@ def get_friends():
                 friends_data.append(friend_data)
 
         return jsonify(friends_data), 200
-
     except Exception as e:
         print(f"Error fetching friends: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
+@app.route('/search_users_by_email', methods=['GET'])
+def search_users_by_email():
+    email = request.args.get('email').lower()
+    try:
+        users_ref = db.reference('users')
+        all_users = users_ref.get()
+        if not all_users:
+            return jsonify([]), 200
+
+        filtered_users = []
+        for user_id, user in all_users.items():
+            if user.get('email', '').lower() == email:
+                user['id'] = user_id
+                filtered_users.append(user)
+
+        return jsonify(filtered_users), 200
+    except Exception as e:
+        print(f"Error searching users: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/send_friend_request', methods=['POST'])
+def send_friend_request():
+    data = request.json
+    from_user_id = data.get('from_user_id')
+    to_user_id = data.get('to_user_id')
+
+    if not from_user_id or not to_user_id:
+        return jsonify({'error': 'Both from_user_id and to_user_id are required'}), 400
+
+    try:
+        friend_requests_ref = db.reference(f'friend_requests/{to_user_id}')
+        new_request_ref = friend_requests_ref.push()
+        new_request_ref.set({
+            'from_user_id': from_user_id,
+            'timestamp': datetime.datetime.now().isoformat()
+        })
+
+        return jsonify({'message': 'Friend request sent successfully'}), 200
+    except Exception as e:
+        print(f"Error sending friend request: {str(e)}")
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=1234)
