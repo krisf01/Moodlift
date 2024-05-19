@@ -9,7 +9,11 @@ function FriendRequests() {
             .then(response => response.json())
             .then(data => {
                 console.log('Friend Requests:', data); // Log to see what's received
-                setRequests(data); // Ensure data structure is correct
+                if (Array.isArray(data)) {
+                    setRequests(data); // Ensure data structure is correct
+                } else {
+                    console.error('Unexpected data format:', data);
+                }
             })
             .catch(error => console.error('Error fetching friend requests:', error));
     }, [userId]);

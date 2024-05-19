@@ -261,5 +261,38 @@ def send_friend_request():
         print(f"Error sending friend request: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/get_friend_requests', methods=['GET'])
+def get_friend_requests():
+    try:
+        print("Request received: ", request.args)
+        user_id = request.args.get('user_id')
+        if not user_id:
+            return jsonify({"error": "User ID is required"}), 400
+
+        friend_requests_ref = db.reference(f'friend_requests/{user_id}')
+        friend_requests = friend_requests_ref.get()
+
+        if not friend_requests:
+            return jsonify([]), 200
+
+        users_ref = db.reference('users')
+        requests_data = []
+        for request_id, req in friend_requests.items():
+            from_user_id = req['from_user_id']
+            from_user_data = users_ref.child(from_user_id).get()
+            if from_user_data:
+                requests_data.append({
+                    'request_id': request_id,
+                    'from_user_id': from_user_id,
+                    'from_user_email': from_user_data.get('email'),
+                    'timestamp': req.get('timestamp')
+                })
+
+        return jsonify(requests_data), 200
+    except Exception as e:
+        print(f"Error fetching friend requests: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=1234)
