@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import FriendRequests from './FriendRequests';
+import FriendsJournalEntries from './FriendsJournalEntries';
 
 export function FriendsPage() {
     const [userInput, setUserInput] = useState("");
@@ -93,6 +94,7 @@ export function FriendsPage() {
                 ))}
             </div>
             <FriendRequests />
+            <FriendsJournalEntries />
         </div>
     );
 }

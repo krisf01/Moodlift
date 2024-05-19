@@ -341,6 +341,43 @@ def reject_friend_request():
     except Exception as e:
         print(f"Error rejecting friend request: {str(e)}")
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/get_friends_journal_entries', methods=['GET'])
+def get_friends_journal_entries():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({"error": "User ID is required"}), 400
+
+    try:
+        # Get friends' IDs
+        friends_ref = db.reference(f'friends/{user_id}')
+        friends_ids = friends_ref.get()
+
+        if not friends_ids:
+            return jsonify([]), 200
+
+        users_ref = db.reference('users')
+        journal_entries = []
+
+        for friend_id in friends_ids:
+            friend_journal_entries_ref = db.reference(f'users/{friend_id}/journal_entries')
+            entries = friend_journal_entries_ref.get()
+
+            if entries:
+                for entry_id, entry in entries.items():
+                    journal_entries.append({
+                        'friend_id': friend_id,
+                        'friend_email': users_ref.child(friend_id).child('email').get(),
+                        'entry': entry['entry'],
+                        'prompt': entry['prompt'],
+                        'timestamp': entry['timestamp']
+                    })
+
+        return jsonify(journal_entries), 200
+    except Exception as e:
+        print(f"Error fetching friends' journal entries: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
 
 
 if __name__ == '__main__':
