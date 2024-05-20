@@ -431,7 +431,7 @@ body, html {
 }
 
 .circle-button.purple {
-  border-color: rgb(22, 220, 130);
+  border-color: rgb(151, 68, 219);
 }
 
 .circle-button.orange {
@@ -442,6 +442,46 @@ body, html {
   border-color: rgb(235, 238, 41);
 }
 
+.circle-button.pink {
+  border-color: rgb(216, 85, 198);
+}
+
+.circle-button.gray {
+  border-color: rgb(112, 112, 106);
+}
+
 .circle-button.darkblue.clicked {
   background-color: rgb(16, 16, 201);
+}
+
+.circle-button.lightblue.clicked {
+  background-color:rgb(34, 148, 214);
+}
+
+.circle-button.red.clicked {
+  background-color: rgb(201, 30, 53);
+}
+
+.circle-button.lightgreen.clicked {
+  background-color: rgb(22, 220, 130);
+}
+
+.circle-button.purple.clicked {
+  background-color: rgb(151, 68, 219);
+}
+
+.circle-button.orange.clicked {
+  background-color: rgb(220, 132, 25);
+}
+
+.circle-button.yellow.clicked {
+  background-color: rgb(235, 238, 41);
+}
+
+.circle-button.pink.clicked {
+  background-color: rgb(216, 85, 198);
+}
+
+.circle-button.gray.clicked {
+  background-color: rgb(112, 112, 106);
 }
