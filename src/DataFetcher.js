@@ -152,11 +152,7 @@ export function JournalingPage() {
                     readOnly={true}
                 ></input>
             </div>
-            <div>
-                <button className='borderbutton'>
-                    layout
-                </button>
-            </div>
+           
             <div>
                 <textarea className='journalinput'
                     value={journalEntry}

@@ -298,21 +298,23 @@ z-index: -1; /* Ensures it stays in the background */
   height: 300px;
   border-radius: 25px;
   border: none;
-  position: absolute;
-  left: 40px;
-  top: 200px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .journalinput {
-  position: absolute;
-  left: 50px;  /* Adjust this as needed */
-  top: 215px;  /* Adjust this as needed */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #ffffff;
   border: 2px solid #5d1451; /* Example: 2px solid border in dark purple */
   border-radius: 10px; /* Keeps the rounded corners */
   outline: none;
  /* width: 80%; /* Adjust width as needed */
   padding: 10px; /* Adds some padding inside the text area */
+  margin-bottom: 20px;
+  margin-top: 50px;
 }
 
 .savedbutton {
@@ -343,9 +345,9 @@ z-index: -1; /* Ensures it stays in the background */
   font-size: 18px; /* Button text size */
   border: none; /* No border */
   cursor: pointer; 
-  position: absolute;
-  bottom: 70px;
-  left: 400px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .postbutton:hover{
   background-color: #ADE1FA;
@@ -363,9 +365,10 @@ z-index: -1; /* Ensures it stays in the background */
   position: absolute;
   top: 90px;
  /* Left margin of 10% */
-  left: 10%;
+  left: 16%;
   right: 20%; /* Right margin of 10% */
-  width: 70%; /* Width adjusted to fill the space between margins */
+  width: 60%; /* Width adjusted to fill the space between margins */
+  margin-bottom: 20px;
 }
 
 /*moodlift saved post page*/
