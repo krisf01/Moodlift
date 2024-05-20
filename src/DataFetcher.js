@@ -282,9 +282,7 @@ export function MoodTrackPage() {
             <div className="blue-background">
                 <div className="moodtracker-section">
                     <div className="moodtracker-rectangle">
-                        <div>
-                        <button className="circle-button darkblue" onClick={toggleColor}></button>
-                        </div>
+                        <div className="circle-button darkblue" onClick={toggleColor}></div>
                     </div>
                 </div>
             </div>
