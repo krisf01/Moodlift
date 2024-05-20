@@ -70,11 +70,11 @@ function Sidebar(){
 
 export const SidebarData = [
     {
-        title: "view private posts",
+        title: "view saved posts",
         link: "/friendspost",
     },
     {
-        title: "new entry",
+        title: "  create new entry",
         link: "/journaling",
     },
 ]
