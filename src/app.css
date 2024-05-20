@@ -406,37 +406,38 @@ z-index: -1; /* Ensures it stays in the background */
   margin: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
+  z-index: 5;
 
+}
+
+.circle-button.darkblue {
+  border-color:rgb(16, 16, 201);
+}
+
+.circle-button.lightblue {
+  border-color:rgb(34, 148, 214);
 }
 
 .circle-button.red {
-  border-color:red;
+  border-color: rgb(201, 30, 53);
 }
 
-.circle-button.green {
-  border-color:green;
+.circle-button.lightgreen {
+  border-color: rgb(22, 220, 130);
 }
 
-.circle-button.blue {
-  border-color: blue;
+.circle-button.purple {
+  border-color: rgb(22, 220, 130);
+}
+
+.circle-button.orange {
+  border-color: rgb(220, 132, 25);
 }
 
 .circle-button.yellow {
-  border-color: yellow;
+  border-color: rgb(235, 238, 41);
 }
 
-.circle-button.red.clicked {
-  background-color: red;
-}
-
-.circle-button.green.clicked {
-  background-color: green;
-}
-
-.circle-button.blue.clicked {
-  background-color: blue;
-}
-
-.circle-buttone.yellow.clicked {
-  background-color: yellow;
+.circle-button.darkblue.clicked {
+  background-color: rgb(16, 16, 201);
 }
