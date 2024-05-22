@@ -1,5 +1,6 @@
-from flask import Flask, jsonify, request, abort, send_from_directory
+from flask import Flask, redirect, session, jsonify, url_for, request, abort, send_from_directory
 from flask_cors import CORS
+from flask_session import Session
 import os
 from dotenv import load_dotenv
 import openai
@@ -7,11 +8,24 @@ import firebase_admin
 from firebase_admin import credentials, auth, db
 import datetime
 import uuid
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 
 load_dotenv()
 
 # Initialize OpenAI client with the API key
 client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+
+# Spotify credentials
+SPOTIPY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
+SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
+SPOTIPY_REDIRECT_URI = os.getenv('SPOTIFY_REDIRECT_URI')
+
+# Spotify OAuth object
+sp_oauth = SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID,
+                        client_secret=SPOTIPY_CLIENT_SECRET,
+                        redirect_uri=SPOTIPY_REDIRECT_URI,
+                        scope="user-library-read playlist-read-private")
 
 cred = credentials.Certificate("/Users/sriharshamaddala/MoodLift Local/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
 firebase_admin.initialize_app(cred, {
@@ -19,6 +33,9 @@ firebase_admin.initialize_app(cred, {
 })
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 CORS(app)
 
 @app.route('/favicon.ico')
@@ -185,6 +202,41 @@ def get_journal_entries():
     except Exception as e:
         print("Error fetching journal entries:", e)
         return jsonify({"error": str(e)}), 500
+    
+# OAuth Authentication Page
+@app.route('/spotify/login')
+def spotify_login():
+    session.pop('token_info', None)  # Clear the session token_info before redirecting
+    auth_url = sp_oauth.get_authorize_url()
+    return redirect(auth_url)
+
+@app.route('/spotify/logout')
+def spotify_logout():
+    session.pop('token_info', None)
+    return redirect(url_for('spotify_login'))
+
+# Function to handle callback after authorization from Spotify
+@app.route('/spotify/callback')
+def spotify_callback():
+    code = request.args.get('code')
+    token_info = sp_oauth.get_access_token(code)
+    session['token_info'] = token_info
+    return redirect(url_for('spotify_recommendations'))
+
+#Temporary placeholder to get top tracks of the logged-in user
+@app.route('/spotify/recommendations')
+def spotify_recommendations():
+    token_info = session.get('token_info', None)
+    if not token_info:
+        return redirect(url_for('/spotify/login'))
+    
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+    playlist_id = '2pf4W9bfzSnbxqjaXEQUQy'  
+    results = sp.playlist_tracks(playlist_id, limit=10)
+    tracks = results['items']
+    track_list = [{'name': track['track']['name'], 'artist': track['track']['artists'][0]['name']} for track in tracks]
+    
+    return jsonify(track_list)
 
 
 if __name__ == '__main__':

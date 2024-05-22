@@ -47,6 +47,31 @@ body, html {
   box-shadow: inset 0 0 50px #5d1451; /* Inner shadow for depth */
 }
 
+/*spotify*/
+.spotify-recommendations-container {
+  text-align: center;
+}
+
+.spotify-recommendations-container button {
+  background-color: #1DB954; /* Spotify Green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 50px;
+  margin-top: 20px;
+}
+
+.spotify-recommendations-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.spotify-recommendations-container li {
+  margin: 10px 0;
+}
+
+
 /*this is connected to journaling page, mood page, resoucres page*/
 .app-container {
   display: flex;

@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, FriendsPostPage, HomePage } from './DataFetcher';
+import { JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, FriendsPostPage, HomePage, SpotifyRecommendations} from './DataFetcher';
 import LoginPage from './LoginPage';
 import './app.css';
 
@@ -22,6 +22,7 @@ ReactDOM.render(
         <Route path="/resources" element={<ProtectedRoute element={<ResourcePage />} />} />
         <Route path="/savedpost" element={<ProtectedRoute element={<SavedPostPage />} />} />
         <Route path="/friendspost" element={<ProtectedRoute element={<FriendsPostPage />} />} />
+        <Route path="/spotify-recommendations" element={<ProtectedRoute element={<SpotifyRecommendations />} />} />
         <Route path="/" element={<Navigate to="/login" />} /> {/* Redirect to login by default */}
       </Routes>
     </Router>

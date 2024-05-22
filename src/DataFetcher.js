@@ -29,6 +29,7 @@ export function DataFetcher() {
                 <Link to="/journaling" className="nav-button">Journaling</Link>
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
+                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
             </div>
         </div>
     );
@@ -58,6 +59,7 @@ export function HomePage() {
                 <Link to="/journaling" className="nav-button">Journaling</Link>
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
+                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link>
             </div>
         </div>
     );
@@ -69,6 +71,7 @@ export function NavigationBar() {
             <Link to="/journaling" className="nav-button journaling">Journaling</Link>
             <Link to="/mood-tracker" className="nav-button mood-tracker">Mood Tracker</Link>
             <Link to="/resources" className="nav-button resources">Resources</Link>
+            <Link to="/spotify-recommendations" className="nav-button">Spotify</Link>
         </div>
     );
 }
@@ -306,6 +309,41 @@ export function ResourcePage() {
                 </a>
             </div>
             <p>This is just a test more appropiate linkes will be added later.</p>
+        </div>
+    );
+}
+
+//spotify reccomndations feature
+export function SpotifyRecommendations(){
+    const [tracks, setTracks] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:1234/spotify/recommendations')
+            .then(response => response.json())
+            .then(data => setTracks(data))
+            .catch(error => console.error('Error fetching recommendations:', error));
+    }, []);
+
+    const loginToSpotify = () => {
+        window.location.href = 'http://localhost:1234/spotify/login';
+    };
+
+    const logoutFromSpotify = () => {
+        window.location.href = 'http://localhost:1234/spotify/logout';
+    };
+
+    return (
+        <div className="spotify-recommendations-container">
+            <h1>Spotify Playlist Recommendations</h1>
+            <button onClick={loginToSpotify}>Login to Spotify</button>
+            <button onClick={logoutFromSpotify}>Logout from Spotify</button>
+            <ul>
+                {tracks.map((track, index) => (
+                    <li key={index}>
+                        {track.name} by {track.artist}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
