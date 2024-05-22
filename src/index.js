@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { DataFetcher, JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, FriendsPostPage } from './DataFetcher';
+import { DataFetcher, JournalingPage, MoodTrackPage, ResourcePage, FriendsPostPage } from './DataFetcher';
 import SetFavicon from './SetFavicon';  // Import the SetFavicon component
 import './app.css';
 
@@ -14,7 +14,6 @@ ReactDOM.render(
         <Route path="/journaling" element={<JournalingPage />} />
         <Route path="/mood-tracker" element={<MoodTrackPage />} />
         <Route path="/resources" element={<ResourcePage />} />
-        <Route path="/savedpost" element={<SavedPostPage />} />
         <Route path="/friendspost" element={<FriendsPostPage />} />
       </Routes>
     </Router>
