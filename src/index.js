@@ -5,6 +5,7 @@ import { HomePage, JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, F
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
 import FriendsPage from './FriendsPage';
+import FriendsJournalEntries from './FriendsJournalEntries'; // Import the component
 import './app.css';
 
 const ProtectedRoute = ({ element }) => {
@@ -25,6 +26,7 @@ ReactDOM.render(
                 <Route path="/savedpost" element={<ProtectedRoute element={<SavedPostPage />} />} />
                 <Route path="/friendspost" element={<ProtectedRoute element={<FriendsPostPage />} />} />
                 <Route path="/friends" element={<ProtectedRoute element={<FriendsPage />} />} />
+                <Route path="/friends-journal-entries/:friendId" element={<ProtectedRoute element={<FriendsJournalEntries />} />} /> {/* New route */}
                 <Route path="/" element={<Navigate to="/login" />} /> {/* Redirect to login by default */}
             </Routes>
         </Router>

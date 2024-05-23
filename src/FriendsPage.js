@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import FriendRequests from './FriendRequests';
-import FriendsJournalEntries from './FriendsJournalEntries';
+import './app.css'; // Import the CSS file
 
 export function FriendsPage() {
     const [userInput, setUserInput] = useState("");
@@ -90,11 +89,16 @@ export function FriendsPage() {
             <div className="friend-list">
                 <h3>Your Friends</h3>
                 {friends.map(friend => (
-                    <div key={friend.id}>{friend.email}</div>
+                    <div key={friend.id} className="friend-item">
+                        <div className="friend-email">{friend.email}</div>
+                        <div className="friend-button">
+                            <Link to={`/friends-journal-entries/${friend.id}`}>
+                                <button>View Journal Entries</button>
+                            </Link>
+                        </div>
+                    </div>
                 ))}
             </div>
-            <FriendRequests />
-            <FriendsJournalEntries />
         </div>
     );
 }

@@ -446,3 +446,16 @@ z-index: -1; /* Ensures it stays in the background */
   height: 100vh;
   position: relative;
 }
+
+/* friends page*/
+.friend-item {
+  margin-bottom: 10px; /* Add space between friend items */
+}
+
+.friend-email {
+  margin-bottom: 5px; /* Add space between the email and the button */
+}
+
+.friend-button {
+  margin-bottom: 15px; /* Add additional space after the button */
+}
