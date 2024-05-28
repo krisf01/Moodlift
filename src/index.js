@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { DataFetcher, JournalingPage, MoodTrackPage, ResourcePage, FriendsPostPage } from './DataFetcher';
-import SetFavicon from './SetFavicon';  // Import the SetFavicon component
+//import SetFavicon from './SetFavicon';  // Import the SetFavicon component
 import './app.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SetFavicon />  
     <Router>
       <Routes>
         <Route path="/" element={<DataFetcher />} />
