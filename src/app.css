@@ -111,7 +111,7 @@ body, html {
   width: 100%;
   height: 50px; /* Height of the rectangle */
   background-color: #5d1451; /* Purple color */
-  z-index: 1;
+  z-index: 1; /*added for moodtracker section */
 }
 
 /*live date on the journaling page*/
@@ -484,4 +484,58 @@ body, html {
 
 .circle-button.gray.clicked {
   background-color: rgb(112, 112, 106);
+}
+
+.circle-button.darkblue.disabled {
+  border-color:rgb(16, 16, 201);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.lightblue.disabled {
+  border-color:rgb(34, 148, 214);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.red.disabled {
+  border-color: rgb(201, 30, 53);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.lightgreen.disabled {
+  border-color: rgb(22, 220, 130);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.purple.disabled {
+  border-color: rgb(151, 68, 219);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.orange.disabled {
+  border-color: rgb(220, 132, 25);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.yellow.disabled {
+  border-color: rgb(235, 238, 41);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.pink.disabled {
+  border-color: rgb(216, 85, 198);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.gray.disabled {
+  border-color: rgb(112, 112, 106);
+  cursor: not-allowed;
+  pointer-events: none;
 }
