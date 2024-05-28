@@ -265,8 +265,37 @@ export function MoodTrackPage() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('en-US', options);
     };
+ 
+    const buttonClick = (clickedButton) => {
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function(button) {
+            button.disabled = true;
+        });
+
+        clickedButton.disabled = false;
+       // clickedButton.target.classList.toggle('clicked');
+    }
 
     const toggleColor = (event) => {
+        console.log("in toggleColor ");
+
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function(button) {
+            button.disabled = false;
+            console.log("enabling button", button);
+        }
+        )
+
+        buttons.forEach(function(button) {
+            if (button !== event.target) {
+                button.classList.toggle('disabled');
+                //button.disabled = true;
+                console.log("failed event ", button);
+            } else if (button == event.target) {
+                console.log("event is ", event.target);
+                button.disabled = false;
+            }
+        });
         event.target.classList.toggle('clicked');
     };
 
@@ -282,15 +311,15 @@ export function MoodTrackPage() {
             <div className="blue-background">
                 <div className="moodtracker-section">
                     <div className="moodtracker-rectangle">
-                        <div className="circle-button darkblue" onClick={toggleColor}></div>
-                        <div className="circle-button lightblue" onClick={toggleColor}></div>
-                        <div className="circle-button red" onClick={toggleColor}></div>
-                        <div className="circle-button lightgreen" onClick={toggleColor}></div>
-                        <div className="circle-button purple" onClick={toggleColor}></div>
-                        <div className="circle-button orange" onClick={toggleColor}></div>
-                        <div className="circle-button yellow" onClick={toggleColor}></div>
-                        <div className="circle-button pink" onClick={toggleColor}></div>
-                        <div className="circle-button gray" onClick={toggleColor}></div>
+                        <button className="circle-button lightblue" onClick={toggleColor}></button>
+                        <button className="circle-button darkblue" onClick={toggleColor}></button>
+                        <button className="circle-button red" onClick={toggleColor}></button>
+                        <button className="circle-button lightgreen" onClick={toggleColor}></button>
+                        <button className="circle-button purple" onClick={toggleColor}></button>
+                        <button className="circle-button orange" onClick={toggleColor}></button>
+                        <button className="circle-button yellow" onClick={toggleColor}></button>
+                        <button className="circle-button pink" onClick={toggleColor}></button>
+                        <button className="circle-button gray" onClick={toggleColor}></button>
                     </div>
                 </div>
             </div>
