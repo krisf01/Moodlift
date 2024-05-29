@@ -30,6 +30,7 @@ export function DataFetcher() {
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
                 <Link to="/friends" className="nav-button">Friends</Link>
+                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
             </div>
         </div>
     );
@@ -60,6 +61,7 @@ export function HomePage() {
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
                 <Link to="/friends" className="nav-button">Friends</Link>
+                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
             </div>
         </div>
     );
@@ -72,6 +74,7 @@ export function NavigationBar() {
             <Link to="/mood-tracker" className="nav-button mood-tracker">Mood Tracker</Link>
             <Link to="/resources" className="nav-button resources">Resources</Link>
             <Link to="/friends" className="nav-button">Friends</Link>
+            <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
         </div>
     );
 }
@@ -176,37 +179,21 @@ export function JournalingPage() {
 );
 }
 
+// ok
+export function SavedPostPage() {
+    const [journalEntries, setJournalEntries] = useState([]);
+    const userId = localStorage.getItem('user_id'); // Retrieve the user ID from local storage
 
-export function SavedPostPage(){
-    const[moodliftjournalprompt,setmoodliftJournalPrompt] = useState("Journal Prompt");
+    useEffect(() => {
+        fetch(`http://localhost:1234/api/journal_entries?user_id=${userId}`)
+            .then(response => response.json())
+            .then(data => setJournalEntries(data.entries))
+            .catch(error => console.error('Error fetching journal entries:', error));
+    }, [userId]);
 
-    //handler for journal propmt changes
-    const handleMoodLiftJournalPromptChange =(e) => {
-        setmoodliftJournalPrompt(e.target.value);
-    };
-    //handler for saved input changes
-    const[moodliftjournalinput,setsavedjournalprompt] = useState(" this is my journal entry deafult text");
-
-    const handleSavedPostPromptChange =(e) => {
-        setsavedjournalprompt(e.target.value);
-    };
-     // Function to get the current date in the format "Month Day, Year"
-     const getCurrentDateSavedPost = () => {
+    const getCurrentDate = (timestamp) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date().toLocaleDateString('en-US', options);
-    };
-    //second saved input changes
-    const[moodliftjournalinput1,setsavedjournalprompt1] = useState(" this is my journal entry default text");
-
-    const handleSavedPostPromptChange1 =(e) => {
-        setsavedjournalprompt1(e.target.value);
-    };
-    
-    //second handler
-    const[moodliftjournalprompt1,setmoodliftJournalPrompt1] = useState("Journal Prompt");
-
-    const handleMoodLiftJournalPromptChange1 =(e) => {
-        setmoodliftJournalPrompt1(e.target.value);
+        return new Date(timestamp).toLocaleDateString('en-US', options);
     };
     return(
         <div className='app-container'>
@@ -221,41 +208,32 @@ export function SavedPostPage(){
             <div>
                 <button className='borderbutton2'> </button>
             </div>
-            <div>
-                <input className='moodliftprompt'
-                    value={moodliftjournalprompt}
-                    onChange={handleMoodLiftJournalPromptChange}
-                    readOnly={true}
-                ></input>
-            </div>
             <div> <Sidebar /> </div>
-           <div>
-                <textarea className='journalinput1'
-                    value={moodliftjournalinput}
-                    onChange={handleSavedPostPromptChange}
-                    readOnly={true}
-                    rows = {15}
-                    cols = {62}
-                ></textarea>
-                <p className="date-text1">{getCurrentDateSavedPost()}</p> {/* Date text */}
-            <div>
-            <input className='moodliftprompt1'
-                    value={moodliftjournalprompt1}
-                    onChange={handleMoodLiftJournalPromptChange1}
-                    readOnly={true}
-                ></input>
+            <div className='entries-container'>
+                {journalEntries.map(entry => (
+                    <div key={entry.id} className='entry'>
+                        <div className='prompt-container'>
+                            <input 
+                                className='moodliftprompt' 
+                                value={entry.prompt} 
+                                readOnly 
+                            />
+                        </div>
+                        <textarea 
+                            className='journalinput1' 
+                            value={entry.entry} 
+                            readOnly 
+                            rows={10} 
+                            cols={62}
+                        />
+                        <p className="date-text1">{getCurrentDate(entry.timestamp)}</p>
+                    </div>
+                ))}
             </div>
-           </div>
-                <textarea className="journalinput2"
-                    value={moodliftjournalinput1}
-                    onChange={handleSavedPostPromptChange1}
-                    readOnly={true}
-                    rows = {15}
-                    cols = {62}
-                ></textarea>
         </div>
     );
 }
+
 
 //updated friends page 
 export function FriendsPostPage() {
@@ -672,3 +650,38 @@ export const SidebarData = [
         link: "/journaling",
     },
 ]
+
+//spotify reccomndations feature
+export function SpotifyRecommendations(){
+    const [tracks, setTracks] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:1234/spotify/recommendations')
+            .then(response => response.json())
+            .then(data => setTracks(data))
+            .catch(error => console.error('Error fetching recommendations:', error));
+    }, []);
+
+    const loginToSpotify = () => {
+        window.location.href = 'http://localhost:1234/spotify/login';
+    };
+
+    const logoutFromSpotify = () => {
+        window.location.href = 'http://localhost:1234/spotify/logout';
+    };
+
+    return (
+        <div className="spotify-recommendations-container">
+            <h1>Spotify Playlist Recommendations</h1>
+            <button onClick={loginToSpotify}>Login to Spotify</button>
+            <button onClick={logoutFromSpotify}>Logout from Spotify</button>
+            <ul>
+                {tracks.map((track, index) => (
+                    <li key={index}>
+                        {track.name} by {track.artist}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
