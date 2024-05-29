@@ -1,3 +1,24 @@
+var client_id = 'cf57338a37bb4e1a809fc1eed65f9b14';
+var redirect_uri = 'http://localhost:3000/mood-tracker';
+
+var app = express();
+
+app.get('/login', function(req, res) {
+
+  var state = generateRandomString(16);
+  var scope = 'user-read-private user-read-email';
+
+  res.redirect('https://accounts.spotify.com/authorize?' +
+    querystring.stringify({
+      response_type: 'code',
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
+    }));
+});
+
+
 /**
  * This is an example of a basic node.js script that performs
  * the Authorization Code with PKCE oAuth2 flow to authenticate 
@@ -6,6 +27,27 @@
  * For more information, read
  * https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow
  */
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const clientId = 'cf57338a37bb4e1a809fc1eed65f9b14'; // your clientId - added by me
 const redirectUrl = 'http://localhost:3000/mood-tracker';        // your redirect URL - must be localhost URL and/or HTTPS - added by me
@@ -185,3 +227,4 @@ function renderTemplate(targetId, templateId, data = null) {
   target.innerHTML = "";
   target.appendChild(clone);
 }
+*/
