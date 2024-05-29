@@ -405,25 +405,49 @@ z-index: -1; /* Ensures it stays in the background */
   text-align: center;
 }
 
-.moodtracker-section {
+/* .moodtracker-section {
   margin: auto;
-  margin-top: 5%;
+  margin-top: 10%;
   width: 75%;
   height: 685px;
-  /* Height of the rectangle */
+  /* Height of the rectangle 
   background-color: #f1e9f0;
-  /* White color */
+  /* White color 
   border-radius: 25px;
   padding: 20px;
   position: relative;
+} */
+
+.moodtracker-section {
+  margin: auto;
+  margin-top: 15%;
+  width: 100%;
+  height: 300px;
+  background-color: #f1e9f0;
+  border-radius: 25px;
+  padding: 20px 20px 40px 20px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* Ensures padding is included in the width/height calculations */
+}
+
+#spotify-playlist-container {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10%;
+  width: 50%;
+  height: 250px;
+  overflow-y: auto;
+  border-radius: 10px;
 }
 
 /* grey rectangle with background to track moods */
 .moodtracker-rectangle {
-  margin: auto;
+  margin-top: 10%;
   padding-top: 5%;
   height: 100px;
-  width: 75%;
+  width: 100%;
   background-color: rgb(193, 190, 190);
   border-radius: 25px;
 }

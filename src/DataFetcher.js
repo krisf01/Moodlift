@@ -29,7 +29,7 @@ export function DataFetcher() {
                 <Link to="/journaling" className="nav-button">Journaling</Link>
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
-                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
+                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link>
             </div>
         </div>
     );
@@ -105,11 +105,11 @@ export function JournalingPage() {
             },
             body: JSON.stringify({ user_id: userId })
         })
-        .then(response => response.json())
-        .then(data => {
-            setJournalPrompt(data.prompt);
-        })
-        .catch(error => console.error('Error fetching journal prompt:', error));
+            .then(response => response.json())
+            .then(data => {
+                setJournalPrompt(data.prompt);
+            })
+            .catch(error => console.error('Error fetching journal prompt:', error));
     };
 
     const handlePostToServer = async () => {
@@ -202,17 +202,17 @@ export function SavedPostPage() {
                 {journalEntries.map(entry => (
                     <div key={entry.id} className='entry'>
                         <div className='prompt-container'>
-                            <input 
-                                className='moodliftprompt' 
-                                value={entry.prompt} 
-                                readOnly 
+                            <input
+                                className='moodliftprompt'
+                                value={entry.prompt}
+                                readOnly
                             />
                         </div>
-                        <textarea 
-                            className='journalinput1' 
-                            value={entry.entry} 
-                            readOnly 
-                            rows={10} 
+                        <textarea
+                            className='journalinput1'
+                            value={entry.entry}
+                            readOnly
+                            rows={10}
                             cols={62}
                         />
                         <p className="date-text1">{getCurrentDate(entry.timestamp)}</p>
@@ -253,39 +253,10 @@ export function FriendsPostPage() {
 
 }
 
-
-//mood tracker page
-// export function MoodTrackPage() {
-//     const [moodEntry, setMoodlEntry] = useState(""); // State to store the journal entry text
-
-//     // Handler for input changes
-//     const handleMoodInputChange = (e) => {
-//         setMoodlEntry(e.target.value);
-//     };
-
-//     const getCurrentDate = () => {
-//         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-//         return new Date().toLocaleDateString('en-US', options);
-//     };
-
-//     return (
-//         <div className="mood-track-container">
-//             <div className="purple-rectangle">
-//                 <Link to="/home" className="home-link"> {/* Link to the home page */}
-//                     <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
-//                 </Link>
-//                 <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
-//                 <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
-//             </div>
-
-//         </div>
-//     );
-// }
-
 //mood tracker page
 export function MoodTrackPage() {
     const [moodEntry, setMoodlEntry] = useState(""); // State to store the journal entry text
-
+    
     // Handler for input changes
     const handleMoodInputChange = (e) => {
         setMoodlEntry(e.target.value);
@@ -296,6 +267,32 @@ export function MoodTrackPage() {
         return new Date().toLocaleDateString('en-US', options);
     };
 
+    // Function to embed the Spotify playlist
+    const embedSpotifyPlaylist = (playlistId) => {
+        const embedUrl = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`;
+        const iframe = document.createElement('iframe');
+        iframe.style.borderRadius = '12px';
+        iframe.src = embedUrl;
+        iframe.width = '100%';
+        iframe.height = '352';
+        iframe.frameBorder = '0';
+        iframe.allowFullscreen = '';
+        iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+        iframe.loading = 'lazy';
+
+        const targetElement = document.getElementById('spotify-playlist-container');
+        if (targetElement) {
+            targetElement.appendChild(iframe);
+        } else {
+            console.error('Target element not found');
+        }
+    };
+
+    // UseEffect to call embedSpotifyPlaylist after the component mounts
+    useEffect(() => {
+        embedSpotifyPlaylist('5Erf4ZEXNJ548U1scRBK9j');
+    }, []); 
+
     const buttonClick = (clickedButton) => {
         var buttons = document.querySelectorAll('button');
         buttons.forEach(function (button) {
@@ -305,6 +302,10 @@ export function MoodTrackPage() {
         clickedButton.disabled = false;
         // clickedButton.target.classList.toggle('clicked');
     }
+
+    const loginToSpotify = () => {
+        window.location.href = "http://localhost:1234/spotify/login";
+    };
 
     const toggleColor = (event) => {
         console.log("in toggleColor ");
@@ -352,6 +353,12 @@ export function MoodTrackPage() {
                         <button className="circle-button gray" onClick={toggleColor}></button>
                     </div>
                 </div>
+                <div className="login-button">
+                    <button onClick={loginToSpotify}>Login to Spotify</button>
+                </div>
+                <div id="spotify-playlist-container">
+                    {/* This div will hold the Spotify iframe */}
+                </div>
             </div>
         </div>
     );
@@ -368,7 +375,7 @@ export function ResourcePage() {
     };
 
     return (
-        <div className="app-container" style={{textAlign: 'center'}}>
+        <div className="app-container" style={{ textAlign: 'center' }}>
             <div className="purple-rectangle">
                 <Link to="/home" className="home-link">
                     <img src={homeIcon} alt="Home" className="home-icon" />
@@ -389,7 +396,7 @@ export function ResourcePage() {
 }
 
 //spotify reccomndations feature
-export function SpotifyRecommendations(){
+export function SpotifyRecommendations() {
     const [tracks, setTracks] = useState([]);
 
     useEffect(() => {
@@ -441,7 +448,7 @@ function LoginPage() {
             if (!response.ok) {
                 throw new Error(`HTTP status ${response.status}`);
             }
-            
+
             const data = await response.json();
             if (data.api_key) {
                 sessionStorage.setItem('api_key', data.api_key);
