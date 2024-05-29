@@ -253,104 +253,87 @@ export function FriendsPostPage() {
 
 }
 
-//mood tracker page
+// Define mood to playlist mappings
+const moodPlaylists = {
+    lightblue: '1L0HAb9v2QWDA5ukvSrKSm',
+    darkblue: '71UaDNUlLUAfI1InekHfDE',
+    red: '1k6j9JYvCj4NOun0oRzFo2',
+    lightgreen: '7LxQn9LkTOziptWIYGvDYf',
+    purple: '4DCdpcRRUbaCWNry9id3ln',
+    orange: '7gIIFGbB3Wnf4nhxRjA9nj',
+    yellow: '5NsqNSKzy6Dvi14VueSG4r',
+    pink: '6cloGJYo5XmNjHRMsCGup0',
+    gray: '59CuzXSgNnUYSvPBta6owk',
+};
+
 export function MoodTrackPage() {
-    const [moodEntry, setMoodlEntry] = useState(""); // State to store the journal entry text
-    
-    // Handler for input changes
-    const handleMoodInputChange = (e) => {
-        setMoodlEntry(e.target.value);
-    };
+    const [currentPlaylist, setCurrentPlaylist] = useState("");
 
     const getCurrentDate = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('en-US', options);
     };
 
-    // Function to embed the Spotify playlist
-    const embedSpotifyPlaylist = (playlistId) => {
-        const embedUrl = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`;
-        const iframe = document.createElement('iframe');
-        iframe.style.borderRadius = '12px';
-        iframe.src = embedUrl;
-        iframe.width = '100%';
-        iframe.height = '352';
-        iframe.frameBorder = '0';
-        iframe.allowFullscreen = '';
-        iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-        iframe.loading = 'lazy';
-
-        const targetElement = document.getElementById('spotify-playlist-container');
-        if (targetElement) {
-            targetElement.appendChild(iframe);
-        } else {
-            console.error('Target element not found');
-        }
-    };
-
-    // UseEffect to call embedSpotifyPlaylist after the component mounts
-    useEffect(() => {
-        embedSpotifyPlaylist('5Erf4ZEXNJ548U1scRBK9j');
-    }, []); 
-
-    const buttonClick = (clickedButton) => {
-        var buttons = document.querySelectorAll('button');
-        buttons.forEach(function (button) {
-            button.disabled = true;
-        });
-
-        clickedButton.disabled = false;
-        // clickedButton.target.classList.toggle('clicked');
-    }
-
     const loginToSpotify = () => {
         window.location.href = "http://localhost:1234/spotify/login";
     };
 
-    const toggleColor = (event) => {
-        console.log("in toggleColor ");
-
-        var buttons = document.querySelectorAll('button');
-        buttons.forEach(function (button) {
-            button.disabled = false;
-            console.log("enabling button", button);
+    const embedSpotifyPlaylist = (playlistId) => {
+        const playlistContainer = document.getElementById('spotify-playlist-container');
+        let iframe = playlistContainer.querySelector('iframe');
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.setAttribute('style', 'border-radius:12px');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+            iframe.setAttribute('loading', 'lazy');
+            iframe.width = '100%';
+            iframe.height = '352';
+            iframe.frameBorder = '0';
+            playlistContainer.appendChild(iframe);
         }
-        )
+        iframe.src = `https://open.spotify.com/embed/playlist/${playlistId}`;
+    };
 
-        buttons.forEach(function (button) {
-            if (button !== event.target) {
-                button.classList.toggle('disabled');
-                //button.disabled = true;
-                console.log("failed event ", button);
-            } else if (button == event.target) {
-                console.log("event is ", event.target);
-                button.disabled = false;
-            }
-        });
-        event.target.classList.toggle('clicked');
+    const toggleColor = (event, mood) => {
+        console.log("in toggleColor ");
+        const buttons = document.querySelectorAll('.circle-button');
+        buttons.forEach(button => button.classList.remove('clicked'));
+
+        event.target.classList.add('clicked');
+
+        const playlistId = moodPlaylists[mood];
+        if (currentPlaylist !== playlistId) {
+            setCurrentPlaylist(playlistId);
+            embedSpotifyPlaylist(playlistId);
+        } else {
+            event.target.classList.remove('clicked');
+            setCurrentPlaylist("");
+            document.getElementById('spotify-playlist-container').innerHTML = ''; // Clear the playlist
+        }
     };
 
     return (
         <div className="mood-track-container">
             <div className="purple-rectangle">
-                <Link to="/" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                <Link to="/" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
-                <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
-                <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
             </div>
             <div className="blue-background">
                 <div className="moodtracker-section">
+                    <h2>What is your mood for today?</h2>
                     <div className="moodtracker-rectangle">
-                        <button className="circle-button lightblue" onClick={toggleColor}></button>
-                        <button className="circle-button darkblue" onClick={toggleColor}></button>
-                        <button className="circle-button red" onClick={toggleColor}></button>
-                        <button className="circle-button lightgreen" onClick={toggleColor}></button>
-                        <button className="circle-button purple" onClick={toggleColor}></button>
-                        <button className="circle-button orange" onClick={toggleColor}></button>
-                        <button className="circle-button yellow" onClick={toggleColor}></button>
-                        <button className="circle-button pink" onClick={toggleColor}></button>
-                        <button className="circle-button gray" onClick={toggleColor}></button>
+                        {Object.keys(moodPlaylists).map(mood => (
+                            <button
+                                key={mood}
+                                className={`circle-button ${mood}`}
+                                onClick={(e) => toggleColor(e, mood)}
+                            >
+                            </button>
+                        ))}
                     </div>
                 </div>
                 <div className="login-button">
