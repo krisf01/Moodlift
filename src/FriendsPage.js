@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import homeIcon from './images/home.svg';
 import './app.css'; // Import the CSS file
 
 export function FriendsPage() {
@@ -76,6 +77,14 @@ export function FriendsPage() {
 
     return (
         <div className="friends-page">
+             <div className="purple-rectangle">
+                <Link to="/home" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
+                </Link>
+                <p className="date-text">{new Date().toLocaleDateString()}</p>
+                <div className="moodlift-text">MoodLift</div>
+            </div>
+            <div></div>
             <h2 className="page-title">Friends Management</h2>
             <div className="search-friends">
                 <input
