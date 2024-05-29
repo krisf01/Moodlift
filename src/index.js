@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { HomePage, JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, FriendsPostPage } from './DataFetcher';
+import { HomePage, JournalingPage, MoodTrackPage, ResourcePage, SavedPostPage, FriendsPostPage, SpotifyRecommendations } from './DataFetcher';
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
 import FriendsPage from './FriendsPage';
@@ -26,6 +26,7 @@ ReactDOM.render(
                 <Route path="/savedpost" element={<ProtectedRoute element={<SavedPostPage />} />} />
                 <Route path="/friendspost" element={<ProtectedRoute element={<FriendsPostPage />} />} />
                 <Route path="/friends" element={<ProtectedRoute element={<FriendsPage />} />} />
+                <Route path="/spotify-recommendations" element={<ProtectedRoute element={<SpotifyRecommendations />} />} />
                 <Route path="/friends-journal-entries/:friendId" element={<ProtectedRoute element={<FriendsJournalEntries />} />} /> {/* New route */}
                 <Route path="/" element={<Navigate to="/login" />} /> {/* Redirect to login by default */}
             </Routes>
