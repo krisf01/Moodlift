@@ -402,6 +402,39 @@ export function MoodTrackPage() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('en-US', options);
     };
+ 
+    const buttonClick = (clickedButton) => {
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function(button) {
+            button.disabled = true;
+        });
+
+        clickedButton.disabled = false;
+       // clickedButton.target.classList.toggle('clicked');
+    }
+
+    const toggleColor = (event) => {
+        console.log("in toggleColor ");
+
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function(button) {
+            button.disabled = false;
+            console.log("enabling button", button);
+        }
+        )
+
+        buttons.forEach(function(button) {
+            if (button !== event.target) {
+                button.classList.toggle('disabled');
+                //button.disabled = true;
+                console.log("failed event ", button);
+            } else if (button == event.target) {
+                console.log("event is ", event.target);
+                button.disabled = false;
+            }
+        });
+        event.target.classList.toggle('clicked');
+    };
 
     return (
         <div className="mood-track-container">
@@ -412,11 +445,24 @@ export function MoodTrackPage() {
                 <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
                 <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
             </div>
-
+            <div className="blue-background">
+                <div className="moodtracker-section">
+                    <div className="moodtracker-rectangle">
+                        <button className="circle-button lightblue" onClick={toggleColor}></button>
+                        <button className="circle-button darkblue" onClick={toggleColor}></button>
+                        <button className="circle-button red" onClick={toggleColor}></button>
+                        <button className="circle-button lightgreen" onClick={toggleColor}></button>
+                        <button className="circle-button purple" onClick={toggleColor}></button>
+                        <button className="circle-button orange" onClick={toggleColor}></button>
+                        <button className="circle-button yellow" onClick={toggleColor}></button>
+                        <button className="circle-button pink" onClick={toggleColor}></button>
+                        <button className="circle-button gray" onClick={toggleColor}></button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
-
 //Resources Page
 export function ResourcePage() {
     const [showModal, setShowModal] = useState(false);
@@ -468,7 +514,7 @@ export function ResourcePage() {
             <div className="circle social">Social</div> {/* Social circle */}
             <div className="circle personal">Personal</div> {/* Personal circle */}
             <div className="purple-rectangle">
-                <Link to="/" className="home-link">
+                <Link to="/home" className="home-link">
                     <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
                 <p className="date-text">{getCurrentDate()}</p>

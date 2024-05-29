@@ -840,3 +840,176 @@ button:hover {
   top: 50%;
   right: -105px; /* Adjusted value to move the earth further right */
 }
+
+
+/* MOOD TRACKING HERE*/
+/*blue background for moodtracker: ask if there's a way to incorporate the root design instead of using this code*/
+.blue-background {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* z-index: -1; /* #FIX: This causes purple rectangle to disappear */
+  background-color: #67a6e5; /* Purple color */
+}
+
+.moodtracker-section {
+  margin: auto; 
+  margin-top: 5%;
+  width: 75%;
+  height: 685px; /* Height of the rectangle */
+  background-color: #f1e9f0; /* White color */
+  border-radius: 25px;
+  padding: 20px;
+  position: relative;
+}
+/* grey rectangle with background to track moods */
+.moodtracker-rectangle {
+  margin: auto;
+  padding-top: 5%;
+  height: 100px;
+  width: 75%;
+  background-color: rgb(193, 190, 190);
+  border-radius: 25px;
+}
+
+.circle-button {
+  width: 50px; 
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid;
+  background-color: white;
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+}
+
+.circle-button.darkblue {
+  border-color:rgb(16, 16, 201);
+}
+
+.circle-button.lightblue {
+  border-color:rgb(34, 148, 214);
+}
+
+.circle-button.red {
+  border-color: rgb(201, 30, 53);
+}
+
+.circle-button.lightgreen {
+  border-color: rgb(22, 220, 130);
+}
+
+.circle-button.purple {
+  border-color: rgb(151, 68, 219);
+}
+
+.circle-button.orange {
+  border-color: rgb(220, 132, 25);
+}
+
+.circle-button.yellow {
+  border-color: rgb(235, 238, 41);
+}
+
+.circle-button.pink {
+  border-color: rgb(216, 85, 198);
+}
+
+.circle-button.gray {
+  border-color: rgb(112, 112, 106);
+}
+
+.circle-button.darkblue.clicked {
+  background-color: rgb(16, 16, 201);
+}
+
+.circle-button.lightblue.clicked {
+  background-color:rgb(34, 148, 214);
+}
+
+.circle-button.red.clicked {
+  background-color: rgb(201, 30, 53);
+}
+
+.circle-button.lightgreen.clicked {
+  background-color: rgb(22, 220, 130);
+}
+
+.circle-button.purple.clicked {
+  background-color: rgb(151, 68, 219);
+}
+
+.circle-button.orange.clicked {
+  background-color: rgb(220, 132, 25);
+}
+
+.circle-button.yellow.clicked {
+  background-color: rgb(235, 238, 41);
+}
+
+.circle-button.pink.clicked {
+  background-color: rgb(216, 85, 198);
+}
+
+.circle-button.gray.clicked {
+  background-color: rgb(112, 112, 106);
+}
+
+.circle-button.darkblue.disabled {
+  border-color:rgb(16, 16, 201);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.lightblue.disabled {
+  border-color:rgb(34, 148, 214);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.red.disabled {
+  border-color: rgb(201, 30, 53);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.lightgreen.disabled {
+  border-color: rgb(22, 220, 130);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.purple.disabled {
+  border-color: rgb(151, 68, 219);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.orange.disabled {
+  border-color: rgb(220, 132, 25);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.yellow.disabled {
+  border-color: rgb(235, 238, 41);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.pink.disabled {
+  border-color: rgb(216, 85, 198);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.circle-button.gray.disabled {
+  border-color: rgb(112, 112, 106);
+  cursor: not-allowed;
+  pointer-events: none;
+}
