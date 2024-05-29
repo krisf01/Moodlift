@@ -235,212 +235,101 @@ export function SavedPostPage() {
 }
 
 
-//updated friends page 
-export function FriendsPostPage() {
-    const navigate = useNavigate();
-
-    // States for journal prompts, entries, and names
-    const [journalPrompt, setJournalPrompt] = useState("Journal Prompt");
-    const [journalEntry, setJournalEntry] = useState("This is my journal entry default text");
-    const [journalPrompt1, setJournalPrompt1] = useState("Journal Prompt");
-    const [journalEntry1, setJournalEntry1] = useState("This is another journal entry default text");
-    const [name, setName] = useState("");
-    const [name1, setName1] = useState("");
-
-    // Handlers for changes
-    const handleJournalPromptChange = (e) => {
-        setJournalPrompt(e.target.value);
-    };
-
-    const handleJournalEntryChange = (e) => {
-        setJournalEntry(e.target.value);
-    };
-
-    const handleJournalPromptChange1 = (e) => {
-        setJournalPrompt1(e.target.value);
-    };
-
-    const handleJournalEntryChange1 = (e) => {
-        setJournalEntry1(e.target.value);
-    };
-
-    const handleNameChange = (e) => {
-        setName(e.target.value);
-    };
-
-    const handleNameChange1 = (e) => {
-        setName1(e.target.value);
-    };
-
-    // Function to get the current date in the format "Month Day, Year"
-    const getCurrentDate = () => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date().toLocaleDateString('en-US', options);
-    };
-
-    // Function to handle the post operation
-    const handlePost = async () => {
-        const postData = {
-            content: journalEntry, // Use dynamic content from journal entry
-            name: name, // Include the name with the post data
-            timestamp: new Date().toISOString()
-        };
-
-        try {
-            const response = await fetch('http://localhost:1234/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(postData)
-            });
-            const data = await response.json();
-            console.log(data);
-            navigate('/some-success-route');
-        } catch (error) {
-            console.error('Error posting data:', error);
-        }
-    };
-
-    return (
-        <div className='app-container friends-post-page-container'>
-            <div className='purple-rectangle'>
-                <div style={{ position: 'absolute', top: '30px', left: '20px' }}>
-                    <h1 style={{ color: 'black' }}>Friends</h1>
-                </div>
-                <Link to="/home" className="home-link">
-                    <img src={homeIcon} alt="Home" className="home-icon" />
-                </Link>
-            </div>
-            <div>
-                <button onClick={handlePost}>Post Data</button>
-            </div>
-            <div>
-                <input className='journalPrompt friends-journal-prompt-input'
-                    value={journalPrompt}
-                    onChange={handleJournalPromptChange}
-                    readOnly={true}
-                />
-            </div>
-            <div>
-                <textarea className='journalEntry friends-journal-input'
-                    value={journalEntry}
-                    onChange={handleJournalEntryChange}
-                    readOnly={true}
-                    rows={15}
-                    cols={62}
-                />
-                <p className="date-text">{getCurrentDate()}</p>
-                <input className='nameInput friends-name-input'
-                    placeholder='Name:'
-                    value={name}
-                    onChange={handleNameChange}
-                />
-            </div>
-            <div>
-                <input className='journalPrompt1 friends-journal-prompt-input'
-                    value={journalPrompt1}
-                    onChange={handleJournalPromptChange1}
-                    readOnly={true}
-                />
-            </div>
-            <div>
-                <textarea className="journalEntry1 friends-journal-input"
-                    value={journalEntry1}
-                    onChange={handleJournalEntryChange1}
-                    readOnly={true}
-                    rows={15}
-                    cols={62}
-                />
-                <input className='nameInput1 friends-name-input'
-                    placeholder='Name:'
-                    value={name1}
-                    onChange={handleNameChange1}
-                />
-            </div>
-            <div> {/* Placeholder for Sidebar component */}
-                <Sidebar />
-            </div>
-        </div>
-    );
-}
-//close friends pgae
-
+// Define mood to playlist mappings
+const moodPlaylists = {
+    lightblue: '1L0HAb9v2QWDA5ukvSrKSm',
+    darkblue: '71UaDNUlLUAfI1InekHfDE',
+    red: '1k6j9JYvCj4NOun0oRzFo2',
+    lightgreen: '7LxQn9LkTOziptWIYGvDYf',
+    purple: '4DCdpcRRUbaCWNry9id3ln',
+    orange: '7gIIFGbB3Wnf4nhxRjA9nj',
+    yellow: '5NsqNSKzy6Dvi14VueSG4r',
+    pink: '6cloGJYo5XmNjHRMsCGup0',
+    gray: '59CuzXSgNnUYSvPBta6owk',
+};
 
 //mood tracker page
 export function MoodTrackPage() {
-    const [moodEntry, setMoodlEntry] = useState(""); // State to store the journal entry text
-
-    // Handler for input changes
-    const handleMoodInputChange = (e) => {
-        setMoodlEntry(e.target.value);
-    };
+    const [currentPlaylist, setCurrentPlaylist] = useState("");
 
     const getCurrentDate = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('en-US', options);
     };
- 
-    const buttonClick = (clickedButton) => {
-        var buttons = document.querySelectorAll('button');
-        buttons.forEach(function(button) {
-            button.disabled = true;
-        });
 
-        clickedButton.disabled = false;
-       // clickedButton.target.classList.toggle('clicked');
-    }
+    const loginToSpotify = () => {
+        window.location.href = "http://localhost:1234/spotify/login";
+    };
 
-    const toggleColor = (event) => {
-        console.log("in toggleColor ");
-
-        var buttons = document.querySelectorAll('button');
-        buttons.forEach(function(button) {
-            button.disabled = false;
-            console.log("enabling button", button);
+    const embedSpotifyPlaylist = (playlistId) => {
+        const playlistContainer = document.getElementById('spotify-playlist-container');
+        let iframe = playlistContainer.querySelector('iframe');
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.setAttribute('style', 'border-radius:12px');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+            iframe.setAttribute('loading', 'lazy');
+            iframe.width = '100%';
+            iframe.height = '352';
+            iframe.frameBorder = '0';
+            playlistContainer.appendChild(iframe);
         }
-        )
+        iframe.src = `https://open.spotify.com/embed/playlist/${playlistId}`;
+    };
 
-        buttons.forEach(function(button) {
-            if (button !== event.target) {
-                button.classList.toggle('disabled');
-                //button.disabled = true;
-                console.log("failed event ", button);
-            } else if (button == event.target) {
-                console.log("event is ", event.target);
-                button.disabled = false;
-            }
-        });
-        event.target.classList.toggle('clicked');
+    const toggleColor = (event, mood) => {
+        console.log("in toggleColor ");
+        const buttons = document.querySelectorAll('.circle-button');
+        buttons.forEach(button => button.classList.remove('clicked'));
+
+        event.target.classList.add('clicked');
+
+        const playlistId = moodPlaylists[mood];
+        if (currentPlaylist !== playlistId) {
+            setCurrentPlaylist(playlistId);
+            embedSpotifyPlaylist(playlistId);
+        } else {
+            event.target.classList.remove('clicked');
+            setCurrentPlaylist("");
+            document.getElementById('spotify-playlist-container').innerHTML = ''; // Clear the playlist
+        }
     };
 
     return (
         <div className="mood-track-container">
             <div className="purple-rectangle">
-                <Link to="/home" className="home-link"> {/* Link to the home page */}
-                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                <Link to="/home" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
-                <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
-                <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
             </div>
             <div className="blue-background">
                 <div className="moodtracker-section">
+                    <h2>What is your mood for today?</h2>
                     <div className="moodtracker-rectangle">
-                        <button className="circle-button lightblue" onClick={toggleColor}></button>
-                        <button className="circle-button darkblue" onClick={toggleColor}></button>
-                        <button className="circle-button red" onClick={toggleColor}></button>
-                        <button className="circle-button lightgreen" onClick={toggleColor}></button>
-                        <button className="circle-button purple" onClick={toggleColor}></button>
-                        <button className="circle-button orange" onClick={toggleColor}></button>
-                        <button className="circle-button yellow" onClick={toggleColor}></button>
-                        <button className="circle-button pink" onClick={toggleColor}></button>
-                        <button className="circle-button gray" onClick={toggleColor}></button>
+                        {Object.keys(moodPlaylists).map(mood => (
+                            <button
+                                key={mood}
+                                className={`circle-button ${mood}`}
+                                onClick={(e) => toggleColor(e, mood)}
+                            >
+                            </button>
+                        ))}
                     </div>
+                </div>
+                <div className="login-button">
+                    <button onClick={loginToSpotify}>Login to Spotify</button>
+                </div>
+                <div id="spotify-playlist-container">
+                    {/* This div will hold the Spotify iframe */}
                 </div>
             </div>
         </div>
     );
 }
+
 //Resources Page
 export function ResourcePage() {
     const [showModal, setShowModal] = useState(false);
@@ -638,10 +527,6 @@ function Sidebar(){
 
 export const SidebarData = [
     {
-        title: "view public posts",
-        link: "/friendspost",
-    },
-    {
         title: "view private entries",
         link: "/savedpost",
     },
@@ -654,6 +539,11 @@ export const SidebarData = [
 //spotify reccomndations feature
 export function SpotifyRecommendations(){
     const [tracks, setTracks] = useState([]);
+
+    const getCurrentDate = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
 
     useEffect(() => {
         fetch('http://localhost:1234/spotify/recommendations')
@@ -672,6 +562,13 @@ export function SpotifyRecommendations(){
 
     return (
         <div className="spotify-recommendations-container">
+        <div className="purple-rectangle">
+                <Link to="/home" className="home-link">
+                    <img src={homeIcon} alt="Home" className="home-icon" />
+                </Link>
+                <p className="date-text">{getCurrentDate()}</p>
+                <div className="moodlift-text">MoodLift</div>
+            </div>
             <h1>Spotify Playlist Recommendations</h1>
             <button onClick={loginToSpotify}>Login to Spotify</button>
             <button onClick={logoutFromSpotify}>Logout from Spotify</button>

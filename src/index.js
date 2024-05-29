@@ -24,7 +24,6 @@ ReactDOM.render(
                 <Route path="/mood-tracker" element={<ProtectedRoute element={<MoodTrackPage />} />} />
                 <Route path="/resources" element={<ProtectedRoute element={<ResourcePage />} />} />
                 <Route path="/savedpost" element={<ProtectedRoute element={<SavedPostPage />} />} />
-                <Route path="/friendspost" element={<ProtectedRoute element={<FriendsPostPage />} />} />
                 <Route path="/friends" element={<ProtectedRoute element={<FriendsPage />} />} />
                 <Route path="/spotify-recommendations" element={<ProtectedRoute element={<SpotifyRecommendations />} />} />
                 <Route path="/friends-journal-entries/:friendId" element={<ProtectedRoute element={<FriendsJournalEntries />} />} /> {/* New route */}
