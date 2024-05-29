@@ -165,17 +165,11 @@ z-index: -1; /* Ensures it stays in the background */
 }
 
 /*journaling page */
-/*journaling page */
-/* title color and positioning */
 .title h1 {
   color: #2c3e50;
   margin-top: 20px; /* Smaller value to move closer to the top */
   margin-bottom: 20px;
 }
-
-/* more existing styles... */
-
-/* New styles for Friends Post Page */
 
 /* Friends Post Page specific styles */
 .friends-post-page-container {
@@ -268,10 +262,11 @@ z-index: -1; /* Ensures it stays in the background */
 
 }
 
+/*journaling page */
 .borderbutton{
   background-color: #774172;
   width: 620px;
-  height: 300px;
+  height: 280px;
   border-radius: 25px;
   border: none;
   position: absolute;
@@ -345,7 +340,6 @@ z-index: -1; /* Ensures it stays in the background */
 }
 
 /*moodlift saved post page*/
-/*moodlift saved post page*/
 .entries-container {
   display: flex;
   flex-direction: column;
@@ -399,6 +393,23 @@ z-index: -1; /* Ensures it stays in the background */
 }
 /* end of saved post page*/
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; /* Set the background color to white */
+}
+
+.purple-rectangle {
+  position: absolute; /* Position the rectangle relative to the nearest positioned ancestor */
+  top: 0; /* Align the rectangle to the top of the page */
+  left: 0; /* Align the rectangle to the left of the page */
+  width: 100%;
+  height: 50px; /* Height of the rectangle */
+  background-color: #5d1451; /* Purple color */
+}
 
 /* beginning friends post page*/
 .borderbutton3{
@@ -816,36 +827,29 @@ button:hover {
   right: -105px; /* Adjusted value to move the earth further right */
 }
 
-
 /* MOOD TRACKING HERE*/
 /*blue background for moodtracker: ask if there's a way to incorporate the root design instead of using this code*/
-.blue-background {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  /* z-index: -1; /* #FIX: This causes purple rectangle to disappear */
-  background-color: #67a6e5; /* Purple color */
-}
 
 .moodtracker-section {
-  margin: auto; 
-  margin-top: 5%;
-  width: 75%;
-  height: 685px; /* Height of the rectangle */
-  background-color: #f1e9f0; /* White color */
+  margin: auto;
+  margin-top: 15%;
+  width: 100%;
+  height: 300px;
+  background-color: #f1e9f0;
   border-radius: 25px;
-  padding: 20px;
+  padding: 20px 20px 40px 20px;
   position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* Ensures padding is included in the width/height calculations */
 }
+
 /* grey rectangle with background to track moods */
 .moodtracker-rectangle {
-  margin: auto;
+  margin-top: 10%;
   padding-top: 5%;
   height: 100px;
-  width: 75%;
+  width: 100%;
   background-color: rgb(193, 190, 190);
   border-radius: 25px;
 }
@@ -1055,4 +1059,14 @@ button:hover {
 
 .spotify-recommendations-container li {
   margin: 10px 0;
+}
+
+#spotify-playlist-container {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10%;
+  width: 50%;
+  height: 250px;
+  overflow-y: auto;
+  border-radius: 10px;
 }

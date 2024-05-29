@@ -21,6 +21,13 @@ SPOTIPY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI = os.getenv('SPOTIFY_REDIRECT_URI')
 
+# Spotify OAuth object
+sp_oauth = SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID,
+                        client_secret=SPOTIPY_CLIENT_SECRET,
+                        redirect_uri=SPOTIPY_REDIRECT_URI,
+                        scope="user-library-read playlist-read-private playlist-read-collaborative")
+                        # CHANGED SCOPE
+
 cred = credentials.Certificate("/Users/kfout/MoodLift/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
@@ -393,6 +400,7 @@ def get_friends_journal_entries():
         return jsonify({"error": str(e)}), 500
 
 # OAuth Authentication Page
+# spotify login for mood tracker page
 @app.route('/spotify/login')
 def spotify_login():
     session.pop('token_info', None)  # Clear the session token_info before redirecting
@@ -410,7 +418,8 @@ def spotify_callback():
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
     session['token_info'] = token_info
-    return redirect(url_for('spotify_recommendations'))
+    # Redirect to route that handles the logged-in state:
+    return redirect("http://localhost:3000/mood-tracker")
 
 #Temporary placeholder to get top tracks of the logged-in user
 @app.route('/spotify/recommendations')
