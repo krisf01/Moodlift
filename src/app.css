@@ -1,3 +1,4 @@
+
 /* App.css */
 
 /* title color and positioning*/
@@ -177,7 +178,6 @@ z-index: -1; /* Ensures it stays in the background */
 /* New styles for Friends Post Page */
 
 /* Friends Post Page specific styles */
-
 .friends-post-page-container {
   display: flex;
   flex-direction: column;
@@ -186,27 +186,23 @@ z-index: -1; /* Ensures it stays in the background */
   width: 100%;
   padding: 20px;
   box-sizing: border-box; /* Include padding and border in the width and height */
-  z-index: 1;
 }
 
 /* Style for journal prompts in Friends Post Page */
 .friends-journal-prompt-input {
-  width: 450px;
-  padding: 24px 80px;
-  margin-bottom: 14px; /* Space between prompt input and journal input */
-  margin-top: 20px;
-  border-radius: 100px;
+  width: 80%; /* Adjust width as needed */
+  padding: 15px;
+  margin-bottom: 10px; /* Space between prompt input and journal input */
+  border: 4px solid #5d1451; /* Updated to thicker dark purple border */
+  border-radius: 10px;
   font-size: 16px;
-  color: #ffffff ; /* Darker text for better readability */
-  background-color: #74ABCA; /* Light grey background for input */
-  border: none;
-  z-index: 1;
-  cursor: pointer;
+  color: #333; /* Darker text for better readability */
+  background-color: #f7f7f7; /* Light grey background for input */
 }
 
 /* Style for journal entries in Friends Post Page */
 .friends-journal-input {
-  width: 500px; /* Consistent width with prompt input */
+  width: 80%; /* Consistent width with prompt input */
   height: 150px; /* Larger area for text entry */
   padding: 15px;
   border: 4px solid #5d1451; /* Updated to thicker dark purple border */
@@ -215,37 +211,17 @@ z-index: -1; /* Ensures it stays in the background */
   color: #333;
   background-color: #ffffff; /* White background for text area */
   resize: none; /* Disable resizing */
-  margin-bottom: 12px;;
-  z-index: 1;
 }
 
-.zindex{
-  z-index: 1;
-}
 
-.borderbutton4 {
-  background-color: #774172;
-  width: 45%;
-  height: 42%;
-  border-radius: 25px;
-  border: none;
-  z-index: 0;
-  position: fixed;
-  top: 62px;
-  left: 390px;
-  margin-bottom: 5px;
-}
-.borderbutton5 {
-  background-color: #774172;
-  width: 45%;
-  height: 42%;
-  border-radius: 25px;
-  border: none;
-  z-index: 0;
-  position: fixed;
-  bottom: 45px;
-  left: 390px;
-  margin-bottom: 2px;
+/* Name input style in Friends Post Page */
+.friends-name-input {
+  width: 50%; /* Smaller width for name input */
+  padding: 10px;
+  margin-top: 5px; /* Small space above the name input */
+  border: 1px solid #5d1451;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 /* Additional styles if needed for better visual coherence */
@@ -285,10 +261,10 @@ z-index: -1; /* Ensures it stays in the background */
 }
 .sidebarlist .row:hover{
   cursor: pointer;
-  background-color: #774172
+  background-color: #CAF0F8;
 }
 .sidebarlist #active{
-  background-color: #774172;
+  background-color: #CAF0F8;
 
 }
 
@@ -298,23 +274,21 @@ z-index: -1; /* Ensures it stays in the background */
   height: 300px;
   border-radius: 25px;
   border: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  left: 40px;
+  top: 200px;
 }
 
 .journalinput {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  left: 50px;  /* Adjust this as needed */
+  top: 215px;  /* Adjust this as needed */
   background-color: #ffffff;
   border: 2px solid #5d1451; /* Example: 2px solid border in dark purple */
   border-radius: 10px; /* Keeps the rounded corners */
   outline: none;
  /* width: 80%; /* Adjust width as needed */
   padding: 10px; /* Adds some padding inside the text area */
-  margin-bottom: 20px;
-  margin-top: 50px;
 }
 
 .savedbutton {
@@ -345,9 +319,9 @@ z-index: -1; /* Ensures it stays in the background */
   font-size: 18px; /* Button text size */
   border: none; /* No border */
   cursor: pointer; 
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  bottom: 70px;
+  left: 400px;
 }
 .postbutton:hover{
   background-color: #ADE1FA;
@@ -365,10 +339,9 @@ z-index: -1; /* Ensures it stays in the background */
   position: absolute;
   top: 90px;
  /* Left margin of 10% */
-  left: 16%;
+  left: 10%;
   right: 20%; /* Right margin of 10% */
-  width: 60%; /* Width adjusted to fill the space between margins */
-  margin-bottom: 20px;
+  width: 70%; /* Width adjusted to fill the space between margins */
 }
 
 /*moodlift saved post page*/
@@ -472,6 +445,133 @@ z-index: -1; /* Ensures it stays in the background */
   justify-content: center; /* Adjust if the logo needs to move up */
   height: 100vh;
   position: relative;
+}
+
+/* Friends page (for friend requests) */
+.friends-page {
+  margin-bottom: 10%;
+  /* Increase space at the top */
+}
+
+.page-title {
+  font-size: 30px;
+  /* Increase the font size of the title */
+  margin-bottom: 20px;
+  /* Increase space below the title */
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  border: 2px solid #774172;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.add-friend-button,
+.view-entries-button {
+  background-color: #774172;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: white;
+  outline-style: solid;
+  outline-width: 1px;
+}
+
+.friend-item {
+  margin-bottom: 10px;
+  /* Add space between friend items */
+}
+
+.friend-email {
+  margin-bottom: 10px;
+  /* add space between the email and the button */
+}
+
+.friend-button {
+  margin-bottom: 20px;
+  /* add additional space after the button */
+}
+
+
+/*moodlift friends post page*/
+.entries-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between entries */
+  overflow-y: auto; /* Allow scrolling if there are many entries */
+  padding: 20px; /* Add some padding for better spacing */
+  width: 100%; /* Make sure the container takes full width */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's width and height */
+  background-color: #f7f7f7;
+}
+
+/* Container for prompt input */
+.prompt-container {
+  margin-bottom: 5px; /* Space between prompt and journal entry */
+}
+
+/* Each entry styling */
+.entry {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* Styling for prompt input */
+.moodliftprompt4 {
+  width: 80%;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  background-color: #74ABCA; /* Light blue background */
+  margin-top: 15px;
+  border-radius: 60px;
+  color: white; /* White text */
+  padding: 28px 20px; /* Adjusted padding for more uniform text inside */
+  text-decoration: none; /* Remove the underline from links */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+  font-size: 12px; /* Button text size */
+  border: none; /* No border */
+  cursor: pointer;
+}
+
+/* Styling for journal entry textarea */
+.journalinput5 {
+
+  width: 80%;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none; /* Prevents the user from resizing the textarea */
+  background-color: #ffffff;
+  margin-top: 15px;
+}
+/* Styling for date text */
+.date-text4 {
+  font-size: 14px;
+  color: #555;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.borderbutton5{
+  background-color: #774172;
+  width: 80%;
+  border-radius: 25px;
+  border: none;
+  margin-left: 100px;
+  margin-top: 5px;
+}
+
+.friends-name {
+  margin-top: 50px;
 }
 
 /*///////////////////////     RESOURCES     //////////////////////////////////////////////////////////////////////////////
@@ -740,17 +840,3 @@ button:hover {
   top: 50%;
   right: -105px; /* Adjusted value to move the earth further right */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

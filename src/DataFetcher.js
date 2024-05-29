@@ -1,38 +1,68 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'; // This comes from react-router, which you need to install if you haven't
+import { Link } from 'react-router-dom';
 import './app.css';
-import logoSVG from './images/logo.svg'; // Import the SVG file
+import logoSVG from './images/logo.svg';
 import homeIcon from './images/home.svg';
 import { useNavigate } from 'react-router-dom';
 
 export function DataFetcher() {
     const [data, setData] = useState(null);
-    const [userInput, setUserInput] = useState(""); // New state for the text input
+    const [userInput, setUserInput] = useState("");
 
     useEffect(() => {
-        fetch('http://localhost:1234/api/data') // Make sure to use the correct port
+        fetch('http://localhost:1234/api/data')
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    // Handler for input changes
     const handleInputChange = (e) => {
         setUserInput(e.target.value);
     };
 
     return (
         <div className="main-content">
-        <div className="logo">
-          <img src={logoSVG} alt="logo"></img>
+            <div className="logo">
+                <img src={logoSVG} alt="logo" />
+            </div>
+            <div className="button-nav-container">
+                <Link to="/journaling" className="nav-button">Journaling</Link>
+                <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
+                <Link to="/resources" className="nav-button">Resources</Link>
+                <Link to="/friends" className="nav-button">Friends</Link>
+            </div>
         </div>
-        <div className="button-nav-container">
-          <Link to="/journaling" className="nav-button">Journaling</Link>
-          <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
-          <Link to="/resources" className="nav-button">Resources</Link>
+    );
+}
+
+export function HomePage() {
+    const [data, setData] = useState(null);
+    const [userInput, setUserInput] = useState("");
+
+    useEffect(() => {
+        fetch('http://localhost:1234/api/data')
+            .then(response => response.json())
+            .then(data => setData(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+    const handleInputChange = (e) => {
+        setUserInput(e.target.value);
+    };
+
+    return (
+        <div className="main-content">
+            <div className="logo">
+                <img src={logoSVG} alt="logo" />
+            </div>
+            <div className="button-nav-container">
+                <Link to="/journaling" className="nav-button">Journaling</Link>
+                <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
+                <Link to="/resources" className="nav-button">Resources</Link>
+                <Link to="/friends" className="nav-button">Friends</Link>
+            </div>
         </div>
-      </div>
-      );
+    );
 }
 
 export function NavigationBar() {
@@ -41,83 +71,53 @@ export function NavigationBar() {
             <Link to="/journaling" className="nav-button journaling">Journaling</Link>
             <Link to="/mood-tracker" className="nav-button mood-tracker">Mood Tracker</Link>
             <Link to="/resources" className="nav-button resources">Resources</Link>
+            <Link to="/friends" className="nav-button">Friends</Link>
         </div>
     );
 }
 
-function Sidebar(){
-
-    return (
-    <div className='sidebar'> 
-        <ul className='sidebarlist'> 
-            {SidebarData.map((val,key)=> {
-            return(
-            <li 
-            key={key} 
-            className="row"
-            id={window.location.pathname == val.link ? "active":""}
-            onClick={()=>{window.location.href = val.link}}> 
-            <div>
-                {val.title}
-            </div> 
-            </li>
-            );
-            })}
-        </ul>
-    </div>
-    );
-}
-
-export const SidebarData = [
-    {
-        title: "view saved posts",
-        link: "/friendspost",
-    },
-    {
-        title: "  create new entry",
-        link: "/journaling",
-    },
-]
-
 //journaling page
 export function JournalingPage() {
-
     const [journalEntry, setJournalEntry] = useState("");
     const [journalPrompt, setJournalPrompt] = useState("Click to generate a journal prompt");
+    const [userId, setUserId] = useState("");
 
-    // Handler for journal entry changes
+    useEffect(() => {
+        // Retrieve the user ID from local storage or wherever it is stored
+        const storedUserId = localStorage.getItem('user_id');
+        if (storedUserId) {
+            setUserId(storedUserId);
+        } else {
+            // Handle the case where user ID is not available
+            console.error('User ID not found');
+        }
+    }, []);
+
     const handleJournalInputChange = (e) => {
         setJournalEntry(e.target.value);
     };
 
-    // Function to fetch a random journal prompt from the Flask server
     const fetchJournalPrompt = () => {
-        fetch('http://localhost:1234/generate-prompt', { method: 'GET' })
+        fetch('http://localhost:1234/generate-prompt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_id: userId })
+        })
         .then(response => response.json())
         .then(data => {
-            setJournalPrompt(data.prompt); // Update the journal prompt with the fetched data
+            setJournalPrompt(data.prompt);
         })
         .catch(error => console.error('Error fetching journal prompt:', error));
     };
 
-    // Function to get the current date in the format "Month Day, Year"
-    const getCurrentDate = () => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date().toLocaleDateString('en-US', options);
-    };
-
-    //toggle button handler 
-    const [toggled, setToggled] = useState(false);
-
-     //Do a post to to the database when Post button is clicked
-     const handlePostToServer = async () => {
-        // const postData = {
-        //     journalEntry: journalEntry,
-        //     journalPrompt: journalprompt,
-        //     timestamp: new Date().toISOString()
-        // };
+    const handlePostToServer = async () => {
         const postData = {
-            action: "Post",
+            user_id: userId,
+            journalEntry,
+            journalPrompt,
+            timestamp: new Date().toISOString()
         };
 
         try {
@@ -130,7 +130,6 @@ export function JournalingPage() {
             });
             const data = await response.json();
             console.log(data);
-            // Optionally handle navigation or state updates based on the response
         } catch (error) {
             console.error('Error posting data:', error);
         }
@@ -139,20 +138,22 @@ export function JournalingPage() {
     return (
         <div className="app-container">
             <div className="purple-rectangle">
-                <Link to="/" className="home-link">
+                <Link to="/home" className="home-link">
                     <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
-                <p className="date-text">{getCurrentDate()}</p>
+                <p className="date-text">{new Date().toLocaleDateString()}</p>
                 <div className="moodlift-text">MoodLift</div>
             </div>
             <div>
                 <input className='journalpromptinput'
                     value={journalPrompt}
-                    onClick={fetchJournalPrompt} // Add click handler here
+                    onClick={fetchJournalPrompt}
                     readOnly={true}
                 ></input>
             </div>
-           
+            <div>
+                <button className='borderbutton'>layout</button>
+            </div>
             <div>
                 <textarea className='journalinput'
                     value={journalEntry}
@@ -162,13 +163,13 @@ export function JournalingPage() {
                     cols={70}
                 ></textarea>
             </div>
-        <div>
-            <Link to='/friendspost'> 
+            <div>
+                <Link to="/savedpost" className='savedbutton'>Saved</Link>
+            </div>
+            <div>
                 <button className='postbutton' onClick={handlePostToServer}>Post</button>
-            </Link>
-            
-    </div>
-    <div>
+        </div>
+        <div>
         <Sidebar />
     </div>
     </div>
@@ -176,6 +177,85 @@ export function JournalingPage() {
 }
 
 
+export function SavedPostPage(){
+    const[moodliftjournalprompt,setmoodliftJournalPrompt] = useState("Journal Prompt");
+
+    //handler for journal propmt changes
+    const handleMoodLiftJournalPromptChange =(e) => {
+        setmoodliftJournalPrompt(e.target.value);
+    };
+    //handler for saved input changes
+    const[moodliftjournalinput,setsavedjournalprompt] = useState(" this is my journal entry deafult text");
+
+    const handleSavedPostPromptChange =(e) => {
+        setsavedjournalprompt(e.target.value);
+    };
+     // Function to get the current date in the format "Month Day, Year"
+     const getCurrentDateSavedPost = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('en-US', options);
+    };
+    //second saved input changes
+    const[moodliftjournalinput1,setsavedjournalprompt1] = useState(" this is my journal entry default text");
+
+    const handleSavedPostPromptChange1 =(e) => {
+        setsavedjournalprompt1(e.target.value);
+    };
+    
+    //second handler
+    const[moodliftjournalprompt1,setmoodliftJournalPrompt1] = useState("Journal Prompt");
+
+    const handleMoodLiftJournalPromptChange1 =(e) => {
+        setmoodliftJournalPrompt1(e.target.value);
+    };
+    return(
+        <div className='app-container'>
+            <div className='purple-rectangle'>
+                <Link to="/home" className="home-link"> {/* Link to the home page */}
+                    <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+                </Link>
+            </div>
+            <div>
+                <button className='borderbutton1'> </button>
+            </div>
+            <div>
+                <button className='borderbutton2'> </button>
+            </div>
+            <div>
+                <input className='moodliftprompt'
+                    value={moodliftjournalprompt}
+                    onChange={handleMoodLiftJournalPromptChange}
+                    readOnly={true}
+                ></input>
+            </div>
+            <div> <Sidebar /> </div>
+           <div>
+                <textarea className='journalinput1'
+                    value={moodliftjournalinput}
+                    onChange={handleSavedPostPromptChange}
+                    readOnly={true}
+                    rows = {15}
+                    cols = {62}
+                ></textarea>
+                <p className="date-text1">{getCurrentDateSavedPost()}</p> {/* Date text */}
+            <div>
+            <input className='moodliftprompt1'
+                    value={moodliftjournalprompt1}
+                    onChange={handleMoodLiftJournalPromptChange1}
+                    readOnly={true}
+                ></input>
+            </div>
+           </div>
+                <textarea className="journalinput2"
+                    value={moodliftjournalinput1}
+                    onChange={handleSavedPostPromptChange1}
+                    readOnly={true}
+                    rows = {15}
+                    cols = {62}
+                ></textarea>
+        </div>
+    );
+}
 
 //updated friends page 
 export function FriendsPostPage() {
@@ -247,38 +327,46 @@ export function FriendsPostPage() {
     return (
         <div className='app-container friends-post-page-container'>
             <div className='purple-rectangle'>
-                <Link to="/" className="home-link">
+                <div style={{ position: 'absolute', top: '30px', left: '20px' }}>
+                    <h1 style={{ color: 'black' }}>Friends</h1>
+                </div>
+                <Link to="/home" className="home-link">
                     <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
-                <p className="date-text">{getCurrentDate()}</p>
-                <div className="moodlift-text">MoodLift</div>
             </div>
-            <div className='zindex'>
+            <div>
+                <button onClick={handlePost}>Post Data</button>
+            </div>
+            <div>
                 <input className='journalPrompt friends-journal-prompt-input'
                     value={journalPrompt}
                     onChange={handleJournalPromptChange}
                     readOnly={true}
                 />
             </div>
-            <div className='zindex'>
-                <textarea className=' friends-journal-input'
+            <div>
+                <textarea className='journalEntry friends-journal-input'
                     value={journalEntry}
                     onChange={handleJournalEntryChange}
                     readOnly={true}
                     rows={15}
                     cols={62}
                 />
+                <p className="date-text">{getCurrentDate()}</p>
+                <input className='nameInput friends-name-input'
+                    placeholder='Name:'
+                    value={name}
+                    onChange={handleNameChange}
+                />
             </div>
-            <div><button className='borderbutton4'></button>
-                </div>
-            <div className='zindex'>
+            <div>
                 <input className='journalPrompt1 friends-journal-prompt-input'
                     value={journalPrompt1}
                     onChange={handleJournalPromptChange1}
                     readOnly={true}
                 />
             </div>
-            <div className='zindex'>
+            <div>
                 <textarea className="journalEntry1 friends-journal-input"
                     value={journalEntry1}
                     onChange={handleJournalEntryChange1}
@@ -286,9 +374,11 @@ export function FriendsPostPage() {
                     rows={15}
                     cols={62}
                 />
-            </div>
-            <div>
-                <button className='borderbutton5'></button>
+                <input className='nameInput1 friends-name-input'
+                    placeholder='Name:'
+                    value={name1}
+                    onChange={handleNameChange1}
+                />
             </div>
             <div> {/* Placeholder for Sidebar component */}
                 <Sidebar />
@@ -297,6 +387,7 @@ export function FriendsPostPage() {
     );
 }
 //close friends pgae
+
 
 //mood tracker page
 export function MoodTrackPage() {
@@ -315,7 +406,7 @@ export function MoodTrackPage() {
     return (
         <div className="mood-track-container">
             <div className="purple-rectangle">
-                <Link to="/" className="home-link"> {/* Link to the home page */}
+                <Link to="/home" className="home-link"> {/* Link to the home page */}
                     <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
                 </Link>
                 <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
@@ -327,9 +418,6 @@ export function MoodTrackPage() {
 }
 
 //Resources Page
-
-
-
 export function ResourcePage() {
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState(null);
@@ -457,48 +545,6 @@ export function ResourcePage() {
     );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-// export function ResourcePage() {
-//     //this a temporary place holder url
-//     const [resourceUrl] = useState("https://https://www.nimh.nih.gov/health/find-help.com");
-
-//     const getCurrentDate = () => {
-//         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-//         return new Date().toLocaleDateString('en-US', options);
-//     };
-
-//     return (
-//         <div className="app-container" style={{textAlign: 'center'}}>
-//             <div className="purple-rectangle">
-//                 <Link to="/" className="home-link">
-//                     <img src={homeIcon} alt="Home" className="home-icon" />
-//                 </Link>
-//                 <p className="date-text">{getCurrentDate()}</p>
-//                 <div className="moodlift-text">MoodLift</div>
-//             </div>
-//             <h1>Resources</h1>
-//             <div className="resourcelinks">
-//                 <p>Visit the resource below:</p>
-//                 <a href={resourceUrl} target="_blank" rel="noopener noreferrer">
-//                     {resourceUrl}
-//                 </a>
-//             </div>
-//             <p>This is just a test more appropiate linkes will be added later.</p>
-//         </div>
-//     );
-// }
-
 function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -542,3 +588,41 @@ function LoginPage() {
         </div>
     );
 }
+
+function Sidebar(){
+
+    return (
+    <div className='sidebar'> 
+        <ul className='sidebarlist'> 
+            {SidebarData.map((val,key)=> {
+            return(
+            <li 
+            key={key} 
+            className="row"
+            id={window.location.pathname == val.link ? "active":""}
+            onClick={()=>{window.location.href = val.link}}> 
+            <div>
+                {val.title}
+            </div> 
+            </li>
+            );
+            })}
+        </ul>
+    </div>
+    );
+}
+
+export const SidebarData = [
+    {
+        title: "view public posts",
+        link: "/friendspost",
+    },
+    {
+        title: "view private entries",
+        link: "/savedpost",
+    },
+    {
+        title: "new entry",
+        link: "/journaling",
+    },
+]
