@@ -573,3 +573,270 @@ z-index: -1; /* Ensures it stays in the background */
 .friends-name {
   margin-top: 50px;
 }
+
+/*///////////////////////     RESOURCES     //////////////////////////////////////////////////////////////////////////////
+
+
+
+
+/* Base styles */
+.app-container {
+  text-align: center;
+  position: relative; /* Needed for absolute positioning of children */
+  overflow: hidden; /* Keeps children within the bounds */
+  padding-bottom: 50px; /* Extra space at the bottom */
+}
+
+/* Background pattern and circles */
+.background-pattern {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  z-index: -1;
+}
+
+.circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  font-size: 16px;
+  color: white; /* White text for better visibility */
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  flex-direction: column; /* Align text vertically */
+  text-align: center; /* Center text horizontally */
+  padding: 10px; /* Padding for text spacing */
+}
+
+.circle.academic {
+  top: 60%;
+  left: 20%;
+  background-color: #8b004c; /* Dark magenta color */
+}
+
+/* Remove redundant ::before pseudo-element from academic circle */
+.circle.academic::before {
+  content: 'Academic Social Personal'; /* Only one line of text */
+  font-size: 12px; /* Adjusted font size for fit */
+}
+
+.circle.social {
+  top: 70%;
+  left: calc(40% + 4%); /* Moved right by 4% */
+  background-color: #6a8caf; /* Lighter blue color */
+}
+
+/* Updated text content for the 'Social' circle */
+.circle.social::before {
+  content: 'Breathing Exercises';
+  font-size: 14px; /* Adjusted font size for clarity */
+}
+
+.circle.personal {
+  top: 60%;
+  right: 20%;
+  background-color: #87ceeb; /* Sky blue color */
+}
+
+/* Updated text content for the 'Personal' circle */
+.circle.personal::before {
+  content: 'Activities';
+  font-size: 14px; /* Adjusted font size for clarity */
+}
+
+/* Resource grid system */
+.resource-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap; /* Ensures responsiveness */
+  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.resource-item {
+  width: 30%; /* Each item takes up roughly one-third of the container width */
+  margin: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #f0f0f0; /* Light gray background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+
+
+.resource-item:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.resource-textbox {
+  padding: 20px;
+  margin-bottom: 10px;
+  background-color: #f7f7f7;
+  border: 2px solid #5d1451;
+  border-radius: 10px;
+  color: #333;
+  font-size: 16px;
+}
+
+.resource-link {
+  display: inline-block;
+  padding: 10px 60px;
+  padding-left: 30px; /* Increased left padding to add space for the icon */
+  background-color: #5d1451;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  position: relative; /* Needed for absolute positioning of the pseudo-element */
+}
+
+.resource-link:before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 12px solid white; /* Creates the triangle for the play icon */
+}
+
+.resource-link:hover {
+  background-color: #774172; /* Lighter purple on hover */
+}
+
+/* Additional styles if needed for better visual coherence */
+button {
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Adjustments to move the boxes up */
+.resource-grid {
+  margin-top: 0; /* Remove top margin */
+}
+
+.resource-item {
+  margin-top: -200px; /* Add a smaller top margin */
+}
+
+
+
+
+
+/*////////////////////////////////////////////////
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 80%;
+  position: relative;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.modal-content {
+  margin-top: 10px;
+}
+
+/* Sunshine image */
+.sunshine {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: -90px; /* Adjusted value to move the sunshine further left */
+  transform: translateY(-50%);
+}
+
+.sunshine-face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px; /* Enlarged the sunshine figure */
+  color: #000;
+}
+
+.sunshine-face::before {
+  content: '🌞';
+}
+
+/* Earth image */
+.earth {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #76c7c0 50%, #34a853 50%);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  right: -70px; /* Adjusted value to move the earth further right */
+  transform: translateY(-50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.earth-face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px; /* Enlarged the earth figure */
+  color: #000;
+}
+
+.earth-face::before {
+  content: '🌎';
+}
+
+/* Positioning adjustments */
+.resource-item:first-child {
+  position: relative;
+}
+
+.resource-item:nth-child(3) {
+  position: relative;
+}
+
+.resource-item:nth-child(3) .earth {
+  top: 50%;
+  right: -105px; /* Adjusted value to move the earth further right */
+}

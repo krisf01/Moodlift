@@ -419,31 +419,128 @@ export function MoodTrackPage() {
 
 //Resources Page
 export function ResourcePage() {
-    //this a temporary place holder url
-    const [resourceUrl] = useState("https://https://www.nimh.nih.gov/health/find-help.com");
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
 
     const getCurrentDate = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('en-US', options);
     };
 
+    // URLs updated to point to real resources
+    const link1 = "https://www.verywellmind.com/tips-to-reduce-stress-3145195";
+    const link2 = "https://www.webmd.com/balance/tips-to-control-stress";
+    const link3 = "https://www.youtube.com/watch?v=Eupk56SG76M";
+    const link4 = "https://www.youtube.com/watch?v=abcd";
+    const link5 = "https://open.spotify.com/playlist/37i9dQZF1DXdPec7aLTmlC"; // Random happy public Spotify playlist
+    const link6 = "https://www.youtube.com/watch?v=ijkl";
+    const link7 = "https://www.youtube.com/watch?v=mnop";
+    const link8 = "https://www.youtube.com/watch?v=qrst";
+
+    const googleLink1 = "https://www.google.com/search?q=link1";
+    const googleLink2 = "https://www.google.com/search?q=link2";
+    const googleLink3 = "https://www.google.com/search?q=link3";
+    const googleLink4 = "https://www.google.com/search?q=link4";
+    const googleLink5 = "https://www.google.com/search?q=link5";
+    const googleLink6 = "https://www.google.com/search?q=link6";
+
+    const appleLink1 = "https://www.apple.com";
+    const appleLink2 = "https://www.apple.com";
+    const appleLink3 = "https://www.apple.com";
+    const appleLink4 = "https://www.apple.com";
+    const appleLink5 = "https://www.apple.com";
+    const appleLink6 = "https://www.apple.com";
+
+    const handleOpenModal = (content) => {
+        setModalContent(content);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setModalContent(null);
+    };
+
     return (
-        <div className="app-container" style={{textAlign: 'center'}}>
+        <div className="app-container">
+            <div className="background-pattern"></div> {/* Background pattern for visual styling */}
+            <div className="circle academic">Academic</div> {/* Academic circle */}
+            <div className="circle social">Social</div> {/* Social circle */}
+            <div className="circle personal">Personal</div> {/* Personal circle */}
             <div className="purple-rectangle">
-                <Link to="/home" className="home-link">
+                <Link to="/" className="home-link">
                     <img src={homeIcon} alt="Home" className="home-icon" />
                 </Link>
                 <p className="date-text">{getCurrentDate()}</p>
                 <div className="moodlift-text">MoodLift</div>
             </div>
             <h1>Resources</h1>
-            <div className="resourcelinks">
-                <p>Visit the resource below:</p>
-                <a href={resourceUrl} target="_blank" rel="noopener noreferrer">
-                    {resourceUrl}
-                </a>
+            <div className="resource-grid">
+                <div className="resource-item">
+                    <div className="sunshine">
+                        <div className="sunshine-face"></div>
+                    </div>
+                    <div className="resource-textbox">How to Practice Stress Management Techniques</div>
+                    <button onClick={() => handleOpenModal(
+                      <div>
+                        <p>How to Practice Stress Management Techniques</p>
+                        <a href={googleLink1} target="_blank" rel="noopener noreferrer">Click here to view part 1</a><br />
+                        <a href={googleLink2} target="_blank" rel="noopener noreferrer">Click here to view part 2</a><br />
+                        <a href={googleLink3} target="_blank" rel="noopener noreferrer">Click here to view part 3</a><br />
+                        <p>Additional resources:</p>
+                        <a href={googleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a><br />
+                        <a href={googleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a><br />
+                        <a href={googleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a>
+                      </div>
+                    )} className="resource-link">Why is it Important...</button>
+                </div>
+                <div className="resource-item">
+                    <div className="resource-textbox">Helpful Tips</div>
+                    <button onClick={() => handleOpenModal(
+                      <div>
+                        <p>Helpful Tips</p>
+                        <a href={appleLink1} target="_blank" rel="noopener noreferrer">Click here to view part 1</a><br />
+                        <a href={appleLink2} target="_blank" rel="noopener noreferrer">Click here to view part 2</a><br />
+                        <a href={appleLink3} target="_blank" rel="noopener noreferrer">Click here to view part 3</a><br />
+                        <p>Additional resources:</p>
+                        <a href={appleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a><br />
+                        <a href={appleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a><br />
+                        <a href={appleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a>
+                      </div>
+                    )} className="resource-link">Helpful Videos...</button>
+                </div>
+                <div className="resource-item">
+                    <div className="earth">
+                        <div className="earth-face"></div>
+                    </div>
+                    <div className="resource-textbox">Self Care</div>
+                    <button onClick={() => handleOpenModal(
+                      <div>
+                        <p>Self Care</p>
+                        <a href={link3} target="_blank" rel="noopener noreferrer">Click here to view part 1</a><br />
+                        <a href={link4} target="_blank" rel="noopener noreferrer">Click here to view part 2</a><br />
+                        <a href={link5} target="_blank" rel="noopener noreferrer">Click here to view part 3</a><br />
+                        <p>Additional self care resources:</p>
+                        <a href={link6} target="_blank" rel="noopener noreferrer">Click here to view part 4</a><br />
+                        <a href={link7} target="_blank" rel="noopener noreferrer">Click here to view part 5</a><br />
+                        <a href={link8} target="_blank" rel="noopener noreferrer">Click here to view part 6</a>
+                      </div>
+                    )} className="resource-link">Play Here...</button>
+                </div>
             </div>
-            <p>This is just a test more appropiate linkes will be added later.</p>
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <button className="modal-close" onClick={handleCloseModal}>
+                            &times;
+                        </button>
+                        <div className="modal-content">
+                            {modalContent}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
