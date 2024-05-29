@@ -444,7 +444,7 @@ z-index: -1; /* Ensures it stays in the background */
 
 /* grey rectangle with background to track moods */
 .moodtracker-rectangle {
-  margin-top: 10%;
+  margin-top: 5%;
   padding-top: 5%;
   height: 100px;
   width: 100%;
