@@ -459,3 +459,77 @@ z-index: -1; /* Ensures it stays in the background */
 .friend-button {
   margin-bottom: 15px; /* Add additional space after the button */
 }
+
+/*moodlift friends post page*/
+.entries-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between entries */
+  overflow-y: auto; /* Allow scrolling if there are many entries */
+  padding: 20px; /* Add some padding for better spacing */
+  width: 100%; /* Make sure the container takes full width */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's width and height */
+  background-color: #f7f7f7;
+}
+
+/* Container for prompt input */
+.prompt-container {
+  margin-bottom: 5px; /* Space between prompt and journal entry */
+}
+
+/* Each entry styling */
+.entry {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* Styling for prompt input */
+.moodliftprompt4 {
+  width: 80%;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  background-color: #74ABCA; /* Light blue background */
+  margin-top: 15px;
+  border-radius: 60px;
+  color: white; /* White text */
+  padding: 28px 20px; /* Adjusted padding for more uniform text inside */
+  text-decoration: none; /* Remove the underline from links */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+  font-size: 12px; /* Button text size */
+  border: none; /* No border */
+  cursor: pointer;
+}
+
+/* Styling for journal entry textarea */
+.journalinput5 {
+
+  width: 80%;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none; /* Prevents the user from resizing the textarea */
+  background-color: #ffffff;
+  margin-top: 15px;
+}
+/* Styling for date text */
+.date-text4 {
+  font-size: 14px;
+  color: #555;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.borderbutton5{
+  background-color: #774172;
+  width: 80%;
+  border-radius: 25px;
+  border: none;
+  margin-left: 100px;
+  margin-top: 5px;
+}
+
+.friends-name {
+  margin-top: 50px;
+}
