@@ -255,6 +255,34 @@ export function FriendsPostPage() {
 
 
 //mood tracker page
+// export function MoodTrackPage() {
+//     const [moodEntry, setMoodlEntry] = useState(""); // State to store the journal entry text
+
+//     // Handler for input changes
+//     const handleMoodInputChange = (e) => {
+//         setMoodlEntry(e.target.value);
+//     };
+
+//     const getCurrentDate = () => {
+//         const options = { year: 'numeric', month: 'long', day: 'numeric' };
+//         return new Date().toLocaleDateString('en-US', options);
+//     };
+
+//     return (
+//         <div className="mood-track-container">
+//             <div className="purple-rectangle">
+//                 <Link to="/home" className="home-link"> {/* Link to the home page */}
+//                     <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
+//                 </Link>
+//                 <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
+//                 <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
+//             </div>
+
+//         </div>
+//     );
+// }
+
+//mood tracker page
 export function MoodTrackPage() {
     const [moodEntry, setMoodlEntry] = useState(""); // State to store the journal entry text
 
@@ -268,16 +296,63 @@ export function MoodTrackPage() {
         return new Date().toLocaleDateString('en-US', options);
     };
 
+    const buttonClick = (clickedButton) => {
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function (button) {
+            button.disabled = true;
+        });
+
+        clickedButton.disabled = false;
+        // clickedButton.target.classList.toggle('clicked');
+    }
+
+    const toggleColor = (event) => {
+        console.log("in toggleColor ");
+
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function (button) {
+            button.disabled = false;
+            console.log("enabling button", button);
+        }
+        )
+
+        buttons.forEach(function (button) {
+            if (button !== event.target) {
+                button.classList.toggle('disabled');
+                //button.disabled = true;
+                console.log("failed event ", button);
+            } else if (button == event.target) {
+                console.log("event is ", event.target);
+                button.disabled = false;
+            }
+        });
+        event.target.classList.toggle('clicked');
+    };
+
     return (
         <div className="mood-track-container">
             <div className="purple-rectangle">
-                <Link to="/home" className="home-link"> {/* Link to the home page */}
+                <Link to="/" className="home-link"> {/* Link to the home page */}
                     <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
                 </Link>
                 <p className="date-text">{getCurrentDate()}</p> {/* Date text */}
                 <div className="moodlift-text">MoodLift</div> {/* MoodLift text */}
             </div>
-
+            <div className="blue-background">
+                <div className="moodtracker-section">
+                    <div className="moodtracker-rectangle">
+                        <button className="circle-button lightblue" onClick={toggleColor}></button>
+                        <button className="circle-button darkblue" onClick={toggleColor}></button>
+                        <button className="circle-button red" onClick={toggleColor}></button>
+                        <button className="circle-button lightgreen" onClick={toggleColor}></button>
+                        <button className="circle-button purple" onClick={toggleColor}></button>
+                        <button className="circle-button orange" onClick={toggleColor}></button>
+                        <button className="circle-button yellow" onClick={toggleColor}></button>
+                        <button className="circle-button pink" onClick={toggleColor}></button>
+                        <button className="circle-button gray" onClick={toggleColor}></button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
