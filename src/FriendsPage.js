@@ -76,15 +76,18 @@ export function FriendsPage() {
 
     return (
         <div className="friends-page">
-            <h2>Friends Management</h2>
+            <h2 className="page-title">Friends Management</h2>
             <div className="search-friends">
-                <input 
-                    type="text" 
-                    value={userInput} 
-                    onChange={handleInputChange} 
+                <input
+                    type="text"
+                    value={userInput}
+                    onChange={handleInputChange}
                     placeholder="Search users by email"
+                    className="search-input"
                 />
-                <button onClick={handleSearchAndAddFriend}>Search and Add Friend</button>
+                <button className="add-friend-button" onClick={handleSearchAndAddFriend}>
+                    Search and Add Friend
+                </button>
             </div>
             <div className="friend-list">
                 <h3>Your Friends</h3>
@@ -93,7 +96,9 @@ export function FriendsPage() {
                         <div className="friend-email">{friend.email}</div>
                         <div className="friend-button">
                             <Link to={`/friends-journal-entries/${friend.id}`}>
-                                <button>View Journal Entries</button>
+                                <button className="view-entries-button">
+                                    View Journal Entries
+                                </button>
                             </Link>
                         </div>
                     </div>

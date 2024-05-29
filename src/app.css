@@ -447,18 +447,58 @@ z-index: -1; /* Ensures it stays in the background */
   position: relative;
 }
 
-/* friends page*/
+/* Friends page (for friend requests) */
+.friends-page {
+  margin-bottom: 10%;
+  /* Increase space at the top */
+}
+
+.page-title {
+  font-size: 30px;
+  /* Increase the font size of the title */
+  margin-bottom: 20px;
+  /* Increase space below the title */
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  border: 2px solid #774172;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.add-friend-button,
+.view-entries-button {
+  background-color: #774172;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: white;
+  outline-style: solid;
+  outline-width: 1px;
+}
+
 .friend-item {
-  margin-bottom: 10px; /* Add space between friend items */
+  margin-bottom: 10px;
+  /* Add space between friend items */
 }
 
 .friend-email {
-  margin-bottom: 5px; /* Add space between the email and the button */
+  margin-bottom: 10px;
+  /* add space between the email and the button */
 }
 
 .friend-button {
-  margin-bottom: 15px; /* Add additional space after the button */
+  margin-bottom: 20px;
+  /* add additional space after the button */
 }
+
 
 /*moodlift friends post page*/
 .entries-container {
