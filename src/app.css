@@ -265,8 +265,8 @@ z-index: -1; /* Ensures it stays in the background */
 /*journaling page */
 .borderbutton{
   background-color: #774172;
-  width: 620px;
-  height: 280px;
+  width: 83%;
+  height: 302px;
   border-radius: 25px;
   border: none;
   position: absolute;
@@ -282,7 +282,7 @@ z-index: -1; /* Ensures it stays in the background */
   border: 2px solid #5d1451; /* Example: 2px solid border in dark purple */
   border-radius: 10px; /* Keeps the rounded corners */
   outline: none;
- /* width: 80%; /* Adjust width as needed */
+  width: 80%; /* Adjust width as needed */
   padding: 10px; /* Adds some padding inside the text area */
 }
 
