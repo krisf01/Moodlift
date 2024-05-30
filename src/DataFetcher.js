@@ -201,6 +201,8 @@ export function SavedPostPage() {
                 <Link to="/home" className="home-link"> {/* Link to the home page */}
                     <img src={homeIcon} alt="Home" className="home-icon" /> {/* Home icon */}
                 </Link>
+                <p className="date-text">{new Date().toLocaleDateString()}</p>
+                <div className="moodlift-text">MoodLift</div>
             </div>
             <div>
                 <button className='borderbutton1'> </button>
