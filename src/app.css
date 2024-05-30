@@ -298,7 +298,7 @@ z-index: -1; /* Ensures it stays in the background */
   cursor: pointer;
   position: absolute;
   bottom: 70px;
-  left: 300px; /* Adjust this to move left or right */
+  left: 200px; /* Adjust this to move left or right */
 }
 
 .savedbutton:hover{
@@ -316,7 +316,8 @@ z-index: -1; /* Ensures it stays in the background */
   cursor: pointer; 
   position: absolute;
   bottom: 70px;
-  left: 400px;
+
+  right: 400px;
 }
 .postbutton:hover{
   background-color: #ADE1FA;
@@ -334,8 +335,8 @@ z-index: -1; /* Ensures it stays in the background */
   position: absolute;
   top: 90px;
  /* Left margin of 10% */
-  left: 10%;
-  right: 20%; /* Right margin of 10% */
+  left: 3%;
+  right: 25%; /* Right margin of 10% */
   width: 70%; /* Width adjusted to fill the space between margins */
 }
 
