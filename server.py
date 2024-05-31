@@ -12,7 +12,7 @@ load_dotenv()
 # Initialize OpenAI client with the API key
 client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-cred = credentials.Certificate("/Users/kfout/MoodLift/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
+cred = credentials.Certificate("/home/dylantran02/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
 firebase_admin.initialize_app(cred,{
         'databaseURL' : 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
 })
