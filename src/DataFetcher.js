@@ -342,23 +342,23 @@ export function ResourcePage() {
     // URLs updated to point to real resources
     const link1 = "https://www.verywellmind.com/tips-to-reduce-stress-3145195";
     const link2 = "https://www.webmd.com/balance/tips-to-control-stress";
-    const link3 = "https://www.youtube.com/watch?v=Eupk56SG76M";
-    const link4 = "https://www.youtube.com/watch?v=abcd";
-    const link5 = "https://open.spotify.com/playlist/37i9dQZF1DXdPec7aLTmlC"; // Random happy public Spotify playlist
+    const link3 = "https://www.calm.com/blog/self-care-practices";
+    const link4 = "https://www.ted.com/playlists/299/the_importance_of_self_care";
+    const link5 = "https://www.healthline.com/health-news/self-care-is-not-just-treating-yourself"; // Random happy public Spotify playlist
     const link6 = "https://www.youtube.com/watch?v=ijkl";
     const link7 = "https://www.youtube.com/watch?v=mnop";
     const link8 = "https://www.youtube.com/watch?v=qrst";
 
-    const googleLink1 = "https://www.google.com/search?q=link1";
-    const googleLink2 = "https://www.google.com/search?q=link2";
-    const googleLink3 = "https://www.google.com/search?q=link3";
+    const googleLink1 = "https://www.purdueglobal.edu/blog/student-life/college-students-guide-to-stress-management-infographic/";
+    const googleLink2 = "https://www.lifebulb.com/blogs/stress-management-techniques-for-students";
+    const googleLink3 = "https://www.prospects.ac.uk/applying-for-university/university-life/5-ways-to-manage-student-stress";
     const googleLink4 = "https://www.google.com/search?q=link4";
     const googleLink5 = "https://www.google.com/search?q=link5";
     const googleLink6 = "https://www.google.com/search?q=link6";
 
-    const appleLink1 = "https://www.apple.com";
-    const appleLink2 = "https://www.apple.com";
-    const appleLink3 = "https://www.apple.com";
+    const appleLink1 = "https://www.mhanational.org/31-tips-boost-your-mental-health";
+    const appleLink2 = "https://www.nih.gov/health-information/emotional-wellness-toolkit";
+    const appleLink3 = "https://www.mentalhealthishealth.us/";
     const appleLink4 = "https://www.apple.com";
     const appleLink5 = "https://www.apple.com";
     const appleLink6 = "https://www.apple.com";
@@ -396,13 +396,15 @@ export function ResourcePage() {
                     <button onClick={() => handleOpenModal(
                       <div>
                         <p>How to Practice Stress Management Techniques</p>
-                        <a href={googleLink1} target="_blank" rel="noopener noreferrer">Click here to view part 1</a><br />
-                        <a href={googleLink2} target="_blank" rel="noopener noreferrer">Click here to view part 2</a><br />
-                        <a href={googleLink3} target="_blank" rel="noopener noreferrer">Click here to view part 3</a><br />
-                        <p>Additional resources:</p>
-                        <a href={googleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a><br />
-                        <a href={googleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a><br />
-                        <a href={googleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a>
+                        <ul style={{ textAlign: 'left' }}>
+                          <li><a href={googleLink1} target="_blank" rel="noopener noreferrer">The College Student's Guide to Stress Management</a></li>
+                          <li><a href={googleLink2} target="_blank" rel="noopener noreferrer">15 Stress Management Techniques for Students</a></li>
+                          <li><a href={googleLink3} target="_blank" rel="noopener noreferrer">5 ways to manage student stress</a></li>
+                          <p>Additional resources:</p>
+                          <li><a href={googleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a></li>
+                          <li><a href={googleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a></li>
+                          <li><a href={googleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a></li>
+                        </ul>
                       </div>
                     )} className="resource-link">Why is it Important...</button>
                 </div>
@@ -411,15 +413,17 @@ export function ResourcePage() {
                     <button onClick={() => handleOpenModal(
                       <div>
                         <p>Helpful Tips</p>
-                        <a href={appleLink1} target="_blank" rel="noopener noreferrer">Click here to view part 1</a><br />
-                        <a href={appleLink2} target="_blank" rel="noopener noreferrer">Click here to view part 2</a><br />
-                        <a href={appleLink3} target="_blank" rel="noopener noreferrer">Click here to view part 3</a><br />
-                        <p>Additional resources:</p>
-                        <a href={appleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a><br />
-                        <a href={appleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a><br />
-                        <a href={appleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a>
+                        <ul style={{ textAlign: 'left' }}>
+                          <li><a href={appleLink1} target="_blank" rel="noopener noreferrer">31 Tips to Boost Your Mental Health</a></li>
+                          <li><a href={appleLink2} target="_blank" rel="noopener noreferrer">Emotional Wellness Toolkit</a></li>
+                          <li><a href={appleLink3} target="_blank" rel="noopener noreferrer">Mental Health is Health</a></li>
+                          <p>Additional resources:</p>
+                          <li><a href={appleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a></li>
+                          <li><a href={appleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a></li>
+                          <li><a href={appleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a></li>
+                        </ul>
                       </div>
-                    )} className="resource-link">Helpful Videos...</button>
+                    )} className="resource-link">Helpful Links...</button>
                 </div>
                 <div className="resource-item">
                     <div className="earth">
@@ -429,15 +433,17 @@ export function ResourcePage() {
                     <button onClick={() => handleOpenModal(
                       <div>
                         <p>Self Care</p>
-                        <a href={link3} target="_blank" rel="noopener noreferrer">Click here to view part 1</a><br />
-                        <a href={link4} target="_blank" rel="noopener noreferrer">Click here to view part 2</a><br />
-                        <a href={link5} target="_blank" rel="noopener noreferrer">Click here to view part 3</a><br />
-                        <p>Additional self care resources:</p>
-                        <a href={link6} target="_blank" rel="noopener noreferrer">Click here to view part 4</a><br />
-                        <a href={link7} target="_blank" rel="noopener noreferrer">Click here to view part 5</a><br />
-                        <a href={link8} target="_blank" rel="noopener noreferrer">Click here to view part 6</a>
+                        <ul style={{ textAlign: 'left' }}>
+                          <li><a href={link3} target="_blank" rel="noopener noreferrer">20+ self-care practices to help you prioritize your wellbeing</a></li>
+                          <li><a href={link4} target="_blank" rel="noopener noreferrer">The importance of self-care</a></li>
+                          <li><a href={link5} target="_blank" rel="noopener noreferrer">Why You Don’t Need a Lot of Time or Money to Make Self-Care a Priority</a></li>
+                          <p>Additional self care resources:</p>
+                          <li><a href={link6} target="_blank" rel="noopener noreferrer">Click here to view part 4</a></li>
+                          <li><a href={link7} target="_blank" rel="noopener noreferrer">Click here to view part 5</a></li>
+                          <li><a href={link8} target="_blank" rel="noopener noreferrer">Click here to view part 6</a></li>
+                        </ul>
                       </div>
-                    )} className="resource-link">Play Here...</button>
+                    )} className="resource-link">Click Here...</button>
                 </div>
             </div>
 
@@ -456,6 +462,7 @@ export function ResourcePage() {
         </div>
     );
 }
+
 
 
 
