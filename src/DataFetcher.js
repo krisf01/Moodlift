@@ -171,7 +171,6 @@ export function JournalingPage() {
                 <button className='postbutton' onClick={handlePostToServer}>Post</button>
         </div>
         <div>
-        <Sidebar />
     </div>
     </div>
 );
@@ -208,7 +207,7 @@ export function SavedPostPage() {
             <div>
                 <button className='borderbutton2'> </button>
             </div>
-            <div> <Sidebar /> </div>
+           
             <div className='entries-container'>
                 {journalEntries.map(entry => (
                     <div key={entry.id} className='entry'>
@@ -363,15 +362,14 @@ export function ResourcePage() {
     };
 
     // URLs updated to point to real resources
-     // URLs updated to point to real resources
      const link1 = "https://www.verywellmind.com/tips-to-reduce-stress-3145195";
      const link2 = "https://www.webmd.com/balance/tips-to-control-stress";
      const link3 = "https://www.calm.com/blog/self-care-practices";
      const link4 = "https://www.ted.com/playlists/299/the_importance_of_self_care";
      const link5 = "https://www.healthline.com/health-news/self-care-is-not-just-treating-yourself"; // Random happy public Spotify playlist
-     const link6 = "https://www.youtube.com/watch?v=ijkl";
-     const link7 = "https://www.youtube.com/watch?v=mnop";
-     const link8 = "https://www.youtube.com/watch?v=qrst";
+     const link6 = "https://www.healthline.com/nutrition/12-benefits-of-meditation";
+     const link7 = "https://www.nimh.nih.gov/health/topics/caring-for-your-mental-health";
+     const link8 = "http://www.bcmhsus.ca/about/news-stories/stories/10-tips-to-boost-your-mental-health";
  
      const googleLink1 = "https://www.purdueglobal.edu/blog/student-life/college-students-guide-to-stress-management-infographic/";
      const googleLink2 = "https://www.lifebulb.com/blogs/stress-management-techniques-for-students";
@@ -385,7 +383,7 @@ export function ResourcePage() {
      const appleLink3 = "https://www.mentalhealthishealth.us/";
      const appleLink4 = "https://www.goodrx.com/health-topic/mental-health/self-care-ideas-activities";
      const appleLink5 = "https://www.utoledo.edu/studentaffairs/counseling/selfhelp/copingskills/selfcare.html";
-     const appleLink6 = "https://www.goodtherapy.org/blog/134-activities-to-add-to-your-self-care-plan/";
+     const appleLink6 = "https://psychiatry.ucsf.edu/copingresources/videos";
 
     const handleOpenModal = (content) => {
         setModalContent(content);
@@ -420,13 +418,13 @@ export function ResourcePage() {
                     <button onClick={() => handleOpenModal(
                       <div>
                         <p>How to Practice Stress Management Techniques</p>
-                        <a href={googleLink1} target="_blank" rel="noopener noreferrer">Click here to view part 1</a><br />
-                        <a href={googleLink2} target="_blank" rel="noopener noreferrer">Click here to view part 2</a><br />
-                        <a href={googleLink3} target="_blank" rel="noopener noreferrer">Click here to view part 3</a><br />
+                            <li><a href={googleLink1} target="_blank" rel="noopener noreferrer">The College Student's Guide to Stress Management</a></li>
+                            <li><a href={googleLink2} target="_blank" rel="noopener noreferrer">15 Stress Management Techniques for Students</a></li>
+                            <li><a href={googleLink3} target="_blank" rel="noopener noreferrer">5 ways to manage student stress</a></li>
                         <p>Additional resources:</p>
-                        <a href={googleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a><br />
-                        <a href={googleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a><br />
-                        <a href={googleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a>
+                        <a href={googleLink4} target="_blank" rel="noopener noreferrer">Mental Health Support for Difficult Times</a><br />
+                        <a href={googleLink5} target="_blank" rel="noopener noreferrer">Stress Management</a><br />
+                        <a href={googleLink6} target="_blank" rel="noopener noreferrer">3 Tips to Manage Stress</a>
                       </div>
                     )} className="resource-link">Why is it Important...</button>
                 </div>
@@ -435,13 +433,13 @@ export function ResourcePage() {
                     <button onClick={() => handleOpenModal(
                       <div>
                         <p>Helpful Tips</p>
-                        <a href={appleLink1} target="_blank" rel="noopener noreferrer">Click here to view part 1</a><br />
-                        <a href={appleLink2} target="_blank" rel="noopener noreferrer">Click here to view part 2</a><br />
-                        <a href={appleLink3} target="_blank" rel="noopener noreferrer">Click here to view part 3</a><br />
+                            <li><a href={appleLink1} target="_blank" rel="noopener noreferrer">31 Tips to Boost Your Mental Health</a></li>
+                            <li><a href={appleLink2} target="_blank" rel="noopener noreferrer">Emotional Wellness Toolkit</a></li>
+                            <li><a href={appleLink3} target="_blank" rel="noopener noreferrer">Mental Health is Health</a></li>
                         <p>Additional resources:</p>
-                        <a href={appleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a><br />
-                        <a href={appleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a><br />
-                        <a href={appleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a>
+                        <a href={appleLink4} target="_blank" rel="noopener noreferrer">99 Self-Care Activities</a><br />
+                        <a href={appleLink5} target="_blank" rel="noopener noreferrer">Self-Care Video</a><br />
+                        <a href={appleLink6} target="_blank" rel="noopener noreferrer">Well-Being Video Series</a>
                       </div>
                     )} className="resource-link">Helpful Videos...</button>
                 </div>
@@ -453,13 +451,13 @@ export function ResourcePage() {
                     <button onClick={() => handleOpenModal(
                       <div>
                         <p>Self Care</p>
-                        <a href={link3} target="_blank" rel="noopener noreferrer">Click here to view part 1</a><br />
-                        <a href={link4} target="_blank" rel="noopener noreferrer">Click here to view part 2</a><br />
-                        <a href={link5} target="_blank" rel="noopener noreferrer">Click here to view part 3</a><br />
+                        <a href={link3} target="_blank" rel="noopener noreferrer">Self-Care Practices</a><br />
+                        <a href={link4} target="_blank" rel="noopener noreferrer">Importance of Self-Care</a><br />
+                        <a href={link5} target="_blank" rel="noopener noreferrer">Self-Care is Priority Article</a><br />
                         <p>Additional self care resources:</p>
-                        <a href={link6} target="_blank" rel="noopener noreferrer">Click here to view part 4</a><br />
-                        <a href={link7} target="_blank" rel="noopener noreferrer">Click here to view part 5</a><br />
-                        <a href={link8} target="_blank" rel="noopener noreferrer">Click here to view part 6</a>
+                        <a href={link6} target="_blank" rel="noopener noreferrer">Benefits of Meditation</a><br />
+                        <a href={link7} target="_blank" rel="noopener noreferrer">Benefits of Mental Wellness Techniques</a><br />
+                        <a href={link8} target="_blank" rel="noopener noreferrer">Tips to Benefits your Mental Health</a>
                       </div>
                     )} className="resource-link">Play Here...</button>
                 </div>
@@ -525,39 +523,39 @@ function LoginPage() {
     );
 }
 
-function Sidebar(){
+// function Sidebar(){
 
-    return (
-    <div className='sidebar'> 
-        <ul className='sidebarlist'> 
-            {SidebarData.map((val,key)=> {
-            return(
-            <li 
-            key={key} 
-            className="row"
-            id={window.location.pathname == val.link ? "active":""}
-            onClick={()=>{window.location.href = val.link}}> 
-            <div>
-                {val.title}
-            </div> 
-            </li>
-            );
-            })}
-        </ul>
-    </div>
-    );
-}
+//     return (
+//     <div className='sidebar'> 
+//         <ul className='sidebarlist'> 
+//             {SidebarData.map((val,key)=> {
+//             return(
+//             <li 
+//             key={key} 
+//             className="row"
+//             id={window.location.pathname == val.link ? "active":""}
+//             onClick={()=>{window.location.href = val.link}}> 
+//             <div>
+//                 {val.title}
+//             </div> 
+//             </li>
+//             );
+//             })}
+//         </ul>
+//     </div>
+//     );
+// }
 
-export const SidebarData = [
-    {
-        title: "view private entries",
-        link: "/savedpost",
-    },
-    {
-        title: "new entry",
-        link: "/journaling",
-    },
-]
+// export const SidebarData = [
+//     {
+//         title: "view private entries",
+//         link: "/savedpost",
+//     },
+//     {
+//         title: "new entry",
+//         link: "/journaling",
+//     },
+// ]
 
 //spotify reccomndations feature
 export function SpotifyRecommendations(){
