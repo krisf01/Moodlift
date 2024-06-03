@@ -253,6 +253,7 @@ const moodPlaylists = {
 //mood tracker page
 export function MoodTrackPage() {
     const [currentPlaylist, setCurrentPlaylist] = useState("");
+    const userId = localStorage.getItem('user_id'); // Retrieve the user ID from local storage
 
     const getCurrentDate = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -283,10 +284,14 @@ export function MoodTrackPage() {
     const toggleColor = (event, mood) => {
         console.log("in toggleColor ");
         const buttons = document.querySelectorAll('.circle-button');
-        buttons.forEach(button => button.classList.remove('clicked'));
-
-        event.target.classList.add('clicked');
-
+        buttons.forEach(function(button){
+            if (button !== event.target) {
+                button.classList.toggle('disabled');
+            }
+        } );
+        console.log('event target is', event.target.classList);
+        event.target.classList.toggle('clicked');
+        handleMoodtoServer(mood);
         const playlistId = moodPlaylists[mood];
         if (currentPlaylist !== playlistId) {
             setCurrentPlaylist(playlistId);
@@ -295,6 +300,29 @@ export function MoodTrackPage() {
             event.target.classList.remove('clicked');
             setCurrentPlaylist("");
             document.getElementById('spotify-playlist-container').innerHTML = ''; // Clear the playlist
+        }
+    };
+
+    const handleMoodtoServer = async (mood) => {
+        const postData = {
+            user_id: userId,
+            mood,
+            timestamp: new Date().toISOString()
+        };
+
+        try {
+            const response = await fetch('http://localhost:1234/api/mood_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData)
+            });
+            const data = await response.json();
+            console.log(data);
+            console.log('Successfuly saved mood');
+        } catch (error) {
+            console.error('Error posting data:', error);
         }
     };
 
