@@ -28,7 +28,7 @@ sp_oauth = SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID,
                         scope="user-library-read playlist-read-private playlist-read-collaborative")
                         # CHANGED SCOPE
 
-cred = credentials.Certificate("/Users/kfout/MoodLift/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
+cred = credentials.Certificate("/Users/anushapai/Desktop/Moodlift/moodlift-90c56-firebase-adminsdk-j30yy-aa0f080924.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://moodlift-90c56-default-rtdb.firebaseio.com/'
 })
@@ -452,6 +452,31 @@ def get_journal_entries():
         return jsonify({"entries": formatted_entries}), 200
     except Exception as e:
         print("Error fetching journal entries:", e)
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/mood_data', methods=['POST'])
+def handle_mood_buttons():
+    if not request.is_json:
+        print("No JSON received")
+        abort(400, description="Missing JSON in request")
+
+    data = request.json
+    user_id = data.get('user_id')
+    mood = data.get('mood')
+    # journal_prompt = data.get('journalPrompt')
+
+    if not user_id or not mood:
+        return jsonify({"error": "User ID and mood are required"}), 400
+
+    try:
+        ref = db.reference(f'users/{user_id}/mood_tracker')
+        result = ref.push({
+            'mood': mood,
+            'timestamp': datetime.datetime.now().isoformat()
+        })
+        return jsonify({"response": "Mood saved successfully", "firebase_key": result.key})
+    except Exception as e:
+        print("Error saving journal entry:", e)
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
