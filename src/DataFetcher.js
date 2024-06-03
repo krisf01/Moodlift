@@ -33,7 +33,6 @@ export function DataFetcher() {
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
                 <Link to="/friends" className="nav-button">Friends</Link>
-                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
             </div>
         </div>
     );
@@ -64,7 +63,6 @@ export function HomePage() {
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
                 <Link to="/friends" className="nav-button">Friends</Link>
-                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
             </div>
         </div>
     );
@@ -77,7 +75,6 @@ export function NavigationBar() {
             <Link to="/mood-tracker" className="nav-button mood-tracker">Mood Tracker</Link>
             <Link to="/resources" className="nav-button resources">Resources</Link>
             <Link to="/friends" className="nav-button">Friends</Link>
-            <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
         </div>
     );
 }
@@ -560,50 +557,3 @@ export const SidebarData = [
         link: "/journaling",
     },
 ]
-
-//spotify reccomndations feature
-export function SpotifyRecommendations(){
-    const [tracks, setTracks] = useState([]);
-
-    const getCurrentDate = () => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date().toLocaleDateString('en-US', options);
-    };
-
-    useEffect(() => {
-        fetch('http://localhost:1234/spotify/recommendations')
-            .then(response => response.json())
-            .then(data => setTracks(data))
-            .catch(error => console.error('Error fetching recommendations:', error));
-    }, []);
-
-    const loginToSpotify = () => {
-        window.location.href = 'http://localhost:1234/spotify/login';
-    };
-
-    const logoutFromSpotify = () => {
-        window.location.href = 'http://localhost:1234/spotify/logout';
-    };
-
-    return (
-        <div className="spotify-recommendations-container">
-        <div className="purple-rectangle">
-                <Link to="/home" className="home-link">
-                    <img src={homeIcon} alt="Home" className="home-icon" />
-                </Link>
-                <p className="date-text">{getCurrentDate()}</p>
-                <div className="moodlift-text">MoodLift</div>
-            </div>
-            <h1>Spotify Playlist Recommendations</h1>
-            <button onClick={loginToSpotify}>Login to Spotify</button>
-            <button onClick={logoutFromSpotify}>Logout from Spotify</button>
-            <ul>
-                {tracks.map((track, index) => (
-                    <li key={index}>
-                        {track.name} by {track.artist}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-}
