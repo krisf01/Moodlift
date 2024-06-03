@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import './app.css';
 import logoSVG from './images/logo.svg';
 import homeIcon from './images/home.svg';
+import spotify from './images/spotify.svg'
+
+
 import { useNavigate } from 'react-router-dom';
 
 export function DataFetcher() {
@@ -236,18 +239,18 @@ export function SavedPostPage() {
     );
 }
 
+/* MOOD TRACKING HERE--------------------------------------------------*/
 
 // Define mood to playlist mappings
 const moodPlaylists = {
-    lightblue: '1L0HAb9v2QWDA5ukvSrKSm',
-    darkblue: '71UaDNUlLUAfI1InekHfDE',
-    red: '1k6j9JYvCj4NOun0oRzFo2',
-    lightgreen: '7LxQn9LkTOziptWIYGvDYf',
-    purple: '4DCdpcRRUbaCWNry9id3ln',
-    orange: '7gIIFGbB3Wnf4nhxRjA9nj',
-    yellow: '5NsqNSKzy6Dvi14VueSG4r',
-    pink: '6cloGJYo5XmNjHRMsCGup0',
-    gray: '59CuzXSgNnUYSvPBta6owk',
+    mellow: '1L0HAb9v2QWDA5ukvSrKSm',
+    somber: '71UaDNUlLUAfI1InekHfDE',
+    peaceful: '1k6j9JYvCj4NOun0oRzFo2',
+    frustrated: '7LxQn9LkTOziptWIYGvDYf',
+    happy: '4DCdpcRRUbaCWNry9id3ln',
+    anxious: '7gIIFGbB3Wnf4nhxRjA9nj',
+    confident: '5NsqNSKzy6Dvi14VueSG4r',
+    moody: '59CuzXSgNnUYSvPBta6owk',
 };
 
 //mood tracker page
@@ -281,18 +284,31 @@ export function MoodTrackPage() {
     };
 
     const toggleColor = (event, mood) => {
-        console.log("in toggleColor ");
+        console.log("in toggleColor");
         const buttons = document.querySelectorAll('.circle-button');
-        buttons.forEach(button => button.classList.remove('clicked'));
+        const target = event.target;
 
-        event.target.classList.add('clicked');
+        // Check if the clicked button is already active
+        if (!target.classList.contains('clicked')) {
+            // If not active, set it as active and disable others
+            buttons.forEach(button => {
+                if (button !== target) {
+                    button.classList.remove('clicked');
+                    button.disabled = true; // Disable other buttons
+                }
+            });
+            target.classList.add('clicked'); // Mark the target button as clicked
+            target.disabled = false; // Ensure the target button is enabled
 
-        const playlistId = moodPlaylists[mood];
-        if (currentPlaylist !== playlistId) {
-            setCurrentPlaylist(playlistId);
-            embedSpotifyPlaylist(playlistId);
+            const playlistId = moodPlaylists[mood];
+            if (currentPlaylist !== playlistId) {
+                setCurrentPlaylist(playlistId);
+                embedSpotifyPlaylist(playlistId);
+            }
         } else {
-            event.target.classList.remove('clicked');
+            // If active, remove clicked state and enable all buttons
+            target.classList.remove('clicked');
+            buttons.forEach(button => button.disabled = false); // Enable all buttons
             setCurrentPlaylist("");
             document.getElementById('spotify-playlist-container').innerHTML = ''; // Clear the playlist
         }
@@ -307,22 +323,29 @@ export function MoodTrackPage() {
                 <p className="date-text">{getCurrentDate()}</p>
                 <div className="moodlift-text">MoodLift</div>
             </div>
-            <div className="blue-background">
+            <div className="white-background">
+                <div className="login-button">
+                    <button
+                        onClick={loginToSpotify}>
+                        <img src={spotify} alt="Spotify Logo" style={{ height: '24px' }} />
+                        personalized playlist login
+                    </button>
+                </div>
                 <div className="moodtracker-section">
-                    <h2>What is your mood for today?</h2>
+                    <div className="mood-question">
+                        yesterday, you were feeling ______<br></br>
+                        how are you feeling today?</div>
                     <div className="moodtracker-rectangle">
                         {Object.keys(moodPlaylists).map(mood => (
-                            <button
-                                key={mood}
-                                className={`circle-button ${mood}`}
-                                onClick={(e) => toggleColor(e, mood)}
-                            >
-                            </button>
+                            <div key={mood}>
+                                <button
+                                    className={`circle-button ${mood}`}
+                                    onClick={(e) => toggleColor(e, mood)}
+                                />
+                                <div className="button-label">{mood}</div>
+                            </div>
                         ))}
                     </div>
-                </div>
-                <div className="login-button">
-                    <button onClick={loginToSpotify}>Login to Spotify</button>
                 </div>
                 <div id="spotify-playlist-container">
                     {/* This div will hold the Spotify iframe */}
