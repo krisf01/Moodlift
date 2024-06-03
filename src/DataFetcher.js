@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './app.css';
 import logoSVG from './images/logo.svg';
 import homeIcon from './images/home.svg';
+import spotify from './images/spotify.svg'
 import { useNavigate } from 'react-router-dom';
 
 export function DataFetcher() {
@@ -30,7 +31,6 @@ export function DataFetcher() {
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
                 <Link to="/friends" className="nav-button">Friends</Link>
-                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
             </div>
         </div>
     );
@@ -61,7 +61,6 @@ export function HomePage() {
                 <Link to="/mood-tracker" className="nav-button">Mood Tracker</Link>
                 <Link to="/resources" className="nav-button">Resources</Link>
                 <Link to="/friends" className="nav-button">Friends</Link>
-                <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
             </div>
         </div>
     );
@@ -74,7 +73,6 @@ export function NavigationBar() {
             <Link to="/mood-tracker" className="nav-button mood-tracker">Mood Tracker</Link>
             <Link to="/resources" className="nav-button resources">Resources</Link>
             <Link to="/friends" className="nav-button">Friends</Link>
-            <Link to="/spotify-recommendations" className="nav-button">Spotify</Link> 
         </div>
     );
 }
@@ -236,20 +234,21 @@ export function SavedPostPage() {
     );
 }
 
+/* MOOD TRACKING HERE--------------------------------------------------*/
 
 // Define mood to playlist mappings
 const moodPlaylists = {
-    lightblue: '1L0HAb9v2QWDA5ukvSrKSm',
-    darkblue: '71UaDNUlLUAfI1InekHfDE',
-    red: '1k6j9JYvCj4NOun0oRzFo2',
-    lightgreen: '7LxQn9LkTOziptWIYGvDYf',
-    purple: '4DCdpcRRUbaCWNry9id3ln',
-    orange: '7gIIFGbB3Wnf4nhxRjA9nj',
-    yellow: '5NsqNSKzy6Dvi14VueSG4r',
-    pink: '6cloGJYo5XmNjHRMsCGup0',
-    gray: '59CuzXSgNnUYSvPBta6owk',
+    mellow: '1L0HAb9v2QWDA5ukvSrKSm',
+    somber: '71UaDNUlLUAfI1InekHfDE',
+    peaceful: '1k6j9JYvCj4NOun0oRzFo2',
+    frustrated: '7LxQn9LkTOziptWIYGvDYf',
+    happy: '4DCdpcRRUbaCWNry9id3ln',
+    anxious: '7gIIFGbB3Wnf4nhxRjA9nj',
+    confident: '5NsqNSKzy6Dvi14VueSG4r',
+    moody: '59CuzXSgNnUYSvPBta6owk',
 };
 
+//mood tracker page
 //mood tracker page
 export function MoodTrackPage() {
     const [currentPlaylist, setCurrentPlaylist] = useState("");
@@ -281,18 +280,31 @@ export function MoodTrackPage() {
     };
 
     const toggleColor = (event, mood) => {
-        console.log("in toggleColor ");
+        console.log("in toggleColor");
         const buttons = document.querySelectorAll('.circle-button');
-        buttons.forEach(button => button.classList.remove('clicked'));
+        const target = event.target;
 
-        event.target.classList.add('clicked');
+        // Check if the clicked button is already active
+        if (!target.classList.contains('clicked')) {
+            // If not active, set it as active and disable others
+            buttons.forEach(button => {
+                if (button !== target) {
+                    button.classList.remove('clicked');
+                    button.disabled = true; // Disable other buttons
+                }
+            });
+            target.classList.add('clicked'); // Mark the target button as clicked
+            target.disabled = false; // Ensure the target button is enabled
 
-        const playlistId = moodPlaylists[mood];
-        if (currentPlaylist !== playlistId) {
-            setCurrentPlaylist(playlistId);
-            embedSpotifyPlaylist(playlistId);
+            const playlistId = moodPlaylists[mood];
+            if (currentPlaylist !== playlistId) {
+                setCurrentPlaylist(playlistId);
+                embedSpotifyPlaylist(playlistId);
+            }
         } else {
-            event.target.classList.remove('clicked');
+            // If active, remove clicked state and enable all buttons
+            target.classList.remove('clicked');
+            buttons.forEach(button => button.disabled = false); // Enable all buttons
             setCurrentPlaylist("");
             document.getElementById('spotify-playlist-container').innerHTML = ''; // Clear the playlist
         }
@@ -307,22 +319,29 @@ export function MoodTrackPage() {
                 <p className="date-text">{getCurrentDate()}</p>
                 <div className="moodlift-text">MoodLift</div>
             </div>
-            <div className="blue-background">
+            <div className="white-background">
+                <div className="login-button">
+                    <button
+                        onClick={loginToSpotify}>
+                        <img src={spotify} alt="Spotify Logo" style={{ height: '24px' }} />
+                        personalized playlist login
+                    </button>
+                </div>
                 <div className="moodtracker-section">
-                    <h2>What is your mood for today?</h2>
+                    <div className="mood-question">
+                        yesterday, you were feeling ______<br></br>
+                        how are you feeling today?</div>
                     <div className="moodtracker-rectangle">
                         {Object.keys(moodPlaylists).map(mood => (
-                            <button
-                                key={mood}
-                                className={`circle-button ${mood}`}
-                                onClick={(e) => toggleColor(e, mood)}
-                            >
-                            </button>
+                            <div key={mood}>
+                                <button
+                                    className={`circle-button ${mood}`}
+                                    onClick={(e) => toggleColor(e, mood)}
+                                />
+                                <div className="button-label">{mood}</div>
+                            </div>
                         ))}
                     </div>
-                </div>
-                <div className="login-button">
-                    <button onClick={loginToSpotify}>Login to Spotify</button>
                 </div>
                 <div id="spotify-playlist-container">
                     {/* This div will hold the Spotify iframe */}
@@ -331,6 +350,7 @@ export function MoodTrackPage() {
         </div>
     );
 }
+
 
 //Resources Page
 export function ResourcePage() {
@@ -343,28 +363,29 @@ export function ResourcePage() {
     };
 
     // URLs updated to point to real resources
-    const link1 = "https://www.verywellmind.com/tips-to-reduce-stress-3145195";
-    const link2 = "https://www.webmd.com/balance/tips-to-control-stress";
-    const link3 = "https://www.youtube.com/watch?v=Eupk56SG76M";
-    const link4 = "https://www.youtube.com/watch?v=abcd";
-    const link5 = "https://open.spotify.com/playlist/37i9dQZF1DXdPec7aLTmlC"; // Random happy public Spotify playlist
-    const link6 = "https://www.youtube.com/watch?v=ijkl";
-    const link7 = "https://www.youtube.com/watch?v=mnop";
-    const link8 = "https://www.youtube.com/watch?v=qrst";
-
-    const googleLink1 = "https://www.google.com/search?q=link1";
-    const googleLink2 = "https://www.google.com/search?q=link2";
-    const googleLink3 = "https://www.google.com/search?q=link3";
-    const googleLink4 = "https://www.google.com/search?q=link4";
-    const googleLink5 = "https://www.google.com/search?q=link5";
-    const googleLink6 = "https://www.google.com/search?q=link6";
-
-    const appleLink1 = "https://www.apple.com";
-    const appleLink2 = "https://www.apple.com";
-    const appleLink3 = "https://www.apple.com";
-    const appleLink4 = "https://www.apple.com";
-    const appleLink5 = "https://www.apple.com";
-    const appleLink6 = "https://www.apple.com";
+     // URLs updated to point to real resources
+     const link1 = "https://www.verywellmind.com/tips-to-reduce-stress-3145195";
+     const link2 = "https://www.webmd.com/balance/tips-to-control-stress";
+     const link3 = "https://www.calm.com/blog/self-care-practices";
+     const link4 = "https://www.ted.com/playlists/299/the_importance_of_self_care";
+     const link5 = "https://www.healthline.com/health-news/self-care-is-not-just-treating-yourself"; // Random happy public Spotify playlist
+     const link6 = "https://www.youtube.com/watch?v=ijkl";
+     const link7 = "https://www.youtube.com/watch?v=mnop";
+     const link8 = "https://www.youtube.com/watch?v=qrst";
+ 
+     const googleLink1 = "https://www.purdueglobal.edu/blog/student-life/college-students-guide-to-stress-management-infographic/";
+     const googleLink2 = "https://www.lifebulb.com/blogs/stress-management-techniques-for-students";
+     const googleLink3 = "https://www.prospects.ac.uk/applying-for-university/university-life/5-ways-to-manage-student-stress";
+     const googleLink4 = "https://www.thementalhealthcoalition.org/mental-health-support-young-adults/?gad_source=1&gclid=Cj0KCQjw0_WyBhDMARIsAL1Vz8ue2Ev9Nvw51oSahBRp3avi9Z2EJg-sLSGBm9mYlLKwC_CegrAKcksaAu-gEALw_wcB";
+     const googleLink5 = "https://www.helpguide.org/articles/stress/stress-management.htm";
+     const googleLink6 = "https://www.heart.org/en/healthy-living/healthy-lifestyle/stress-management/3-tips-to-manage-stress";
+ 
+     const appleLink1 = "https://www.mhanational.org/31-tips-boost-your-mental-health";
+     const appleLink2 = "https://www.nih.gov/health-information/emotional-wellness-toolkit";
+     const appleLink3 = "https://www.mentalhealthishealth.us/";
+     const appleLink4 = "https://www.goodrx.com/health-topic/mental-health/self-care-ideas-activities";
+     const appleLink5 = "https://www.utoledo.edu/studentaffairs/counseling/selfhelp/copingskills/selfcare.html";
+     const appleLink6 = "https://www.goodtherapy.org/blog/134-activities-to-add-to-your-self-care-plan/";
 
     const handleOpenModal = (content) => {
         setModalContent(content);

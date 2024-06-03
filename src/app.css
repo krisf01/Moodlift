@@ -347,8 +347,11 @@ z-index: -1; /* Ensures it stays in the background */
   gap: 20px; /* Space between entries */
   overflow-y: auto; /* Allow scrolling if there are many entries */
   padding: 20px; /* Add some padding for better spacing */
-  width: 100%; /* Make sure the container takes full width */
+  width: calc(100% - 180px); /* Subtract the width of the sidebar from the container's width */
+  margin-right: 210px; /* Margin to the right to avoid overlapping with the sidebar */
   box-sizing: border-box; /* Ensure padding and border are included in the element's width and height */
+  transform: scale(0.9); /* Scale down the container to 90% */
+  transform-origin: center; /* Scale relative to the top-left corner */
 }
 
 /* Each entry styling */
@@ -831,168 +834,173 @@ button:hover {
 /* MOOD TRACKING HERE*/
 /*blue background for moodtracker: ask if there's a way to incorporate the root design instead of using this code*/
 
-.moodtracker-section {
-  margin: auto;
-  margin-top: 15%;
+.mood-track-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  height: 300px;
-  background-color: #f1e9f0;
-  border-radius: 25px;
-  padding: 20px 20px 40px 20px;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-  /* Ensures padding is included in the width/height calculations */
+
+  min-height: 100vh;
+    /* Ensure the container takes at least the full height of the viewport */
+    justify-content: space-around;
+    /* This will add space between items */
+    padding: 20px;
+  overflow-y: auto;
 }
 
-/* grey rectangle with background to track moods */
-.moodtracker-rectangle {
-  margin-top: 10%;
-  padding-top: 5%;
-  height: 100px;
+.white-background {
   width: 100%;
-  background-color: rgb(193, 190, 190);
+  background: white;
+  padding-bottom: 20px;
+}
+
+.login-button {
+  width: 100%;
+  text-align: center;
+  padding-top: 80px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  /* Center button horizontally */
+}
+
+.login-button button {
+  background: #ADE1FA;
+  color: white;
+  font-size: 16px;
+  padding: 10px 40px;
+  /* Padding for a better button shape */
+  border-radius: 30px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  letter-spacing: 1px;
+}
+
+.login-button button:hover {
+  background: #ADE1FA;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  /* More pronounced shadow on hover */
+}
+
+.login-button button img {
+  margin-right: 10px;
+  /* Space between the icon and the text */
+}
+
+.moodtracker-section {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 50%;
+}
+
+.mood-question {
+  color: #000000;
+  padding-bottom: 20px;
+}
+
+.moodtracker-rectangle {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
+  justify-items: center;
+
+  padding: 20px;
+  background: #ADE1FA;
   border-radius: 25px;
 }
 
 .circle-button {
-  width: 50px; 
+  width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 2px solid;
-  background-color: white;
-  display: inline-block;
-  margin: 10px;
+  border: none;
   cursor: pointer;
   transition: background-color 0.3s;
-
 }
 
-.circle-button.darkblue {
-  border-color:rgb(16, 16, 201);
+.button-container {
+  display: flex;
+  align-items: center;
+  /* Vertical center alignment */
+  margin: 5px;
 }
 
-.circle-button.lightblue {
-  border-color:rgb(34, 148, 214);
+.button-label {
+  /* Space between button and label */
+  color: #ffff;
+  font-size: 16px;
+  /* Adjust font size as needed */
 }
 
-.circle-button.red {
-  border-color: rgb(201, 30, 53);
+#spotify-playlist-container {
+  margin-top: 20px;
+  width: 100%; 
+  height: 1000px; 
+  overflow-y: auto; 
+  padding-bottom: 20px;
 }
 
-.circle-button.lightgreen {
-  border-color: rgb(22, 220, 130);
+/* Specific mood colors */
+.circle-button.mellow {
+  background-color: rgb(34, 148, 214);
 }
 
-.circle-button.purple {
-  border-color: rgb(151, 68, 219);
-}
-
-.circle-button.orange {
-  border-color: rgb(220, 132, 25);
-}
-
-.circle-button.yellow {
-  border-color: rgb(235, 238, 41);
-}
-
-.circle-button.pink {
-  border-color: rgb(216, 85, 198);
-}
-
-.circle-button.gray {
-  border-color: rgb(112, 112, 106);
-}
-
-.circle-button.darkblue.clicked {
+/* Example color */
+.circle-button.somber {
   background-color: rgb(16, 16, 201);
 }
 
-.circle-button.lightblue.clicked {
-  background-color:rgb(34, 148, 214);
-}
-
-.circle-button.red.clicked {
-  background-color: rgb(201, 30, 53);
-}
-
-.circle-button.lightgreen.clicked {
+.circle-button.peaceful {
   background-color: rgb(22, 220, 130);
 }
 
-.circle-button.purple.clicked {
-  background-color: rgb(151, 68, 219);
+.circle-button.frustrated {
+  background-color: rgb(201, 30, 53);
 }
 
-.circle-button.orange.clicked {
-  background-color: rgb(220, 132, 25);
-}
-
-.circle-button.yellow.clicked {
+.circle-button.happy {
   background-color: rgb(235, 238, 41);
 }
 
-.circle-button.pink.clicked {
-  background-color: rgb(216, 85, 198);
+.circle-button.anxious {
+  background-color: rgb(151, 68, 219);
 }
 
-.circle-button.gray.clicked {
-  background-color: rgb(112, 112, 106);
+.circle-button.confident {
+  background-color: rgb(220, 132, 25);
 }
 
-.circle-button.darkblue.disabled {
-  border-color:rgb(16, 16, 201);
+.circle-button.moody {
+  background-color: #D9D9D9;;
+}
+
+/* Hover effects */
+.circle-button:hover {
+  transform: scale(1.1);
+  /* Enlarges the button slightly on hover */
+}
+
+/* Clicked state styling */
+.circle-button.clicked {
+  box-shadow: 0 0 8px #000;
+  /* Adds a shadow to the clicked button */
+}
+
+/* Disabled button styling */
+.circle-button.disabled {
+  opacity: 0.1;
+  /* Makes disabled buttons semi-transparent */
   cursor: not-allowed;
   pointer-events: none;
+  /* Changes the cursor to indicate the button is disabled */
 }
 
-.circle-button.lightblue.disabled {
-  border-color:rgb(34, 148, 214);
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.circle-button.red.disabled {
-  border-color: rgb(201, 30, 53);
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.circle-button.lightgreen.disabled {
-  border-color: rgb(22, 220, 130);
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.circle-button.purple.disabled {
-  border-color: rgb(151, 68, 219);
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.circle-button.orange.disabled {
-  border-color: rgb(220, 132, 25);
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.circle-button.yellow.disabled {
-  border-color: rgb(235, 238, 41);
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.circle-button.pink.disabled {
-  border-color: rgb(216, 85, 198);
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.circle-button.gray.disabled {
-  border-color: rgb(112, 112, 106);
-  cursor: not-allowed;
-  pointer-events: none;
-}
 
 /* LOGIN STUFF */
 /* src/app.css */
