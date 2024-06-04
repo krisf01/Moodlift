@@ -237,20 +237,23 @@ export function SavedPostPage() {
 
 // Define mood to playlist mappings
 const moodPlaylists = {
-    mellow: '1L0HAb9v2QWDA5ukvSrKSm',
-    somber: '71UaDNUlLUAfI1InekHfDE',
-    peaceful: '1k6j9JYvCj4NOun0oRzFo2',
-    frustrated: '7LxQn9LkTOziptWIYGvDYf',
-    happy: '4DCdpcRRUbaCWNry9id3ln',
-    anxious: '7gIIFGbB3Wnf4nhxRjA9nj',
-    confident: '5NsqNSKzy6Dvi14VueSG4r',
-    moody: '59CuzXSgNnUYSvPBta6owk',
+    mellow: '37i9dQZF1EIfAoIM3ht61G',
+    somber: '37i9dQZF1EIhhiPxQPfbwu',
+    peaceful: '37i9dQZF1EIhnGUyOEDCHI',
+    frustrated: '37i9dQZF1EIdyCdRw7n4xp',
+    happy: '37i9dQZF1EIgG2NEOhqsD7',
+    anxious: '37i9dQZF1EVKuMoAJjoTIw',
+    confident: '37i9dQZF1EIe2ohC2fmuKU',
+    moody: '37i9dQZF1EVKuMoAJjoTIw',
 };
 
 //mood tracker page
 //mood tracker page
 export function MoodTrackPage() {
     const [currentPlaylist, setCurrentPlaylist] = useState("");
+
+    // Retreive user ID from local storage
+    const userId = localStorage.getItem('user_id');
 
     const getCurrentDate = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -295,6 +298,8 @@ export function MoodTrackPage() {
             target.classList.add('clicked'); // Mark the target button as clicked
             target.disabled = false; // Ensure the target button is enabled
 
+            handleMoodtoServer(mood);
+
             const playlistId = moodPlaylists[mood];
             if (currentPlaylist !== playlistId) {
                 setCurrentPlaylist(playlistId);
@@ -306,6 +311,29 @@ export function MoodTrackPage() {
             buttons.forEach(button => button.disabled = false); // Enable all buttons
             setCurrentPlaylist("");
             document.getElementById('spotify-playlist-container').innerHTML = ''; // Clear the playlist
+        }
+    };
+
+    const handleMoodtoServer = async (mood) => {
+        const postData = {
+            user_id: userId,
+            mood,
+            timestamp: new Date().toISOString()
+        };
+
+        try {
+            const response = await fetch('http://localhost:1234/api/mood_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData)
+            });
+            const data = await response.json();
+            console.log(data);
+            console.log('Successfuly saved mood');
+        } catch (error) {
+            console.error('Error posting data:', error);
         }
     };
 
