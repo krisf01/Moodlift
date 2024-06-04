@@ -345,23 +345,23 @@ export function ResourcePage() {
     const link3 = "https://www.calm.com/blog/self-care-practices";
     const link4 = "https://www.ted.com/playlists/299/the_importance_of_self_care";
     const link5 = "https://www.healthline.com/health-news/self-care-is-not-just-treating-yourself"; // Random happy public Spotify playlist
-    const link6 = "https://www.youtube.com/watch?v=ijkl";
-    const link7 = "https://www.youtube.com/watch?v=mnop";
-    const link8 = "https://www.youtube.com/watch?v=qrst";
+    const link6 = "https://mhanational.org/taking-good-care-yourself";
+    const link7 = "https://turningpointcare.com/blog/7-tips-for-practicing-self-care/";
+    const link8 = "https://www.mentalhealthfirstaid.org/2022/08/seven-self-care-tips-for-college-students/";
 
     const googleLink1 = "https://www.purdueglobal.edu/blog/student-life/college-students-guide-to-stress-management-infographic/";
     const googleLink2 = "https://www.lifebulb.com/blogs/stress-management-techniques-for-students";
     const googleLink3 = "https://www.prospects.ac.uk/applying-for-university/university-life/5-ways-to-manage-student-stress";
-    const googleLink4 = "https://www.google.com/search?q=link4";
-    const googleLink5 = "https://www.google.com/search?q=link5";
-    const googleLink6 = "https://www.google.com/search?q=link6";
+    const googleLink4 = "https://www.helpguide.org/articles/stress/stress-management.htm";
+    const googleLink5 = "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7349817/";
+    const googleLink6 = "https://www.apa.org/topics/stress/tips";
 
     const appleLink1 = "https://www.mhanational.org/31-tips-boost-your-mental-health";
     const appleLink2 = "https://www.nih.gov/health-information/emotional-wellness-toolkit";
     const appleLink3 = "https://www.mentalhealthishealth.us/";
-    const appleLink4 = "https://www.apple.com";
-    const appleLink5 = "https://www.apple.com";
-    const appleLink6 = "https://www.apple.com";
+    const appleLink4 = "https://www.mcleanhospital.org/essential/it-or-not-social-medias-affecting-your-mental-health";
+    const appleLink5 = "https://www.snhu.edu/about-us/newsroom/education/why-is-mental-health-important";
+    const appleLink6 = "https://www.nimh.nih.gov/health/topics/caring-for-your-mental-health";
 
     const handleOpenModal = (content) => {
         setModalContent(content);
@@ -401,9 +401,9 @@ export function ResourcePage() {
                           <li><a href={googleLink2} target="_blank" rel="noopener noreferrer">15 Stress Management Techniques for Students</a></li>
                           <li><a href={googleLink3} target="_blank" rel="noopener noreferrer">5 ways to manage student stress</a></li>
                           <p>Additional resources:</p>
-                          <li><a href={googleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a></li>
-                          <li><a href={googleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a></li>
-                          <li><a href={googleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a></li>
+                          <li><a href={googleLink4} target="_blank" rel="noopener noreferrer">Techniques & Strategies to Deal with Stress</a></li>
+                          <li><a href={googleLink5} target="_blank" rel="noopener noreferrer">How to Relax in Stressful Situations: A Smart Stress Reduction System</a></li>
+                          <li><a href={googleLink6} target="_blank" rel="noopener noreferrer">11 healthy ways to handle life’s stressors</a></li>
                         </ul>
                       </div>
                     )} className="resource-link">Why is it Important...</button>
@@ -418,9 +418,9 @@ export function ResourcePage() {
                           <li><a href={appleLink2} target="_blank" rel="noopener noreferrer">Emotional Wellness Toolkit</a></li>
                           <li><a href={appleLink3} target="_blank" rel="noopener noreferrer">Mental Health is Health</a></li>
                           <p>Additional resources:</p>
-                          <li><a href={appleLink4} target="_blank" rel="noopener noreferrer">Click here to view part 4</a></li>
-                          <li><a href={appleLink5} target="_blank" rel="noopener noreferrer">Click here to view part 5</a></li>
-                          <li><a href={appleLink6} target="_blank" rel="noopener noreferrer">Click here to view part 6</a></li>
+                          <li><a href={appleLink4} target="_blank" rel="noopener noreferrer">The Social Dilemma: Social Media and Your Mental Health</a></li>
+                          <li><a href={appleLink5} target="_blank" rel="noopener noreferrer">Why is Mental Health Important?</a></li>
+                          <li><a href={appleLink6} target="_blank" rel="noopener noreferrer">Caring for Your Mental Health</a></li>
                         </ul>
                       </div>
                     )} className="resource-link">Helpful Links...</button>
@@ -438,9 +438,9 @@ export function ResourcePage() {
                           <li><a href={link4} target="_blank" rel="noopener noreferrer">The importance of self-care</a></li>
                           <li><a href={link5} target="_blank" rel="noopener noreferrer">Why You Don’t Need a Lot of Time or Money to Make Self-Care a Priority</a></li>
                           <p>Additional self care resources:</p>
-                          <li><a href={link6} target="_blank" rel="noopener noreferrer">Click here to view part 4</a></li>
-                          <li><a href={link7} target="_blank" rel="noopener noreferrer">Click here to view part 5</a></li>
-                          <li><a href={link8} target="_blank" rel="noopener noreferrer">Click here to view part 6</a></li>
+                          <li><a href={link6} target="_blank" rel="noopener noreferrer">Taking Good Care of Yourself</a></li>
+                          <li><a href={link7} target="_blank" rel="noopener noreferrer">7 Tips for Practicing Self-Care</a></li>
+                          <li><a href={link8} target="_blank" rel="noopener noreferrer">Seven Self-care Tips for College Students</a></li>
                         </ul>
                       </div>
                     )} className="resource-link">Click Here...</button>
