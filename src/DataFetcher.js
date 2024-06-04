@@ -240,14 +240,14 @@ export function SavedPostPage() {
 
 // Define mood to playlist mappings
 const moodPlaylists = {
-    mellow: '1L0HAb9v2QWDA5ukvSrKSm',
-    somber: '71UaDNUlLUAfI1InekHfDE',
-    peaceful: '1k6j9JYvCj4NOun0oRzFo2',
-    frustrated: '7LxQn9LkTOziptWIYGvDYf',
-    happy: '4DCdpcRRUbaCWNry9id3ln',
-    anxious: '7gIIFGbB3Wnf4nhxRjA9nj',
-    confident: '5NsqNSKzy6Dvi14VueSG4r',
-    moody: '59CuzXSgNnUYSvPBta6owk',
+    mellow: '37i9dQZF1EIfAoIM3ht61G',
+    somber: '37i9dQZF1EIhhiPxQPfbwu',
+    peaceful: '37i9dQZF1EIhnGUyOEDCHI',
+    frustrated: '37i9dQZF1EIdyCdRw7n4xp',
+    happy: '37i9dQZF1EIgG2NEOhqsD7',
+    anxious: '37i9dQZF1EVKuMoAJjoTIw',
+    confident: '37i9dQZF1EIe2ohC2fmuKU',
+    moody: '37i9dQZF1EVKuMoAJjoTIw',
 };
 
 //mood tracker page

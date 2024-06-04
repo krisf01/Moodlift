@@ -852,7 +852,7 @@ button:hover {
 .login-button {
   width: 100%;
   text-align: center;
-  padding-top: 60px;
+  padding-top: 80px;
   padding-bottom: 20px;
   display: flex;
   justify-content: center;
@@ -891,7 +891,7 @@ button:hover {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  width: 50%;
+  width: 35%;
 }
 
 .mood-question {
@@ -904,7 +904,6 @@ button:hover {
   grid-template-columns: repeat(2, 1fr); 
   gap: 10px;
   justify-items: center;
-
   padding: 20px;
   background: #ADE1FA;
   border-radius: 25px;
@@ -916,6 +915,10 @@ button:hover {
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  border: 1px solid #ccc;
+  /* subtle border to indicate the area */
+  background-color: white;
+  /* initial background color */
   transition: background-color 0.3s;
 }
 
@@ -933,38 +936,62 @@ button:hover {
   /* Adjust font size as needed */
 }
 
-/* Specific mood colors */
-.circle-button.mellow {
-  background-color: rgb(34, 148, 214);
+/* Hover and clicked state styling combined */
+.circle-button:hover,
+.circle-button.clicked {
+  background-color: currentColor;
+  /* uses the current color value */
+  box-shadow: 0 0 8px #000;
+  /* shadow to lift the button visually */
 }
 
-/* Example color */
-.circle-button.somber {
-  background-color: rgb(16, 16, 201);
+/* Individual mood button colors only applied when active or hovered */
+.circle-button.mellow:hover,
+.circle-button.mellow.clicked {
+  color: rgb(34, 148, 214);
+  /* mellow mood color */
 }
 
-.circle-button.peaceful {
-  background-color: rgb(22, 220, 130);
+.circle-button.somber:hover,
+.circle-button.somber.clicked {
+  color: rgb(16, 16, 201);
+  /* somber mood color */
 }
 
-.circle-button.frustrated {
-  background-color: rgb(201, 30, 53);
+.circle-button.peaceful:hover,
+.circle-button.peaceful.clicked {
+  color: rgb(22, 220, 130);
+  /* peaceful mood color */
 }
 
-.circle-button.happy {
-  background-color: rgb(235, 238, 41);
+.circle-button.frustrated:hover,
+.circle-button.frustrated.clicked {
+  color: rgb(201, 30, 53);
+  /* frustrated mood color */
 }
 
-.circle-button.anxious {
-  background-color: rgb(151, 68, 219);
+.circle-button.happy:hover,
+.circle-button.happy.clicked {
+  color: rgb(235, 238, 41);
+  /* happy mood color */
 }
 
-.circle-button.confident {
-  background-color: rgb(220, 132, 25);
+.circle-button.anxious:hover,
+.circle-button.anxious.clicked {
+  color: rgb(151, 68, 219);
+  /* anxious mood color */
 }
 
-.circle-button.moody {
-  background-color: #D9D9D9;;
+.circle-button.confident:hover,
+.circle-button.confident.clicked {
+  color: rgb(220, 132, 25);
+  /* confident mood color */
+}
+
+.circle-button.moody:hover,
+.circle-button.moody.clicked {
+  color: #D9D9D9;
+  /* moody color */
 }
 
 /* Hover effects */
@@ -994,7 +1021,7 @@ button:hover {
   border-radius: 10px;
   margin-top: 30px;
   margin-bottom: 30px;
-  width: 40%;
+  width: 50%;
   height: 250px;
   overflow-y: auto;
   border-radius: 10px;
