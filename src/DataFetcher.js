@@ -355,9 +355,6 @@ export function MoodTrackPage() {
                     </button>
                 </div>
                 <div className="moodtracker-section">
-                    <div className="mood-question">
-                        yesterday, you were feeling ______<br></br>
-                        how are you feeling today?</div>
                     <div className="moodtracker-rectangle">
                         {Object.keys(moodPlaylists).map(mood => (
                             <div key={mood}>
